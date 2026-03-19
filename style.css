@@ -1,0 +1,64 @@
+body{
+margin:0;
+font-family:Arial;
+background:#f4f6fb;
+}
+
+/* HEADER */
+header{
+background:#111;
+color:white;
+padding:15px 30px;
+display:flex;
+justify-content:space-between;
+}
+
+/* HERO */
+.hero{
+height:90vh;
+background:linear-gradient(120deg,#6a5acd,#3a0ca3);
+color:white;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+}
+
+.hero h1{
+font-size:45px;
+}
+
+.hero p{
+font-size:20px;
+}
+
+/* BUTTON */
+.btn{
+background:#00c3ff;
+padding:12px 25px;
+color:white;
+border-radius:6px;
+text-decoration:none;
+margin-top:10px;
+}
+
+.telegram{
+background:#0088cc;
+padding:10px 20px;
+color:white;
+text-decoration:none;
+border-radius:5px;
+}
+
+/* LINKS */
+a{
+display:block;
+margin:15px;
+padding:15px;
+background:white;
+border-radius:8px;
+text-decoration:none;
+color:black;
+box-shadow:0 5px 10px #ccc;
+}
