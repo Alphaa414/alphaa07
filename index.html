@@ -2,35 +2,55 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Alpha Verse LMS</title>
+
 <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 
 <body>
 
 <header>
-<h2>Alpha Verse</h2>
+<div class="logo">
+<i class="fa-solid fa-graduation-cap"></i> Alpha Verse
+</div>
 
 <nav>
 <a href="index.html">Home</a>
-<a href="courses.html">Courses</a>
-<a href="login.html">Login</a>
+<a href="#courses">Courses</a>
+<a onclick="openLogin()">Login</a>
 </nav>
 </header>
 
 <section class="hero">
-
 <h1>Learn From India's Best Teachers</h1>
-<p>Boards • JEE • NEET Preparation</p>
-
-<a href="courses.html" class="btn">Start Learning</a>
-
-<a href="https://t.me/YOUR_LINK" class="telegram">
-Join Telegram
-</a>
-
+<h2>Boards • JEE • NEET Preparation</h2>
+<button onclick="scrollCourses()">Explore Courses</button>
 </section>
 
+<h2 class="section-title" id="courses">Popular Courses</h2>
+
+<div class="courses">
+
+<div class="course">
+<img src="https://picsum.photos/400/200?1">
+<div class="course-content">
+<h3>Class 10</h3>
+<button onclick="openBatch()">Let's Study</button>
+</div>
+</div>
+
+<div class="course">
+<img src="https://picsum.photos/400/200?2">
+<div class="course-content">
+<h3>Class 11 Science</h3>
+<button onclick="openBatch()">Let's Study</button>
+</div>
+</div>
+
+</div>
+
+<script src="js/script.js"></script>
 </body>
 </html>
