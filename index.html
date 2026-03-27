@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EduVision LMS – Your Future Starts Here</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #1a1a2e;
+    --accent: #e94560;
+    --gold: #f5a623;
+    --teal: #0f9b8e;
+    --light: #f0f4ff;
+    --white: #ffffff;
+    --card-bg: #16213e;
+    --text: #e0e6ff;
+    --text-muted: #8892b0;
+    --gradient: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    --card-shadow: 0 8px 32px rgba(233,69,96,0.15);
+    --radius: 18px;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--gradient);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ─── PAGES ─── */
+  .page { display: none; min-height: 100vh; }
+  .page.active { display: block; animation: fadeIn 0.4s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* ─── NAVBAR ─── */
+  nav {
+    position: sticky; top: 0; z-index: 999;
+    background: rgba(26,26,46,0.96);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(233,69,96,0.2);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 2rem; height: 64px;
+  }
+  .nav-logo {
+    font-family: 'Baloo 2', cursive;
+    font-size: 1.6rem; font-weight: 800;
+    background: linear-gradient(90deg, var(--accent), var(--gold));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    cursor: pointer; letter-spacing: 1px;
+  }
+  .nav-links { display: flex; gap: 1.2rem; align-items: center; }
+  .nav-links button {
+    background: none; border: none; color: var(--text);
+    font-family: 'Nunito', sans-serif; font-size: 1rem; font-weight: 600;
+    cursor: pointer; padding: 6px 14px; border-radius: 8px;
+    transition: all 0.2s;
+  }
+  .nav-links button:hover { background: rgba(233,69,96,0.15); color: var(--accent); }
+  .nav-btn-login {
+    background: var(--accent) !important; color: #fff !important;
+    border-radius: 10px !important; padding: 8px 22px !important;
+  }
+  .nav-btn-login:hover { background: #c73652 !important; }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 88vh;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 3rem 1.5rem; position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: -60px; left: -60px; right: -60px; bottom: -60px;
+    background: radial-gradient(ellipse at 60% 30%, rgba(233,69,96,0.18) 0%, transparent 60%),
+                radial-gradient(ellipse at 20% 80%, rgba(15,155,142,0.13) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(233,69,96,0.15); border: 1px solid var(--accent);
+    color: var(--accent); border-radius: 50px; padding: 6px 22px;
+    font-size: 0.9rem; font-weight: 700; letter-spacing: 1px;
+    margin-bottom: 1.5rem; text-transform: uppercase;
+  }
+  .hero h1 {
+    font-family: 'Baloo 2', cursive;
+    font-size: clamp(2.4rem, 6vw, 4.5rem);
+    font-weight: 800; line-height: 1.1;
+    background: linear-gradient(135deg, #fff 30%, var(--gold) 80%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    margin-bottom: 1.2rem;
+  }
+  .hero p {
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    color: var(--text-muted); max-width: 600px; line-height: 1.8; margin-bottom: 2.5rem;
+  }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+  .btn-primary {
+    background: var(--accent); color: #fff;
+    border: none; border-radius: 12px; padding: 14px 36px;
+    font-family: 'Nunito', sans-serif; font-size: 1.1rem; font-weight: 800;
+    cursor: pointer; transition: all 0.25s;
+    box-shadow: 0 4px 20px rgba(233,69,96,0.45);
+    letter-spacing: 0.5px;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(233,69,96,0.6); }
+  .btn-secondary {
+    background: rgba(255,255,255,0.08); color: #fff;
+    border: 1.5px solid rgba(255,255,255,0.2); border-radius: 12px; padding: 14px 36px;
+    font-family: 'Nunito', sans-serif; font-size: 1.1rem; font-weight: 700;
+    cursor: pointer; transition: all 0.25s;
+  }
+  .btn-secondary:hover { background: rgba(255,255,255,0.14); }
+
+  /* ─── STATS STRIP ─── */
+  .stats-strip {
+    display: flex; justify-content: center; flex-wrap: wrap; gap: 2rem;
+    padding: 2rem 1.5rem; background: rgba(255,255,255,0.03);
+    border-top: 1px solid rgba(255,255,255,0.07);
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+  .stat-item { text-align: center; }
+  .stat-item span:first-child {
+    display: block; font-family: 'Baloo 2', cursive;
+    font-size: 2rem; font-weight: 800; color: var(--gold);
+  }
+  .stat-item span:last-child { font-size: 0.9rem; color: var(--text-muted); font-weight: 600; }
+
+  /* ─── SECTION TITLES ─── */
+  .section-title {
+    text-align: center; padding: 3rem 1.5rem 1.5rem;
+  }
+  .section-title h2 {
+    font-family: 'Baloo 2', cursive; font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 800; color: #fff; margin-bottom: 0.5rem;
+  }
+  .section-title p { color: var(--text-muted); font-size: 1rem; }
+  .accent-line {
+    width: 56px; height: 4px;
+    background: linear-gradient(90deg, var(--accent), var(--gold));
+    border-radius: 4px; margin: 0.8rem auto 0;
+  }
+
+  /* ─── COURSES GRID ─── */
+  .courses-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.6rem; padding: 1.5rem 2rem 4rem;
+    max-width: 1300px; margin: 0 auto;
+  }
+  .course-card {
+    background: var(--card-bg);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: var(--radius); overflow: hidden;
+    transition: all 0.3s; cursor: default;
+    box-shadow: var(--card-shadow);
+    position: relative;
+  }
+  .course-card:hover { transform: translateY(-6px); border-color: rgba(233,69,96,0.4); box-shadow: 0 16px 48px rgba(233,69,96,0.2); }
+  .course-banner {
+    height: 120px; display: flex; align-items: center; justify-content: center;
+    font-size: 2.8rem; position: relative; overflow: hidden;
+  }
+  .course-banner::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 30%, rgba(22,33,62,0.9) 100%);
+  }
+  .course-body { padding: 1.4rem; }
+  .course-tag {
+    display: inline-block; font-size: 0.72rem; font-weight: 800;
+    text-transform: uppercase; letter-spacing: 1px; padding: 3px 10px;
+    border-radius: 20px; margin-bottom: 0.8rem;
+  }
+  .course-card h3 {
+    font-family: 'Baloo 2', cursive; font-size: 1.3rem; font-weight: 800;
+    color: #fff; margin-bottom: 0.5rem;
+  }
+  .course-card p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; margin-bottom: 1.2rem; }
+  .course-meta { display: flex; gap: 1rem; margin-bottom: 1.2rem; flex-wrap: wrap; }
+  .course-meta span { font-size: 0.82rem; color: var(--text-muted); display: flex; align-items: center; gap: 4px; }
+  .btn-study {
+    width: 100%; padding: 12px; border: none; border-radius: 10px;
+    font-family: 'Nunito', sans-serif; font-size: 1rem; font-weight: 800;
+    cursor: pointer; transition: all 0.25s; letter-spacing: 0.5px;
+  }
+
+  /* ─── SOCIAL / CONNECT ─── */
+  .connect-section {
+    max-width: 700px; margin: 0 auto; padding: 2rem 1.5rem 4rem;
+    text-align: center;
+  }
+  .social-cards {
+    display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center;
+    margin-top: 2rem;
+  }
+  .social-card {
+    display: flex; align-items: center; gap: 12px;
+    padding: 14px 28px; border-radius: 14px;
+    font-weight: 700; font-size: 1rem; text-decoration: none;
+    transition: all 0.25s; border: 1.5px solid transparent;
+    min-width: 200px; justify-content: center;
+  }
+  .social-card svg { width: 24px; height: 24px; flex-shrink: 0; }
+  .social-tg { background: rgba(0,136,204,0.15); border-color: #0088cc; color: #0088cc; }
+  .social-tg:hover { background: #0088cc; color: #fff; }
+  .social-wa { background: rgba(37,211,102,0.15); border-color: #25d366; color: #25d366; }
+  .social-wa:hover { background: #25d366; color: #fff; }
+  .social-ig { background: rgba(225,48,108,0.15); border-color: #e1306c; color: #e1306c; }
+  .social-ig:hover { background: linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888); color: #fff; border-color: transparent; }
+
+  /* ─── LOGIN MODAL ─── */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0; z-index: 9999;
+    background: rgba(0,0,0,0.7); backdrop-filter: blur(6px);
+    align-items: center; justify-content: center;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal-box {
+    background: var(--card-bg); border: 1px solid rgba(233,69,96,0.3);
+    border-radius: 22px; padding: 2.5rem; width: 100%; max-width: 420px;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.5); animation: popIn 0.3s cubic-bezier(.34,1.56,.64,1);
+    position: relative;
+  }
+  @keyframes popIn { from { transform: scale(0.85); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+  .modal-close {
+    position: absolute; top: 16px; right: 16px;
+    background: rgba(255,255,255,0.08); border: none; color: #fff;
+    width: 32px; height: 32px; border-radius: 50%; cursor: pointer;
+    font-size: 1.1rem; display: flex; align-items: center; justify-content: center;
+    transition: 0.2s;
+  }
+  .modal-close:hover { background: var(--accent); }
+  .modal-box h2 {
+    font-family: 'Baloo 2', cursive; font-size: 1.8rem; font-weight: 800;
+    color: #fff; margin-bottom: 0.3rem;
+  }
+  .modal-box p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.8rem; }
+  .form-group { margin-bottom: 1.2rem; }
+  .form-group label { display: block; color: var(--text-muted); font-size: 0.85rem; font-weight: 700; margin-bottom: 6px; }
+  .form-group input {
+    width: 100%; padding: 12px 16px;
+    background: rgba(255,255,255,0.06); border: 1.5px solid rgba(255,255,255,0.12);
+    border-radius: 10px; color: #fff; font-size: 1rem; font-family: 'Nunito', sans-serif;
+    outline: none; transition: 0.2s;
+  }
+  .form-group input:focus { border-color: var(--accent); background: rgba(233,69,96,0.08); }
+  .tabs-row { display: flex; gap: 8px; margin-bottom: 1.8rem; }
+  .tab-btn {
+    flex: 1; padding: 10px; border: 1.5px solid rgba(255,255,255,0.12);
+    border-radius: 10px; background: none; color: var(--text-muted);
+    font-family: 'Nunito', sans-serif; font-size: 0.95rem; font-weight: 700;
+    cursor: pointer; transition: 0.2s;
+  }
+  .tab-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+  /* ─── COURSE DETAIL PAGE ─── */
+  .page-header {
+    background: rgba(255,255,255,0.03); border-bottom: 1px solid rgba(255,255,255,0.08);
+    padding: 1.5rem 2rem;
+    display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+  }
+  .back-btn {
+    background: rgba(233,69,96,0.15); border: 1px solid var(--accent);
+    color: var(--accent); border-radius: 10px; padding: 8px 18px;
+    font-family: 'Nunito', sans-serif; font-size: 0.9rem; font-weight: 700;
+    cursor: pointer; transition: 0.2s;
+  }
+  .back-btn:hover { background: var(--accent); color: #fff; }
+  .page-header h1 {
+    font-family: 'Baloo 2', cursive; font-size: 1.6rem; font-weight: 800; color: #fff;
+  }
+  .page-header p { color: var(--text-muted); font-size: 0.9rem; }
+
+  .subject-grid, .chapter-grid, .topic-grid {
+    display: grid; gap: 1rem; padding: 2rem;
+    max-width: 1200px; margin: 0 auto;
+  }
+  .subject-grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+  .chapter-grid { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
+  .topic-grid { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
+
+  .subject-card, .chapter-card, .topic-card {
+    background: var(--card-bg); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: var(--radius); padding: 1.5rem; cursor: pointer;
+    transition: all 0.25s; display: flex; flex-direction: column; gap: 0.6rem;
+  }
+  .subject-card:hover, .chapter-card:hover, .topic-card:hover {
+    transform: translateY(-4px); border-color: rgba(233,69,96,0.4);
+    box-shadow: 0 12px 36px rgba(233,69,96,0.18);
+  }
+  .subject-card .icon { font-size: 2.5rem; }
+  .subject-card h3, .chapter-card h3, .topic-card h3 {
+    font-family: 'Baloo 2', cursive; font-size: 1.1rem; font-weight: 800; color: #fff;
+  }
+  .subject-card p, .chapter-card p, .topic-card p { color: var(--text-muted); font-size: 0.85rem; }
+  .arrow-badge {
+    margin-top: auto; color: var(--accent); font-weight: 800; font-size: 0.85rem;
+    display: flex; align-items: center; gap: 4px;
+  }
+
+  /* ─── VIDEO / TOPIC PAGE ─── */
+  .topic-content { max-width: 900px; margin: 0 auto; padding: 2rem; }
+  .video-box {
+    background: #000; border-radius: 16px; overflow: hidden;
+    aspect-ratio: 16/9; width: 100%; margin-bottom: 1.5rem;
+    display: flex; align-items: center; justify-content: center;
+    border: 1px solid rgba(255,255,255,0.1);
+    position: relative;
+  }
+  .video-placeholder {
+    text-align: center; color: rgba(255,255,255,0.4);
+    display: flex; flex-direction: column; align-items: center; gap: 1rem;
+  }
+  .video-play-btn {
+    width: 72px; height: 72px; border-radius: 50%;
+    background: var(--accent); display: flex; align-items: center; justify-content: center;
+    font-size: 2rem; cursor: pointer; transition: 0.2s; border: none; color: #fff;
+  }
+  .video-play-btn:hover { transform: scale(1.1); box-shadow: 0 0 30px rgba(233,69,96,0.6); }
+  .video-url-input {
+    width: 100%; padding: 12px 16px;
+    background: rgba(255,255,255,0.06); border: 1.5px solid rgba(255,255,255,0.12);
+    border-radius: 10px; color: #fff; font-size: 0.95rem;
+    font-family: 'Nunito', sans-serif; outline: none; margin-bottom: 1rem;
+    transition: 0.2s;
+  }
+  .video-url-input:focus { border-color: var(--accent); }
+  .topic-content h2 {
+    font-family: 'Baloo 2', cursive; font-size: 1.6rem; font-weight: 800; color: #fff; margin-bottom: 0.5rem;
+  }
+  .topic-content p { color: var(--text-muted); line-height: 1.8; margin-bottom: 1rem; }
+  .notes-box {
+    background: var(--card-bg); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px; padding: 1.5rem; margin-top: 1.5rem;
+  }
+  .notes-box h3 { color: var(--gold); font-size: 1rem; font-weight: 800; margin-bottom: 0.8rem; }
+  .notes-box ul { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+  .notes-box ul li { color: var(--text-muted); font-size: 0.9rem; padding-left: 1.2rem; position: relative; }
+  .notes-box ul li::before { content: '→'; position: absolute; left: 0; color: var(--accent); }
+
+  /* ─── FOOTER ─── */
+  footer {
+    text-align: center; padding: 2rem;
+    border-top: 1px solid rgba(255,255,255,0.07);
+    color: var(--text-muted); font-size: 0.88rem;
+  }
+  footer span { color: var(--accent); font-weight: 700; }
+
+  /* ─── BREADCRUMB ─── */
+  .breadcrumb {
+    display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+    padding: 1rem 2rem 0; font-size: 0.85rem; color: var(--text-muted);
+  }
+  .breadcrumb span { cursor: pointer; transition: 0.2s; }
+  .breadcrumb span:hover { color: var(--accent); }
+  .breadcrumb .sep { color: rgba(255,255,255,0.2); }
+  .breadcrumb .current { color: var(--text); font-weight: 700; }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 600px) {
+    nav { padding: 0 1rem; }
+    .nav-links button:not(.nav-btn-login) { display: none; }
+    .courses-grid { padding: 1rem; gap: 1rem; }
+    .page-header { padding: 1rem; }
+    .subject-grid, .chapter-grid, .topic-grid { padding: 1rem; }
+    .topic-content { padding: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════ NAVBAR ══════════════════ -->
+<nav>
+  <div class="nav-logo" onclick="showPage('home')">AlphaVerse</div>
+  <div class="nav-links">
+    <button onclick="showPage('home')">🏠 Home</button>
+    <button onclick="showPage('home'); scrollToCourses()">📖 Courses</button>
+    <button onclick="showPage('connect')">🔗 Connect</button>
+    <button class="nav-btn-login" onclick="openLogin()">🔓 Login</button>
+  </div>
+</nav>
+
+<!-- ══════════════════ PAGE: HOME ══════════════════ -->
+<div id="page-home" class="page active">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-badge">🎯 India's Best Exam Preparation Platform</div>
+    <p>JEE.NEET & Boards Preparation</p>
+    <div class="hero-btns">
+      <button class="btn-primary" onclick="scrollToCourses()">🚀Explore Courses</button>
+      <button class="btn-secondary" onclick="showPage('connect')">📱 Join Community</button>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats-strip">
+    <div class="stat-item"><span>500+</span><span>Students Enrolled</span></div>
+    <div class="stat-item"><span>7</span><span>Premium Courses</span></div>
+    <div class="stat-item"><span>400+</span><span>Video Lectures</span></div>
+  </div>
+
+  <!-- COURSES -->
+  <div id="courses-anchor" class="section-title">
+    <h2>Premium Courses</h2>
+    <p>Expert faculty with comprehensive courses</p>
+    <div class="accent-line"></div>
+  </div>
+
+  <div class="courses-grid">
+
+    <!-- 1. Udaan 2027 -->
+    <div class="course-card">
+      <div class="course-banner" style="background: linear-gradient(135deg,#1a1a2e,#e94560);">🕊️</div>
+      <div class="course-body">
+        <span class="course-tag" style="background:rgba(233,69,96,0.2);color:#e94560;">FOUNDATION</span>
+        <h3>Udaan 2027</h3>
+        <p>Smart learning with OG Teachers</p>
+        <div class="course-meta">
+          <span>📹 200+ Videos</span>
+          <span>📚 All Subjects</span>
+        </div>
+        <button class="btn-study" style="background:linear-gradient(135deg,#e94560,#c73652);color:#fff;" onclick="openCourse('udaan2027')">🚀 Let's Study</button>
+      </div>
+    </div>
+
+    <!-- 2. Arjuna NEET 2027 -->
+    <div class="course-card">
+      <div class="course-banner" style="background: linear-gradient(135deg,#0f3460,#0f9b8e);">🎯</div>
+      <div class="course-body">
+        <span class="course-tag" style="background:rgba(15,155,142,0.2);color:#0f9b8e;">NEET</span>
+        <h3>Arjuna NEET 2027</h3>
+        <p>NEET Preparation with focused, disciplined,unbeatable</p>
+        <div class="course-meta">
+          <span>📹 300+ Videos</span>
+          <span>🧬 PCB Subjects</span>
+        </div>
+        <button class="btn-study" style="background:linear-gradient(135deg,#0f9b8e,#0a7a6e);color:#fff;" onclick="openCourse('arjunaneet2027')">🚀 Let's Study</button>
+      </div>
+    </div>
+
+    <!-- 3. Arjuna JEE 2027 -->
+    <div class="course-card">
+      <div class="course-banner" style="background: linear-gradient(135deg,#0f3460,#f5a623);">⚡</div>
+      <div class="course-body">
+        <span class="course-tag" style="background:rgba(245,166,35,0.2);color:#f5a623;">JEE</span>
+        <h3>Arjuna JEE 2027</h3>
+        <p>Acheive Your Dream IIT College</p>
+        <div class="course-meta">
+          <span>📹 350+ Videos</span>
+          <span>⚗️ PCM Subjects</span>
+        </div>
+        <button class="btn-study" style="background:linear-gradient(135deg,#f5a623,#d4891a);color:#fff;" onclick="openCourse('arjunajee2027')">🚀 Let's Study</button>
+      </div>
+    </div>
+
+    <!-- 4. Uday Commerce 2027 -->
+    <div class="course-card">
+      <div class="course-banner" style="background: linear-gradient(135deg,#1a1a2e,#7c3aed);">💼</div>
+      <div class="course-body">
+        <span class="course-tag" style="background:rgba(124,58,237,0.2);color:#a78bfa;">COMMERCE</span>
+        <h3>Uday Commerce 2027</h3>
+        <p>Shine With Commerce Stream </p>
+        <div class="course-meta">
+          <span>📹 250+ Videos</span>
+          <span>💰 Commerce</span>
+        </div>
+        <button class="btn-study" style="background:linear-gradient(135deg,#7c3aed,#6d28d9);color:#fff;" onclick="openCourse('udaycommerce2027')">🚀 Let's Study</button>
+      </div>
+    </div>
+
+    <!-- 5. Lakshya JEE 2027 -->
+    <div class="course-card">
+      <div class="course-banner" style="background: linear-gradient(135deg,#0f3460,#e94560);">🎯</div>
+      <div class="course-body">
+        <span class="course-tag" style="background:rgba(233,69,96,0.2);color:#e94560;">JEE ADVANCED</span>
+        <h3>Lakshya JEE 2027</h3>
+        <p>IIT Advanced ke liye specially designed। Lakshya achieve karo with confidence!</p>
+        <div class="course-meta">
+          <span>📹 400+ Videos</span>
+          <span>⚗️ PCM Advanced</span>
+          <span>⏱ 2 Years</span>
+        </div>
+        <button class="btn-study" style="background:linear-gradient(135deg,#e94560,#0f3460);color:#fff;" onclick="openCourse('lakshyajee2027')">🚀 Let's Study</button>
+      </div>
+    </div>
+
+    <!-- 6. Lakshya NEET 2027 -->
+    <div class="course-card">
+      <div class="course-banner" style="background: linear-gradient(135deg,#064e3b,#0f9b8e);">🩺</div>
+      <div class="course-body">
+        <span class="course-tag" style="background:rgba(16,185,129,0.2);color:#10b981;">NEET ADVANCED</span>
+        <h3>Lakshya NEET 2027</h3>
+        <p>Start your Medical Profession </p>
+        <div class="course-meta">
+          <span>📹 380+ Videos</span>
+          <span>🧬 PCB Advanced</span>
+        </div>
+        <button class="btn-study" style="background:linear-gradient(135deg,#10b981,#059669);color:#fff;" onclick="openCourse('lakshyaneet2027')">🚀 Let's Study</button>
+      </div>
+    </div>
+
+    <!-- 7. Parishram Commerce 2027 -->
+    <div class="course-card">
+      <div class="course-banner" style="background: linear-gradient(135deg,#7c2d12,#f5a623);">📊</div>
+      <div class="course-body">
+        <span class="course-tag" style="background:rgba(245,166,35,0.2);color:#f5a623;">COMMERCE PRO</span>
+        <h3>Parishram Commerce 2027</h3>
+        <p>Ready For CA Foundation</p>
+        <div class="course-meta">
+          <span>📹 280+ Videos</span>
+          <span>💰 Advanced Commerce</span>
+        </div>
+        <button class="btn-study" style="background:linear-gradient(135deg,#f5a623,#7c2d12);color:#fff;" onclick="openCourse('parishramcommerce2027')">🚀 Let's Study</button>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>Made with ❤️ by <span>AlphaVerse</span> | © 2026 All Rights Reserved</p>
+    <p style="margin-top:6px;font-size:0.8rem;">Empowering Students Across India 🇮🇳</p>
+  </footer>
+</div>
+
+<!-- ══════════════════ PAGE: CONNECT ══════════════════ -->
+<div id="page-connect" class="page">
+  <div class="section-title" style="padding-top:4rem;">
+    <h2>📱 Connect with us</h2>
+    <p>Telegram, WhatsApp ,Instagram </p>
+    <div class="accent-line"></div>
+  </div>
+  <div class="connect-section">
+    <div class="social-cards">
+
+      <a href="https://t.me/@alphaa_01" target="_blank" class="social-card social-tg" id="link-telegram">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.16 13.26l-2.963-.924c-.643-.204-.657-.643.136-.953l11.573-4.462c.537-.194 1.006.131.988.3z"/></svg>
+        Telegram
+      </a>
+
+      <a href="https://wa.me/919044588281" target="_blank" class="social-card social-wa" id="link-whatsapp">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        WhatsApp
+      </a>
+
+      <a href="https://instagram.com/YOUR_INSTAGRAM" target="_blank" class="social-card social-ig" id="link-instagram">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        Instagram
+      </a>
+
+    </div>
+
+    <div style="margin-top:2.5rem;background:var(--card-bg);border-radius:16px;padding:1.5rem;border:1px solid rgba(255,255,255,0.08);">
+      <h3 style="color:var(--gold);font-size:1rem;font-weight:800;margin-bottom:1rem;">🔧 Admin: Social Links Update</h3>
+      <div style="display:flex;flex-direction:column;gap:0.8rem;">
+        <div>
+          <label style="color:var(--text-muted);font-size:0.82rem;font-weight:700;display:block;margin-bottom:4px;">Telegram Link</label>
+          <input type="text" id="tg-input" placeholder="https://t.me/yourchannel" style="width:100%;padding:10px 14px;background:rgba(255,255,255,0.06);border:1.5px solid rgba(255,255,255,0.12);border-radius:8px;color:#fff;font-family:'Nunito',sans-serif;font-size:0.9rem;outline:none;">
+        </div>
+        <div>
+          <label style="color:var(--text-muted);font-size:0.82rem;font-weight:700;display:block;margin-bottom:4px;">WhatsApp Link</label>
+          <input type="text" id="wa-input" placeholder="https://wa.me/919999999999" style="width:100%;padding:10px 14px;background:rgba(255,255,255,0.06);border:1.5px solid rgba(255,255,255,0.12);border-radius:8px;color:#fff;font-family:'Nunito',sans-serif;font-size:0.9rem;outline:none;">
+        </div>
+        <div>
+          <label style="color:var(--text-muted);font-size:0.82rem;font-weight:700;display:block;margin-bottom:4px;">Instagram Link</label>
+          <input type="text" id="ig-input" placeholder="https://instagram.com/yourhandle" style="width:100%;padding:10px 14px;background:rgba(255,255,255,0.06);border:1.5px solid rgba(255,255,255,0.12);border-radius:8px;color:#fff;font-family:'Nunito',sans-serif;font-size:0.9rem;outline:none;">
+        </div>
+        <button onclick="updateSocialLinks()" style="margin-top:4px;background:var(--accent);color:#fff;border:none;border-radius:10px;padding:11px;font-family:'Nunito',sans-serif;font-size:0.95rem;font-weight:800;cursor:pointer;">💾 Links Save करें</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ PAGE: SUBJECTS ══════════════════ -->
+<div id="page-subjects" class="page">
+  <div class="breadcrumb">
+    <span onclick="showPage('home')">🏠 Home</span>
+    <span class="sep">›</span>
+    <span class="current" id="bc-course">Course</span>
+  </div>
+  <div class="page-header">
+    <button class="back-btn" onclick="showPage('home')">← Back</button>
+    <div>
+      <h1 id="subject-page-title">Subjects</h1>
+      <p id="subject-page-subtitle">Select a subject to continue</p>
+    </div>
+  </div>
+  <div class="subject-grid" id="subjects-container"></div>
+</div>
+
+<!-- ══════════════════ PAGE: CHAPTERS ══════════════════ -->
+<div id="page-chapters" class="page">
+  <div class="breadcrumb">
+    <span onclick="showPage('home')">🏠 Home</span>
+    <span class="sep">›</span>
+    <span onclick="showPage('subjects')" id="bc-course2" style="cursor:pointer;">Course</span>
+    <span class="sep">›</span>
+    <span class="current" id="bc-subject">Subject</span>
+  </div>
+  <div class="page-header">
+    <button class="back-btn" onclick="showPage('subjects')">← Back</button>
+    <div>
+      <h1 id="chapter-page-title">Chapters</h1>
+      <p id="chapter-page-subtitle">Select a chapter</p>
+    </div>
+  </div>
+  <div class="chapter-grid" id="chapters-container"></div>
+</div>
+
+<!-- ══════════════════ PAGE: TOPICS ══════════════════ -->
+<div id="page-topics" class="page">
+  <div class="breadcrumb">
+    <span onclick="showPage('home')">🏠 Home</span>
+    <span class="sep">›</span>
+    <span onclick="showPage('subjects')" id="bc-course3" style="cursor:pointer;">Course</span>
+    <span class="sep">›</span>
+    <span onclick="showPage('chapters')" id="bc-subject2" style="cursor:pointer;">Subject</span>
+    <span class="sep">›</span>
+    <span class="current" id="bc-chapter">Chapter</span>
+  </div>
+  <div class="page-header">
+    <button class="back-btn" onclick="showPage('chapters')">← Back</button>
+    <div>
+      <h1 id="topic-page-title">Topics</h1>
+      <p id="topic-page-subtitle">Select a topic to watch</p>
+    </div>
+  </div>
+  <div class="topic-grid" id="topics-container"></div>
+</div>
+
+<!-- ══════════════════ PAGE: VIDEO ══════════════════ -->
+<div id="page-video" class="page">
+  <div class="breadcrumb">
+    <span onclick="showPage('home')">🏠 Home</span>
+    <span class="sep">›</span>
+    <span onclick="showPage('subjects')" id="bc-course4" style="cursor:pointer;">Course</span>
+    <span class="sep">›</span>
+    <span onclick="showPage('chapters')" id="bc-subject3" style="cursor:pointer;">Subject</span>
+    <span class="sep">›</span>
+    <span onclick="showPage('topics')" id="bc-chapter2" style="cursor:pointer;">Chapter</span>
+    <span class="sep">›</span>
+    <span class="current" id="bc-topic">Topic</span>
+  </div>
+  <div class="page-header">
+    <button class="back-btn" onclick="showPage('topics')">← Back</button>
+    <div>
+      <h1 id="video-page-title">Topic</h1>
+      <p id="video-page-subtitle">Watch & Learn</p>
+    </div>
+  </div>
+  <div class="topic-content">
+    <div class="video-box" id="video-container">
+      <div class="video-placeholder" id="video-placeholder">
+        <button class="video-play-btn">▶</button>
+        <p>Video यहाँ embed होगी</p>
+        <p style="font-size:0.8rem;">नीचे YouTube / Drive link डालें</p>
+      </div>
+      <iframe id="video-iframe" style="display:none;width:100%;height:100%;border:none;" allowfullscreen></iframe>
+    </div>
+    <input type="text" class="video-url-input" id="video-url-input" placeholder="📎 YouTube या Google Drive video link यहाँ paste करें और Enter दबाएं" onkeydown="if(event.key==='Enter') loadVideo()">
+    <button onclick="loadVideo()" style="background:var(--accent);color:#fff;border:none;border-radius:10px;padding:10px 24px;font-family:'Nunito',sans-serif;font-size:0.9rem;font-weight:800;cursor:pointer;margin-bottom:1.5rem;">▶ Video Load करें</button>
+    <h2 id="video-topic-name">Topic Name</h2>
+    <p id="video-topic-desc" style="color:var(--text-muted);">Topic description</p>
+    <div class="notes-box" id="video-notes">
+      <h3>📝 Key Points</h3>
+      <ul id="key-points-list"></ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ LOGIN MODAL ══════════════════ -->
+<div class="modal-overlay" id="login-modal" onclick="closeLoginOutside(event)">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeLogin()">✕</button>
+    <h2>👋 Welcome Back!</h2>
+    <p>AlphaVerse , Start Learning</p>
+    <div class="tabs-row">
+      <button class="tab-btn active" id="tab-login" onclick="switchTab('login')">🔓 Login</button>
+      <button class="tab-btn" id="tab-signup" onclick="switchTab('signup')">✨ Sign Up</button>
+    </div>
+    <div id="login-form">
+      <div class="form-group">
+        <label>📧 Email / Mobile</label>
+        <input type="text" placeholder="email@example.com या 9999999999">
+      </div>
+      <div class="form-group">
+        <label>🔑 Password</label>
+        <input type="password" placeholder="••••••••">
+      </div>
+      <button class="btn-primary" style="width:100%;margin-top:4px;" onclick="closeLogin()">🚀 Login </button>
+      <p style="text-align:center;margin-top:1rem;font-size:0.85rem;color:var(--text-muted);">Password Forgotten? <span style="color:var(--accent);cursor:pointer;font-weight:700;">Reset</span></p>
+    </div>
+    <div id="signup-form" style="display:none;">
+      <div class="form-group">
+        <label>👤 Full Name</label>
+        <input type="text" placeholder="Aapka naam">
+      </div>
+      <div class="form-group">
+        <label>📧 Email</label>
+        <input type="email" placeholder="email@example.com">
+      </div>
+      <div class="form-group">
+        <label>📱 Mobile</label>
+        <input type="tel" placeholder="9999999999">
+      </div>
+      <div class="form-group">
+        <label>🔑 Password</label>
+        <input type="password" placeholder="Strong password">
+      </div>
+      <button class="btn-primary" style="width:100%;margin-top:4px;" onclick="closeLogin()">✨ Account बनाएं</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════
+//  COURSE DATA
+// ═══════════════════════════════════════════════
+const COURSES = {
+
+  udaan2027: {
+    name: "Udaan 2027", emoji: "🕊️",
+    color: "#e94560",
+    desc: "Foundation level comprehensive course",
+    subjects: [
+      { id: "physics", name: "Physics", icon: "⚡", desc: "Light, Human Eye and The Colourful World, Optics", chapters: [
+        { id: "mechanics", name: "Mechanics", desc: "Force, Motion, Energy", topics: [
+          { name: "Newton's Laws of Motion", desc: "तीनों नियम और उनके applications" },
+          { name: "Work, Energy & Power", desc: "Work-Energy theorem और Power" },
+          { name: "Circular Motion", desc: "Uniform & Non-uniform circular motion" },
+          { name: "Gravitation", desc: "Kepler's laws, Satellites" }
+        ]},
+        { id: "thermo", name: "Thermodynamics", desc: "Heat, Temperature, Laws", topics: [
+          { name: "First Law of Thermodynamics", desc: "Heat & Internal Energy" },
+          { name: "Second Law & Entropy", desc: "Carnot Engine, Efficiency" },
+          { name: "Kinetic Theory of Gases", desc: "Ideal gas & real gas behavior" }
+        ]},
+        { id: "optics", name: "Optics", desc: "Light, Reflection, Refraction", topics: [
+          { name: "Reflection of Light", desc: "Mirrors, Image formation" },
+          { name: "Refraction & Lenses", desc: "Snell's law, Lens formula" },
+          { name: "Wave Optics", desc: "Interference, Diffraction" }
+        ]}
+      ]},
+      { id: "chemistry", name: "Chemistry", icon: "⚗️", desc: "Physical, Organic, Inorganic", chapters: [
+        { id: "physical", name: "Physical Chemistry", desc: "Atoms, Moles, Solutions", topics: [
+          { name: "Atomic Structure", desc: "Bohr model, Quantum numbers" },
+          { name: "Chemical Equilibrium", desc: "Le Chatelier's principle" },
+          { name: "Electrochemistry", desc: "Cells, Nernst equation" }
+        ]},
+        { id: "organic", name: "Organic Chemistry", desc: "Carbon compounds", topics: [
+          { name: "Hydrocarbons", desc: "Alkanes, Alkenes, Alkynes" },
+          { name: "Functional Groups", desc: "Alcohols, Aldehydes, Ketones" },
+          { name: "Biomolecules", desc: "Carbohydrates, Proteins, Lipids" }
+        ]},
+        { id: "inorganic", name: "Inorganic Chemistry", desc: "Periodic table & reactions", topics: [
+          { name: "Periodic Table Trends", desc: "IE, EA, Electronegativity" },
+          { name: "Chemical Bonding", desc: "Ionic, Covalent, Metallic" },
+          { name: "Coordination Compounds", desc: "Werner's theory, IUPAC" }
+        ]}
+      ]},
+      { id: "maths", name: "Mathematics", icon: "📐", desc: "Algebra, Calculus, Coordinate Geometry", chapters: [
+        { id: "algebra", name: "Algebra", desc: "Equations, Functions", topics: [
+          { name: "Quadratic Equations", desc: "Roots, Discriminant, Nature" },
+          { name: "Sequences & Series", desc: "AP, GP, HP" },
+          { name: "Permutation & Combination", desc: "nPr, nCr, Binomial" }
+        ]},
+        { id: "calculus", name: "Calculus", desc: "Limits, Derivatives, Integrals", topics: [
+          { name: "Limits & Continuity", desc: "L'Hopital, Sandwich theorem" },
+          { name: "Differentiation", desc: "Chain rule, Product rule" },
+          { name: "Integration", desc: "By parts, Substitution" }
+        ]}
+      ]}
+    ]
+  },
+
+  arjunaneet2027: {
+    name: "Arjuna NEET 2027", emoji: "🎯",
+    color: "#0f9b8e",
+    subjects: [
+      { id: "bio", name: "Biology", icon: "🧬", desc: "Botany + Zoology", chapters: [
+        { id: "cell", name: "Cell Biology", desc: "Structure, Function, Division", topics: [
+          { name: "Cell Structure & Organelles", desc: "Nucleus, Mitochondria, Ribosomes" },
+          { name: "Cell Division - Mitosis", desc: "Phases of Mitosis in detail" },
+          { name: "Cell Division - Meiosis", desc: "Meiosis I & II, Significance" },
+          { name: "Cell Membrane & Transport", desc: "Osmosis, Diffusion, Active transport" }
+        ]},
+        { id: "genetics", name: "Genetics", desc: "Heredity and Variation", topics: [
+          { name: "Mendel's Laws", desc: "Law of segregation, Independent assortment" },
+          { name: "DNA Structure & Replication", desc: "Double helix, Semi-conservative" },
+          { name: "Genetic Disorders", desc: "Down syndrome, Sickle cell, Haemophilia" }
+        ]},
+        { id: "ecology", name: "Ecology", desc: "Environment & Ecosystems", topics: [
+          { name: "Ecosystem & Food Chain", desc: "Producers, Consumers, Decomposers" },
+          { name: "Biodiversity & Conservation", desc: "Hotspots, Ex-situ, In-situ" },
+          { name: "Environmental Pollution", desc: "Air, Water, Soil pollution" }
+        ]}
+      ]},
+      { id: "neet-phy", name: "Physics", icon: "⚡", desc: "NEET level Physics", chapters: [
+        { id: "electro", name: "Electrostatics", desc: "Coulomb's law, Fields", topics: [
+          { name: "Coulomb's Law", desc: "Electric force between charges" },
+          { name: "Electric Field & Potential", desc: "Field lines, Equipotential surfaces" },
+          { name: "Capacitors", desc: "Capacitance, Energy stored" }
+        ]},
+        { id: "modern", name: "Modern Physics", desc: "Quantum & Nuclear", topics: [
+          { name: "Photoelectric Effect", desc: "Einstein's explanation, Work function" },
+          { name: "Nuclear Physics", desc: "Fission, Fusion, Radioactivity" },
+          { name: "Semiconductor Devices", desc: "Diode, Transistor, Logic gates" }
+        ]}
+      ]},
+      { id: "neet-chem", name: "Chemistry", icon: "⚗️", desc: "NEET Chemistry", chapters: [
+        { id: "biomol", name: "Biomolecules", desc: "Life's molecules", topics: [
+          { name: "Carbohydrates Classification", desc: "Monosaccharides, Polysaccharides" },
+          { name: "Proteins & Amino Acids", desc: "Primary to Quaternary structure" },
+          { name: "Vitamins & Hormones", desc: "Fat & Water soluble vitamins" }
+        ]},
+        { id: "surface", name: "Surface Chemistry", desc: "Colloids & Catalysis", topics: [
+          { name: "Adsorption", desc: "Physisorption vs Chemisorption" },
+          { name: "Colloids", desc: "Types, Tyndall effect, Coagulation" }
+        ]}
+      ]}
+    ]
+  },
+
+  arjunajee2027: {
+    name: "Arjuna JEE 2027", emoji: "⚡",
+    color: "#f5a623",
+    subjects: [
+      { id: "jee-phy", name: "Physics", icon: "⚡", desc: "JEE level Physics", chapters: [
+        { id: "waves", name: "Waves & Sound", desc: "SHM, Wave motion", topics: [
+          { name: "Simple Harmonic Motion", desc: "Amplitude, Frequency, Phase" },
+          { name: "Wave Equation & Properties", desc: "Speed, Wavelength, Superposition" },
+          { name: "Doppler Effect", desc: "Moving source & observer" },
+          { name: "Standing Waves", desc: "Nodes, Antinodes, Harmonics" }
+        ]},
+        { id: "em", name: "Electromagnetism", desc: "Current, Magnetism, EMI", topics: [
+          { name: "Biot-Savart & Ampere Law", desc: "Magnetic field calculations" },
+          { name: "Faraday's Law of EMI", desc: "Lenz's law, Induced EMF" },
+          { name: "AC Circuits", desc: "LCR circuits, Resonance, Power factor" }
+        ]}
+      ]},
+      { id: "jee-chem", name: "Chemistry", icon: "⚗️", desc: "JEE Chemistry", chapters: [
+        { id: "stereo", name: "Stereochemistry", desc: "Isomers & Chirality", topics: [
+          { name: "Structural Isomers", desc: "Chain, Position, Functional isomers" },
+          { name: "Optical Isomers & Chirality", desc: "R/S configuration, Enantiomers" },
+          { name: "Geometric Isomers E/Z", desc: "cis-trans isomerism" }
+        ]},
+        { id: "reactions", name: "Named Reactions", desc: "Important organic reactions", topics: [
+          { name: "Aldol Condensation", desc: "Mechanism and applications" },
+          { name: "Cannizzaro Reaction", desc: "Disproportionation of aldehydes" },
+          { name: "Grignard Reagent", desc: "Preparation and reactions" }
+        ]}
+      ]},
+      { id: "jee-math", name: "Mathematics", icon: "📐", desc: "JEE Mathematics", chapters: [
+        { id: "3d", name: "3D Geometry", desc: "Lines, Planes in 3D", topics: [
+          { name: "Direction Cosines & Ratios", desc: "Angles with coordinate axes" },
+          { name: "Equation of Line in 3D", desc: "Vector & Cartesian form" },
+          { name: "Equation of Plane", desc: "Normal vector, Distance from point" }
+        ]},
+        { id: "complex", name: "Complex Numbers", desc: "Imaginary numbers", topics: [
+          { name: "Algebra of Complex Numbers", desc: "Addition, Multiplication, Division" },
+          { name: "Argand Plane & Modulus", desc: "Polar form, De Moivre's theorem" },
+          { name: "Roots of Unity", desc: "nth roots, their properties" }
+        ]}
+      ]}
+    ]
+  },
+
+  udaycommerce2027: {
+    name: "Uday Commerce 2027", emoji: "💼",
+    color: "#a78bfa",
+    subjects: [
+      { id: "accounts", name: "Accountancy", icon: "📒", desc: "Financial Accounting", chapters: [
+        { id: "basic-acc", name: "Basic Accounting", desc: "Fundamentals of accounting", topics: [
+          { name: "Accounting Equation", desc: "Assets = Liabilities + Capital" },
+          { name: "Journal Entries", desc: "Debit & Credit rules" },
+          { name: "Ledger Posting", desc: "T-accounts and balancing" },
+          { name: "Trial Balance", desc: "Preparation and purpose" }
+        ]},
+        { id: "fs", name: "Financial Statements", desc: "P&L and Balance Sheet", topics: [
+          { name: "Trading & P&L Account", desc: "Gross profit, Net profit" },
+          { name: "Balance Sheet", desc: "Assets, Liabilities layout" },
+          { name: "Cash Flow Statement", desc: "Operating, Investing, Financing" }
+        ]}
+      ]},
+      { id: "bst", name: "Business Studies", icon: "🏢", desc: "Management & Business", chapters: [
+        { id: "mgmt", name: "Management Principles", desc: "Taylor & Fayol", topics: [
+          { name: "Functions of Management", desc: "Planning, Organizing, Directing, Controlling" },
+          { name: "Taylor's Scientific Management", desc: "Principles and techniques" },
+          { name: "Fayol's Principles", desc: "14 principles of management" }
+        ]},
+        { id: "marketing", name: "Marketing", desc: "4Ps and Consumer behavior", topics: [
+          { name: "Marketing Mix 4P", desc: "Product, Price, Place, Promotion" },
+          { name: "Consumer Protection", desc: "COPRA, Consumer Rights" }
+        ]}
+      ]},
+      { id: "eco", name: "Economics", icon: "📈", desc: "Micro & Macro Economics", chapters: [
+        { id: "micro", name: "Microeconomics", desc: "Demand, Supply, Market", topics: [
+          { name: "Law of Demand", desc: "Demand curve, Elasticity" },
+          { name: "Law of Supply", desc: "Supply schedule, Producer surplus" },
+          { name: "Market Equilibrium", desc: "Demand-supply equilibrium" },
+          { name: "Market Structures", desc: "Perfect, Monopoly, Oligopoly" }
+        ]},
+        { id: "macro", name: "Macroeconomics", desc: "GDP, Money, Banking", topics: [
+          { name: "National Income (GDP)", desc: "Methods of calculation" },
+          { name: "Money & Banking", desc: "Functions of RBI, Credit creation" },
+          { name: "Government Budget", desc: "Fiscal deficit, Revenue, Capital" }
+        ]}
+      ]}
+    ]
+  },
+
+  lakshyajee2027: {
+    name: "Lakshya JEE 2027", emoji: "🎯",
+    color: "#e94560",
+    subjects: [
+      { id: "lj-phy", name: "Physics", icon: "⚡", desc: "Advanced JEE Physics", chapters: [
+        { id: "rotation", name: "Rotational Motion", desc: "Torque, MOI, Angular momentum", topics: [
+          { name: "Moment of Inertia", desc: "Parallel & Perpendicular axis theorems" },
+          { name: "Torque & Angular Momentum", desc: "Conservation laws" },
+          { name: "Rolling Motion", desc: "Pure rolling, Slipping conditions" }
+        ]},
+        { id: "fluid", name: "Fluid Mechanics", desc: "Pressure, Flow, Bernoulli", topics: [
+          { name: "Pressure & Pascal's Law", desc: "Hydrostatic pressure" },
+          { name: "Bernoulli's Theorem", desc: "Applications in real life" },
+          { name: "Viscosity & Surface Tension", desc: "Stokes law, Capillarity" }
+        ]}
+      ]},
+      { id: "lj-math", name: "Mathematics", icon: "📐", desc: "Advanced JEE Maths", chapters: [
+        { id: "prob", name: "Probability", desc: "Classical & Modern", topics: [
+          { name: "Classical Probability", desc: "Sample space, Events, Favorable outcomes" },
+          { name: "Conditional Probability", desc: "Bayes' theorem, Total probability" },
+          { name: "Binomial Distribution", desc: "Mean, Variance, Applications" }
+        ]},
+        { id: "vec", name: "Vectors", desc: "Vector algebra", topics: [
+          { name: "Dot Product", desc: "Projection, Angle between vectors" },
+          { name: "Cross Product", desc: "Area of triangle, Torque" },
+          { name: "Triple Products", desc: "Scalar triple product, Volume" }
+        ]}
+      ]},
+      { id: "lj-chem", name: "Chemistry", icon: "⚗️", desc: "Advanced JEE Chem", chapters: [
+        { id: "thermo-chem", name: "Thermochemistry", desc: "Enthalpy & Entropy", topics: [
+          { name: "Hess's Law", desc: "Standard enthalpy of formation" },
+          { name: "Bond Enthalpy", desc: "Breaking & forming bonds" },
+          { name: "Gibbs Free Energy", desc: "Spontaneity of reactions" }
+        ]}
+      ]}
+    ]
+  },
+
+  lakshyaneet2027: {
+    name: "Lakshya NEET 2027", emoji: "🩺",
+    color: "#10b981",
+    subjects: [
+      { id: "ln-bio", name: "Biology", icon: "🧬", desc: "Advanced NEET Biology", chapters: [
+        { id: "human-phy", name: "Human Physiology", desc: "Body systems", topics: [
+          { name: "Digestive System", desc: "Organs, Enzymes, Absorption" },
+          { name: "Circulatory System", desc: "Heart, Blood vessels, ECG" },
+          { name: "Nervous System", desc: "Neurons, Brain, Reflexes" },
+          { name: "Endocrine System", desc: "Hormones and their functions" },
+          { name: "Excretory System", desc: "Kidney, Nephron, Urine formation" }
+        ]},
+        { id: "plant", name: "Plant Physiology", desc: "Plant life processes", topics: [
+          { name: "Photosynthesis - Light Reactions", desc: "Chlorophyll, Photosystems I & II" },
+          { name: "Calvin Cycle (Dark Reaction)", desc: "CO2 fixation, RuBisCO" },
+          { name: "Transpiration & Water movement", desc: "Stomata, Ascent of sap" },
+          { name: "Plant Growth Hormones", desc: "Auxin, Gibberellin, Cytokinin" }
+        ]}
+      ]},
+      { id: "ln-chem", name: "Chemistry", icon: "⚗️", desc: "NEET Chemistry Advanced", chapters: [
+        { id: "pblock", name: "p-Block Elements", desc: "Groups 13-18", topics: [
+          { name: "Group 15 - Nitrogen family", desc: "N2, NH3, HNO3 preparation" },
+          { name: "Group 16 - Oxygen family", desc: "SO2, H2SO4, Ozone" },
+          { name: "Group 17 - Halogens", desc: "Cl2, HCl, Interhalogen compounds" },
+          { name: "Group 18 - Noble Gases", desc: "Properties and compounds" }
+        ]}
+      ]}
+    ]
+  },
+
+  parishramcommerce2027: {
+    name: "Parishram Commerce 2027", emoji: "📊",
+    color: "#f5a623",
+    subjects: [
+      { id: "adv-acc", name: "Advanced Accountancy", icon: "📊", desc: "Partnership & Company accounts", chapters: [
+        { id: "partnership", name: "Partnership Accounts", desc: "All partnership transactions", topics: [
+          { name: "Goodwill Valuation", desc: "Average profit, Super profit, Capitalisation" },
+          { name: "Admission of Partner", desc: "Revaluation, New profit ratio" },
+          { name: "Retirement of Partner", desc: "Gaining ratio, Settlement" },
+          { name: "Death of Partner", desc: "Executor's account, Final settlement" },
+          { name: "Dissolution of Firm", desc: "Realisation account, Garner vs Murray" }
+        ]},
+        { id: "company-acc", name: "Company Accounts", desc: "Share capital & Debentures", topics: [
+          { name: "Issue of Shares", desc: "At par, Premium, Discount, Forfeiture" },
+          { name: "Issue of Debentures", desc: "Types, Redemption methods" },
+          { name: "Financial Statement Analysis", desc: "Ratio analysis, Comparative statements" }
+        ]}
+      ]},
+      { id: "adv-eco", name: "Economics", icon: "📈", desc: "Advanced Economics", chapters: [
+        { id: "growth", name: "Economic Development", desc: "India's growth story", topics: [
+          { name: "Indian Economy Pre-liberalisation", desc: "1947-1991 economic policies" },
+          { name: "LPG Reforms 1991", desc: "Liberalisation, Privatisation, Globalisation" },
+          { name: "Current Economic Issues", desc: "Inflation, Unemployment, Poverty" }
+        ]}
+      ]},
+      { id: "ca-found", name: "CA Foundation Basics", icon: "🎓", desc: "CA Foundation preparation", chapters: [
+        { id: "law", name: "Business Law", desc: "Indian Contract & Company Law", topics: [
+          { name: "Indian Contract Act 1872", desc: "Offer, Acceptance, Consideration" },
+          { name: "Sale of Goods Act", desc: "Conditions, Warranties, Rights" },
+          { name: "Companies Act Basics", desc: "Types of companies, Incorporation" }
+        ]}
+      ]}
+    ]
+  }
+};
+
+// ═══════════════════════════════════════════════
+//  STATE
+// ═══════════════════════════════════════════════
+let state = { courseId: null, subjectIdx: null, chapterIdx: null, topicIdx: null };
+
+// ═══════════════════════════════════════════════
+//  PAGE ROUTING
+// ═══════════════════════════════════════════════
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function scrollToCourses() {
+  showPage('home');
+  setTimeout(() => document.getElementById('courses-anchor').scrollIntoView({behavior:'smooth'}), 100);
+}
+
+// ═══════════════════════════════════════════════
+//  COURSE → SUBJECTS
+// ═══════════════════════════════════════════════
+function openCourse(courseId) {
+  state.courseId = courseId;
+  const course = COURSES[courseId];
+  document.getElementById('subject-page-title').textContent = course.name;
+  document.getElementById('subject-page-subtitle').textContent = 'Subject select करें';
+  document.getElementById('bc-course').textContent = course.name;
+  document.getElementById('bc-course2').textContent = course.name;
+  document.getElementById('bc-course3').textContent = course.name;
+  document.getElementById('bc-course4').textContent = course.name;
+
+  const container = document.getElementById('subjects-container');
+  container.innerHTML = '';
+  course.subjects.forEach((sub, idx) => {
+    const card = document.createElement('div');
+    card.className = 'subject-card';
+    card.innerHTML = `
+      <div class="icon">${sub.icon}</div>
+      <h3>${sub.name}</h3>
+      <p>${sub.desc}</p>
+      <p style="font-size:0.8rem;color:var(--text-muted);">📂 ${sub.chapters.length} Chapters</p>
+      <div class="arrow-badge">Chapters देखें →</div>
+    `;
+    card.style.borderLeft = '4px solid ' + course.color;
+    card.onclick = () => openSubject(idx);
+    container.appendChild(card);
+  });
+  showPage('subjects');
+}
+
+// ═══════════════════════════════════════════════
+//  SUBJECT → CHAPTERS
+// ═══════════════════════════════════════════════
+function openSubject(subjectIdx) {
+  state.subjectIdx = subjectIdx;
+  const course = COURSES[state.courseId];
+  const subject = course.subjects[subjectIdx];
+  document.getElementById('chapter-page-title').textContent = subject.name;
+  document.getElementById('chapter-page-subtitle').textContent = subject.desc;
+  document.getElementById('bc-subject').textContent = subject.name;
+  document.getElementById('bc-subject2').textContent = subject.name;
+  document.getElementById('bc-subject3').textContent = subject.name;
+
+  const container = document.getElementById('chapters-container');
+  container.innerHTML = '';
+  subject.chapters.forEach((ch, idx) => {
+    const card = document.createElement('div');
+    card.className = 'chapter-card';
+    card.innerHTML = `
+      <h3>📖 ${ch.name}</h3>
+      <p>${ch.desc}</p>
+      <p style="font-size:0.8rem;color:var(--text-muted);">🎬 ${ch.topics.length} Topics</p>
+      <div class="arrow-badge">Topics देखें →</div>
+    `;
+    card.style.borderTop = '3px solid ' + course.color;
+    card.onclick = () => openChapter(idx);
+    container.appendChild(card);
+  });
+  showPage('chapters');
+}
+
+// ═══════════════════════════════════════════════
+//  CHAPTER → TOPICS
+// ═══════════════════════════════════════════════
+function openChapter(chapterIdx) {
+  state.chapterIdx = chapterIdx;
+  const course = COURSES[state.courseId];
+  const chapter = course.subjects[state.subjectIdx].chapters[chapterIdx];
+  document.getElementById('topic-page-title').textContent = chapter.name;
+  document.getElementById('topic-page-subtitle').textContent = chapter.desc;
+  document.getElementById('bc-chapter').textContent = chapter.name;
+  document.getElementById('bc-chapter2').textContent = chapter.name;
+
+  const container = document.getElementById('topics-container');
+  container.innerHTML = '';
+  chapter.topics.forEach((tp, idx) => {
+    const card = document.createElement('div');
+    card.className = 'topic-card';
+    card.innerHTML = `
+      <h3>🎬 ${tp.name}</h3>
+      <p>${tp.desc}</p>
+      <div class="arrow-badge" style="margin-top:0.5rem;">▶ Video देखें →</div>
+    `;
+    card.style.background = 'var(--card-bg)';
+    card.onclick = () => openTopic(idx);
+    container.appendChild(card);
+  });
+  showPage('topics');
+}
+
+// ═══════════════════════════════════════════════
+//  TOPIC → VIDEO PAGE
+// ═══════════════════════════════════════════════
+function openTopic(topicIdx) {
+  state.topicIdx = topicIdx;
+  const course = COURSES[state.courseId];
+  const topic = course.subjects[state.subjectIdx].chapters[state.chapterIdx].topics[topicIdx];
+
+  document.getElementById('video-page-title').textContent = topic.name;
+  document.getElementById('video-page-subtitle').textContent = topic.desc;
+  document.getElementById('bc-topic').textContent = topic.name;
+  document.getElementById('video-topic-name').textContent = topic.name;
+  document.getElementById('video-topic-desc').textContent = topic.desc;
+
+  // Reset video
+  document.getElementById('video-iframe').style.display = 'none';
+  document.getElementById('video-placeholder').style.display = 'flex';
+  document.getElementById('video-url-input').value = '';
+
+  // Key points
+  const pts = [
+    'इस topic को ध्यान से पढ़ें और notes बनाएं',
+    'Video pause करके practice करें',
+    'Questions के लिए Telegram join करें',
+    'Chapter complete करने के बाद revision ज़रूरी है'
+  ];
+  const ul = document.getElementById('key-points-list');
+  ul.innerHTML = pts.map(p => `<li>${p}</li>`).join('');
+
+  showPage('video');
+}
+
+// ═══════════════════════════════════════════════
+//  VIDEO LOADER
+// ═══════════════════════════════════════════════
+function loadVideo() {
+  let url = document.getElementById('video-url-input').value.trim();
+  if (!url) return;
+
+  let embedUrl = url;
+  // YouTube
+  const ytMatch = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+  if (ytMatch) embedUrl = 'https://www.youtube.com/embed/' + ytMatch[1] + '?rel=0&autoplay=1';
+
+  // Google Drive
+  const gdMatch = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
+  if (gdMatch) embedUrl = 'https://drive.google.com/file/d/' + gdMatch[1] + '/preview';
+
+  const iframe = document.getElementById('video-iframe');
+  iframe.src = embedUrl;
+  iframe.style.display = 'block';
+  document.getElementById('video-placeholder').style.display = 'none';
+}
+
+// ═══════════════════════════════════════════════
+//  LOGIN MODAL
+// ═══════════════════════════════════════════════
+function openLogin() { document.getElementById('login-modal').classList.add('open'); }
+function closeLogin() { document.getElementById('login-modal').classList.remove('open'); }
+function closeLoginOutside(e) { if(e.target === document.getElementById('login-modal')) closeLogin(); }
+function switchTab(tab) {
+  document.getElementById('login-form').style.display = tab === 'login' ? 'block' : 'none';
+  document.getElementById('signup-form').style.display = tab === 'signup' ? 'block' : 'none';
+  document.getElementById('tab-login').classList.toggle('active', tab === 'login');
+  document.getElementById('tab-signup').classList.toggle('active', tab === 'signup');
+}
+
+// ═══════════════════════════════════════════════
+//  SOCIAL LINKS UPDATE
+// ═══════════════════════════════════════════════
+function updateSocialLinks() {
+  const tg = document.getElementById('tg-input').value.trim();
+  const wa = document.getElementById('wa-input').value.trim();
+  const ig = document.getElementById('ig-input').value.trim();
+  if (tg) document.getElementById('link-telegram').href = tg;
+  if (wa) document.getElementById('link-whatsapp').href = wa;
+  if (ig) document.getElementById('link-instagram').href = ig;
+  alert('✅ Social links update हो गए!');
+}
+</script>
+</body>
+</html>
