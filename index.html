@@ -276,15 +276,15 @@ footer span{color:var(--accent);font-weight:700}
   <div class="auth-box">
     <div class="lock">🔒</div>
     <h2>Login Required</h2>
-    <p>Courses access karne ke liye pehle login karo</p>
-    <button class="btn-primary" style="width:100%;margin-bottom:.8rem" onclick="closeAuthWall();openLogin()">🔓 Login करें</button>
-    <button class="btn-secondary" style="width:100%" onclick="closeAuthWall()">← Wapas Jao</button>
+    <p>Login before access courses</p>
+    <button class="btn-primary" style="width:100%;margin-bottom:.8rem" onclick="closeAuthWall();openLogin()">🔓 Login </button>
+    <button class="btn-secondary" style="width:100%" onclick="closeAuthWall()">←Back</button>
   </div>
 </div>
  
 <!-- NAVBAR -->
 <nav>
-  <div class="nav-logo" onclick="goHome()">📚 EduVision</div>
+  <div class="nav-logo" onclick="goHome()">📚 AlphaVerse</div>
   <div class="nav-links">
     <button class="hide-sm" onclick="goHome()">🏠 Home</button>
     <button class="hide-sm" onclick="goHome();scrollToCourses()">📖 Courses</button>
@@ -301,23 +301,22 @@ footer span{color:var(--accent);font-weight:700}
 <!-- ══ HOME ══ -->
 <div id="page-home" class="page active">
   <section class="hero">
-    <div class="hero-badge">🎯 India's Best Exam Prep Platform</div>
-    <h1>अपने सपनों को<br>हकीकत बनाओ!</h1>
-    <p>JEE, NEET और Commerce के लिए भारत का सबसे बेहतरीन learning platform। Expert faculty, structured content, smart learning.</p>
+    <div class="hero-badge">🎯 India's Best Exam Preparation Platform</div>
+    <h1>Acheive Your<br>DREAM</h1>
+    <p>Best learning platform For Foundation, NEET, JEE, Commerce with Expert faculty, structured content, smart learning.</p>
     <div class="hero-btns">
-      <button class="btn-primary" onclick="scrollToCourses()">🚀 Courses देखें</button>
+      <button class="btn-primary" onclick="scrollToCourses()">🚀 Courses</button>
       <button class="btn-secondary" onclick="showPage('connect')">📱 Join Community</button>
     </div>
   </section>
   <div class="stats-strip">
-    <div class="stat-item"><span>50,000+</span><span>Students Enrolled</span></div>
+    <div class="stat-item"><span>500+</span><span>Students Enrolled</span></div>
     <div class="stat-item"><span>7</span><span>Premium Courses</span></div>
     <div class="stat-item"><span>500+</span><span>Video Lectures</span></div>
-    <div class="stat-item"><span>95%</span><span>Success Rate</span></div>
   </div>
   <div id="courses-anchor" class="section-title">
-    <h2>हमारे Premium Courses</h2>
-    <p>Expert faculty द्वारा तैयार किए गए comprehensive courses</p>
+    <h2>Premium Courses</h2>
+    <p>Comprehensive Courses Designed By Expert Faculty</p>
     <div class="accent-line"></div>
   </div>
   <div class="courses-grid">
@@ -325,7 +324,7 @@ footer span{color:var(--accent);font-weight:700}
       <div class="course-banner" style="background:linear-gradient(135deg,#1a1a2e,#e94560)">🕊️</div>
       <div class="course-body">
         <span class="course-tag" style="background:rgba(233,69,96,.2);color:#e94560">FOUNDATION</span>
-        <h3>Udaan 2027</h3><p class="cdesc">सपनों की उड़ान भरो! Foundation से Advanced तक, सब कुछ एक जगह।</p>
+        <h3>Udaan 2027</h3><p class="cdesc"> Learn Foundation With Our OG Faculty</p>
         <div class="course-meta"><span>📹 200+ Videos</span><span>📚 All Subjects</span></div>
         <button class="btn-study" style="background:linear-gradient(135deg,#e94560,#c73652);color:#fff" onclick="goCourse('udaan2027')">🚀 Let's Study</button>
       </div>
@@ -334,7 +333,7 @@ footer span{color:var(--accent);font-weight:700}
       <div class="course-banner" style="background:linear-gradient(135deg,#0f3460,#0f9b8e)">🎯</div>
       <div class="course-body">
         <span class="course-tag" style="background:rgba(15,155,142,.2);color:#0f9b8e">NEET</span>
-        <h3>Arjuna NEET 2027</h3><p class="cdesc">NEET की तैयारी करें Arjuna की तरह – focused, disciplined, unbeatable!</p>
+        <h3>Arjuna NEET 2027</h3><p class="cdesc">Practice Your NEET With– focused, disciplined, unbeatable!</p>
         <div class="course-meta"><span>📹 300+ Videos</span><span>🧬 PCB</span></div>
         <button class="btn-study" style="background:linear-gradient(135deg,#0f9b8e,#0a7a6e);color:#fff" onclick="goCourse('arjunaneet2027')">🚀 Let's Study</button>
       </div>
@@ -343,7 +342,7 @@ footer span{color:var(--accent);font-weight:700}
       <div class="course-banner" style="background:linear-gradient(135deg,#0f3460,#f5a623)">⚡</div>
       <div class="course-body">
         <span class="course-tag" style="background:rgba(245,166,35,.2);color:#f5a623">JEE</span>
-        <h3>Arjuna JEE 2027</h3><p class="cdesc">IIT का सपना? Arjuna के साथ PCM master करो!</p>
+        <h3>Arjuna JEE 2027</h3><p class="cdesc">Acheive your Dream IIT college</p>
         <div class="course-meta"><span>📹 350+ Videos</span><span>⚗️ PCM</span></div>
         <button class="btn-study" style="background:linear-gradient(135deg,#f5a623,#d4891a);color:#fff" onclick="goCourse('arjunajee2027')">🚀 Let's Study</button>
       </div>
@@ -352,7 +351,7 @@ footer span{color:var(--accent);font-weight:700}
       <div class="course-banner" style="background:linear-gradient(135deg,#1a1a2e,#7c3aed)">💼</div>
       <div class="course-body">
         <span class="course-tag" style="background:rgba(124,58,237,.2);color:#a78bfa">COMMERCE</span>
-        <h3>Uday Commerce 2027</h3><p class="cdesc">Commerce stream में shine करो! Accounts, Business और Economics.</p>
+        <h3>Uday Commerce 2027</h3><p class="cdesc">Shine With Our Commerce Stream!</p>
         <div class="course-meta"><span>📹 250+ Videos</span><span>💰 Commerce</span></div>
         <button class="btn-study" style="background:linear-gradient(135deg,#7c3aed,#6d28d9);color:#fff" onclick="goCourse('udaycommerce2027')">🚀 Let's Study</button>
       </div>
@@ -361,7 +360,7 @@ footer span{color:var(--accent);font-weight:700}
       <div class="course-banner" style="background:linear-gradient(135deg,#0f3460,#e94560)">🎯</div>
       <div class="course-body">
         <span class="course-tag" style="background:rgba(233,69,96,.2);color:#e94560">JEE ADVANCED</span>
-        <h3>Lakshya JEE 2027</h3><p class="cdesc">IIT Advanced ke liye specially designed. Lakshya achieve karo!</p>
+        <h3>Lakshya JEE 2027</h3><p class="cdesc">IIT Advanced ke liye specially designed. Acheive Your Lakshaya!</p>
         <div class="course-meta"><span>📹 400+ Videos</span><span>⚗️ PCM Advanced</span></div>
         <button class="btn-study" style="background:linear-gradient(135deg,#e94560,#0f3460);color:#fff" onclick="goCourse('lakshyajee2027')">🚀 Let's Study</button>
       </div>
@@ -370,7 +369,7 @@ footer span{color:var(--accent);font-weight:700}
       <div class="course-banner" style="background:linear-gradient(135deg,#064e3b,#0f9b8e)">🩺</div>
       <div class="course-body">
         <span class="course-tag" style="background:rgba(16,185,129,.2);color:#10b981">NEET ADVANCED</span>
-        <h3>Lakshya NEET 2027</h3><p class="cdesc">Doctor बनने का सपना? Lakshya NEET के साथ MBBS guaranteed!</p>
+        <h3>Lakshya NEET 2027</h3><p class="cdesc">Acheive Your Medical Passion</p>
         <div class="course-meta"><span>📹 380+ Videos</span><span>🧬 PCB Advanced</span></div>
         <button class="btn-study" style="background:linear-gradient(135deg,#10b981,#059669);color:#fff" onclick="goCourse('lakshyaneet2027')">🚀 Let's Study</button>
       </div>
@@ -379,19 +378,19 @@ footer span{color:var(--accent);font-weight:700}
       <div class="course-banner" style="background:linear-gradient(135deg,#7c2d12,#f5a623)">📊</div>
       <div class="course-body">
         <span class="course-tag" style="background:rgba(245,166,35,.2);color:#f5a623">COMMERCE PRO</span>
-        <h3>Parishram Commerce 2027</h3><p class="cdesc">मेहनत और strategy के साथ Commerce में top करो. CA Foundation!</p>
+        <h3>Parishram Commerce 2027</h3><p class="cdesc">Build For CA Foundation!</p>
         <div class="course-meta"><span>📹 280+ Videos</span><span>💰 Advanced</span></div>
         <button class="btn-study" style="background:linear-gradient(135deg,#f5a623,#7c2d12);color:#fff" onclick="goCourse('parishramcommerce2027')">🚀 Let's Study</button>
       </div>
     </div>
   </div>
-  <footer><p>Made with ❤️ by <span>EduVision Team</span> | © 2027 All Rights Reserved 🇮🇳</p></footer>
+  <footer><p>Made with ❤️ by <span>AlphaVerse Team</span> | © 2026 All Rights Reserved 🇮🇳</p></footer>
 </div>
  
 <!-- ══ CONNECT ══ -->
 <div id="page-connect" class="page">
   <div class="section-title" style="padding-top:4rem">
-    <h2>📱 हमसे जुड़ें</h2><p>Telegram, WhatsApp और Instagram पर connect करें</p>
+    <h2>📱 Connect with us on</h2><p>Telegram, WhatsApp,Instagram </p>
     <div class="accent-line"></div>
   </div>
   <div class="connect-section">
@@ -456,8 +455,8 @@ footer span{color:var(--accent);font-weight:700}
     <div class="video-box">
       <div class="vid-placeholder" id="vid-placeholder">
         <div class="vid-play-btn">▶</div>
-        <p style="font-size:.85rem">Admin ne abhi yeh video upload nahi ki</p>
-        <p style="font-size:.78rem">Jald hi available hogi!</p>
+        <p style="font-size:.85rem">ERROR 404</p>
+        <p style="font-size:.78rem">Coming Soon!</p>
       </div>
       <iframe id="vid-iframe" style="display:none;width:100%;height:100%;border:none" allowfullscreen></iframe>
     </div>
@@ -465,7 +464,7 @@ footer span{color:var(--accent);font-weight:700}
     <p id="vid-topic-desc" style="color:var(--text-muted);margin-bottom:1rem;line-height:1.7"></p>
     <div class="notes-box">
       <h3>📝 Study Tips</h3>
-      <ul><li>इस topic को ध्यान से पढ़ें और notes बनाएं</li><li>Video pause करके practice करें</li><li>Doubt के लिए Telegram join करें</li><li>Chapter complete करने के बाद revision ज़रूरी है</li></ul>
+      <ul><li>Learn With Focused</li><li>Make Notes</li><li>Revision is Necessary</li></ul>
     </div>
   </div>
 </div>
@@ -496,7 +495,7 @@ footer span{color:var(--accent);font-weight:700}
  
     <!-- VIDEO UPLOAD -->
     <div class="adm-card">
-      <h3>🎬 Video Upload karo</h3>
+      <h3>🎬 Video Upload </h3>
       <p style="color:var(--text-muted);font-size:.85rem;margin-bottom:1rem">Course → Subject → Chapter → Topic select karo, phir YouTube/Drive link paste karo</p>
       <div class="row">
         <select id="adm-c" onchange="admFillSub()"><option value="">📚 Course</option></select>
@@ -549,7 +548,7 @@ footer span{color:var(--accent);font-weight:700}
   <div class="modal-box">
     <button class="modal-close" onclick="closeLogin()">✕</button>
     <h2>👋 Welcome!</h2>
-    <p>EduVision mein login karo ya account banao</p>
+    <p>Login or Sign up</p>
     <div class="tabs-row">
       <button class="tab-btn active" id="t-login" onclick="switchTab('l')">🔓 Login</button>
       <button class="tab-btn" id="t-signup" onclick="switchTab('s')">✨ Sign Up</button>
@@ -559,10 +558,10 @@ footer span{color:var(--accent);font-weight:700}
       <div class="form-group"><label>📧 Email</label><input type="email" id="l-em" placeholder="email@example.com"></div>
       <div class="form-group"><label>🔑 Password</label><input type="password" id="l-pw" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()"></div>
       <div class="err-msg" id="l-err"></div>
-      <button class="btn-primary" style="width:100%" onclick="doLogin()" id="l-btn">🚀 Login करें</button>
+      <button class="btn-primary" style="width:100%" onclick="doLogin()" id="l-btn">🚀 Login</button>
       <div style="margin-top:1rem;display:flex;flex-direction:column;gap:.6rem">
         <button onclick="doGoogle()" style="background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.14);border-radius:10px;padding:10px;color:#fff;font-family:'Nunito',sans-serif;font-size:.9rem;font-weight:700;cursor:pointer">🌐 Google se Login</button>
-        <p style="text-align:center;font-size:.82rem;color:var(--text-muted)">Password bhule? <span style="color:var(--accent);cursor:pointer;font-weight:700" onclick="doReset()">Reset करें</span></p>
+        <p style="text-align:center;font-size:.82rem;color:var(--text-muted)">Password Forgotten? <span style="color:var(--accent);cursor:pointer;font-weight:700" onclick="doReset()">Reset</span></p>
       </div>
     </div>
     <!-- SIGNUP -->
@@ -571,7 +570,7 @@ footer span{color:var(--accent);font-weight:700}
       <div class="form-group"><label>📧 Email</label><input type="email" id="s-em" placeholder="email@example.com"></div>
       <div class="form-group"><label>🔑 Password</label><input type="password" id="s-pw" placeholder="Minimum 6 characters"></div>
       <div class="err-msg" id="s-err"></div>
-      <button class="btn-primary" style="width:100%" onclick="doSignup()" id="s-btn">✨ Account बनाएं</button>
+      <button class="btn-primary" style="width:100%" onclick="doSignup()" id="s-btn">✨ Create Account</button>
     </div>
   </div>
 </div>
@@ -635,12 +634,12 @@ window.doLogin=async()=>{
     await signInWithEmailAndPassword(auth,em,pw);
     showToast('✅ Login ho gaye!');closeLogin();
   }catch(e){
-    err.textContent=e.code==='auth/wrong-password'?'❌ Password galat hai':
-      e.code==='auth/user-not-found'?'❌ Email registered nahi hai':
-      e.code==='auth/too-many-requests'?'❌ Bahut zyada attempts. Baad mein try karo':'❌ '+e.message;
+    err.textContent=e.code==='auth/wrong-password'?'❌ Incorrect Password':
+      e.code==='auth/user-not-found'?'❌ Email not Register':
+      e.code==='auth/too-many-requests'?'❌ Too many attempt. Try after few hours':'❌ '+e.message;
     err.style.display='block';
   }
-  btn.innerHTML='🚀 Login करें';btn.disabled=false;
+  btn.innerHTML='🚀 Login';btn.disabled=false;
 };
  
 // SIGNUP
@@ -659,10 +658,10 @@ window.doSignup=async()=>{
     await updateProfile(c.user,{displayName:nm});
     showToast('🎉 Account ban gaya! Welcome '+nm);closeLogin();
   }catch(e){
-    err.textContent=e.code==='auth/email-already-in-use'?'❌ Yeh email pehle se registered hai':'❌ '+e.message;
+    err.textContent=e.code==='auth/email-already-in-use'?'❌ Already Registered':'❌ '+e.message;
     err.style.display='block';
   }
-  btn.innerHTML='✨ Account बनाएं';btn.disabled=false;
+  btn.innerHTML='✨ Create Account';btn.disabled=false;
 };
  
 // GOOGLE
@@ -672,13 +671,13 @@ window.doGoogle=async()=>{
 };
  
 // LOGOUT
-window.doLogout=async()=>{await signOut(auth);showToast('👋 Logout ho gaye');goHome();};
+window.doLogout=async()=>{await signOut(auth);showToast('👋 Logout');goHome();};
  
 // RESET
 window.doReset=async()=>{
   const em=document.getElementById('l-em').value.trim();
-  if(!em){alert('Email field mein email bharo pehle');return}
-  try{await sendPasswordResetEmail(auth,em);showToast('📧 Reset email bhej diya!');}
+  if(!em){alert('Enter Your Email');return}
+  try{await sendPasswordResetEmail(auth,em);showToast('📧 Reset email sent!');}
   catch(e){showToast('❌ '+e.message,true);}
 };
  
@@ -713,7 +712,7 @@ function loadAdminData(){
     const d=snap.val()||{};const entries=Object.entries(d).filter(([,v])=>v);
     document.getElementById('st-vids').textContent=entries.length;
     const el=document.getElementById('adm-vid-list');
-    if(!entries.length){el.innerHTML='<p style="color:var(--text-muted)">Koi video upload nahi hui abhi</p>';return;}
+    if(!entries.length){el.innerHTML='<p style="color:var(--text-muted)">No Video Uploaded Here</p>';return;}
     el.innerHTML=entries.slice(-30).reverse().map(([id,v])=>`
       <div class="vid-item">
         <div><div class="vname">🎬 ${v.topicName||'Unknown'}</div>
@@ -781,7 +780,7 @@ window.admUpload=async()=>{
 window.admDel=async(id)=>{
   if(!confirm('Delete karna chahte ho?'))return;
   await set(ref(db,`videos/${id}`),null);
-  showToast('🗑 Video delete ho gayi');
+  showToast('🗑 Video deleted');
 };
  
 // TELEGRAM NOTIFY
