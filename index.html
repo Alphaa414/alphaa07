@@ -1110,6 +1110,27 @@ window.doSignup=window.doSignup||(()=>showToast('Firebase setup required',true))
 window.doGoogle=window.doGoogle||(()=>showToast('Firebase setup required',true));
 window.doLogout=window.doLogout||(()=>{});
 window.doReset=window.doReset||(()=>{});
+
+
+
+async function tgNotify(msg){
+  try{
+    await fetch(`https://api.telegram.org/bot${ADMIN_CONFIG.botToken}/sendMessage`,{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({
+        chat_id: ADMIN_CONFIG.botChatId,
+        text: msg,
+        parse_mode:"Markdown"
+      })
+    });
+  }catch(e){
+    console.log("TG Error", e);
+  }
+}
+
+// 👇 already hoga
+</script>
 </script>
 </body>
 </html>
