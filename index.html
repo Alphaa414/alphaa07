@@ -940,11 +940,12 @@ function openChapter(chI){
 async function openTopic(tI){
   S.tI=tI;
   const t=COURSES[S.cId].subjects[S.sI].chapters[S.chI].topics[tI];
+  if(!t) return;
   document.getElementById('vid-title').textContent=t.name;
-  document.getElementById('vid-sub').textContent=t.desc;
+  document.getElementById('vid-sub').textContent=t.desc||'';
   document.getElementById('bc10').textContent=t.name;
   document.getElementById('vid-topic-name').textContent=t.name;
-  document.getElementById('vid-topic-desc').textContent=t.desc;
+  document.getElementById('vid-topic-desc').textContent=t.desc||'';
   // Reset
   const ifr=document.getElementById('vid-iframe');
   ifr.style.display='none';ifr.src='';
@@ -952,12 +953,15 @@ async function openTopic(tI){
   showPage('video');
   // Load video from Firebase
   if(typeof getVidUrl==='function'){
-    const url=await getVidUrl(S.cId,S.sI,S.chI,tI);
-    if(url)embedVid(url);
+    const topicId   = t.id   || tI;
+    const subjectId = COURSES[S.cId].subjects[S.sI].id || S.sI;
+    const chapterId = COURSES[S.cId].subjects[S.sI].chapters[S.chI].id || S.chI;
+    const url = await getVidUrl(S.cId, subjectId, chapterId, topicId);
+    if(url) embedVid(url);
   }
 }
  
-function embedVid(url){
+ function embedVid(url){
   let em=url;
   const yt=url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
   if(yt)em='https://www.youtube.com/embed/'+yt[1]+'?rel=0&autoplay=1';
