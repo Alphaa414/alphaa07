@@ -4,1188 +4,1113 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AlphaVerse – Your Future Starts Here</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+ 
+<!-- ████████████████████████████████████████████
+     🔧 ADMIN CONFIG — SIRF YAHAN APNI INFO BHARO
+     ████████████████████████████████████████████ -->
+<script>
+const ADMIN_CONFIG = {
+ 
+  // ══ SOCIAL LINKS ══ (yahan apne links daalo, website pe directly dikhenge — koi popup nahi)
+  telegram:  "https://t.me/@alphaa_01",        // 👈 apna Telegram channel
+  whatsapp:  "https://wa.me/919044588281",             // 👈 apna WhatsApp number
+  instagram: "https://instagram.com/ii___adarsh__ii", // 👈 apna Instagram handle
+ 
+  // ══ ADMIN EMAIL ══ (isi email se Admin Panel access hoga)
+  adminEmail: "crazyadarsh7@gmail.com",                   // 👈 apni email
+ 
+  // ══ TELEGRAM BOT ══ (login notifications aur video upload ke liye)
+  // Steps: 1) @BotFather pe jaao  2) /newbot  3) Token copy karo
+  botToken:  "8434648556:AAHsxNv0H_3kTY262EHA8NYzBG91RYD3rgo",  // 👈 @BotFather se milega
+  // Steps: 1) @userinfobot pe jaao  2) apna ID copy karo
+  botChatId: "7943583594",                              // 👈 @userinfobot se milega
+ 
+  // ══ FIREBASE CONFIG ══
+  // Steps: firebase.google.com → New Project → Web App → Config copy karo
+  firebase: {
+    apiKey:            "AIzaSyA2nmkZ49gzFmhcdUnfIaaC3THyboDygfA",
+    authDomain:        "alpha-verse-lms.firebaseapp.com",
+    projectId:         "alpha-verse-lms",
+    storageBucket:     "alpha-verse-lms.firebasestorage.app",
+    messagingSenderId: "989446401186",
+    appId:             "1:989446401186:web:c3fc547105b54476f4fbfb",
+    databaseURL:       "https://alpha-verse-lms-default-rtdb.firebaseio.com",
+  }
+};
+</script>
+ 
 <style>
-  :root {
-    --primary: #1a1a2e;
-    --accent: #e94560;
-    --gold: #f5a623;
-    --teal: #0f9b8e;
-    --light: #f0f4ff;
-    --white: #ffffff;
-    --card-bg: #16213e;
-    --text: #e0e6ff;
-    --text-muted: #8892b0;
-    --gradient: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-    --card-shadow: 0 8px 32px rgba(233,69,96,0.15);
-    --radius: 18px;
-  }
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-  body {
-    font-family: 'Nunito', sans-serif;
-    background: var(--gradient);
-    color: var(--text);
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
-
-  /* ─── PAGES ─── */
-  .page { display: none; min-height: 100vh; }
-  .page.active { display: block; animation: fadeIn 0.4s ease; }
-  @keyframes fadeIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
-
-  /* ─── NAVBAR ─── */
-  nav {
-    position: sticky; top: 0; z-index: 999;
-    background: rgba(26,26,46,0.96);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(233,69,96,0.2);
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 0 2rem; height: 64px;
-  }
-  .nav-logo {
-    font-family: 'Baloo 2', cursive;
-    font-size: 1.6rem; font-weight: 800;
-    background: linear-gradient(90deg, var(--accent), var(--gold));
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    cursor: pointer; letter-spacing: 1px;
-  }
-  .nav-links { display: flex; gap: 1.2rem; align-items: center; }
-  .nav-links button {
-    background: none; border: none; color: var(--text);
-    font-family: 'Nunito', sans-serif; font-size: 1rem; font-weight: 600;
-    cursor: pointer; padding: 6px 14px; border-radius: 8px;
-    transition: all 0.2s;
-  }
-  .nav-links button:hover { background: rgba(233,69,96,0.15); color: var(--accent); }
-  .nav-btn-login {
-    background: var(--accent) !important; color: #fff !important;
-    border-radius: 10px !important; padding: 8px 22px !important;
-  }
-  .nav-btn-login:hover { background: #c73652 !important; }
-
-  /* ─── HERO ─── */
-  .hero {
-    min-height: 88vh;
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    text-align: center; padding: 3rem 1.5rem; position: relative; overflow: hidden;
-  }
-  .hero::before {
-    content: '';
-    position: absolute; top: -60px; left: -60px; right: -60px; bottom: -60px;
-    background: radial-gradient(ellipse at 60% 30%, rgba(233,69,96,0.18) 0%, transparent 60%),
-                radial-gradient(ellipse at 20% 80%, rgba(15,155,142,0.13) 0%, transparent 50%);
-    pointer-events: none;
-  }
-  .hero-badge {
-    display: inline-block;
-    background: rgba(233,69,96,0.15); border: 1px solid var(--accent);
-    color: var(--accent); border-radius: 50px; padding: 6px 22px;
-    font-size: 0.9rem; font-weight: 700; letter-spacing: 1px;
-    margin-bottom: 1.5rem; text-transform: uppercase;
-  }
-  .hero h1 {
-    font-family: 'Baloo 2', cursive;
-    font-size: clamp(2.4rem, 6vw, 4.5rem);
-    font-weight: 800; line-height: 1.1;
-    background: linear-gradient(135deg, #fff 30%, var(--gold) 80%);
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    margin-bottom: 1.2rem;
-  }
-  .hero p {
-    font-size: clamp(1rem, 2.5vw, 1.25rem);
-    color: var(--text-muted); max-width: 600px; line-height: 1.8; margin-bottom: 2.5rem;
-  }
-  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
-  .btn-primary {
-    background: var(--accent); color: #fff;
-    border: none; border-radius: 12px; padding: 14px 36px;
-    font-family: 'Nunito', sans-serif; font-size: 1.1rem; font-weight: 800;
-    cursor: pointer; transition: all 0.25s;
-    box-shadow: 0 4px 20px rgba(233,69,96,0.45);
-    letter-spacing: 0.5px;
-  }
-  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(233,69,96,0.6); }
-  .btn-secondary {
-    background: rgba(255,255,255,0.08); color: #fff;
-    border: 1.5px solid rgba(255,255,255,0.2); border-radius: 12px; padding: 14px 36px;
-    font-family: 'Nunito', sans-serif; font-size: 1.1rem; font-weight: 700;
-    cursor: pointer; transition: all 0.25s;
-  }
-  .btn-secondary:hover { background: rgba(255,255,255,0.14); }
-
-  /* ─── STATS STRIP ─── */
-  .stats-strip {
-    display: flex; justify-content: center; flex-wrap: wrap; gap: 2rem;
-    padding: 2rem 1.5rem; background: rgba(255,255,255,0.03);
-    border-top: 1px solid rgba(255,255,255,0.07);
-    border-bottom: 1px solid rgba(255,255,255,0.07);
-  }
-  .stat-item { text-align: center; }
-  .stat-item span:first-child {
-    display: block; font-family: 'Baloo 2', cursive;
-    font-size: 2rem; font-weight: 800; color: var(--gold);
-  }
-  .stat-item span:last-child { font-size: 0.9rem; color: var(--text-muted); font-weight: 600; }
-
-  /* ─── SECTION TITLES ─── */
-  .section-title {
-    text-align: center; padding: 3rem 1.5rem 1.5rem;
-  }
-  .section-title h2 {
-    font-family: 'Baloo 2', cursive; font-size: clamp(1.8rem, 4vw, 2.8rem);
-    font-weight: 800; color: #fff; margin-bottom: 0.5rem;
-  }
-  .section-title p { color: var(--text-muted); font-size: 1rem; }
-  .accent-line {
-    width: 56px; height: 4px;
-    background: linear-gradient(90deg, var(--accent), var(--gold));
-    border-radius: 4px; margin: 0.8rem auto 0;
-  }
-
-  /* ─── COURSES GRID ─── */
-  .courses-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 1.6rem; padding: 1.5rem 2rem 4rem;
-    max-width: 1300px; margin: 0 auto;
-  }
-  .course-card {
-    background: var(--card-bg);
-    border: 1px solid rgba(255,255,255,0.07);
-    border-radius: var(--radius); overflow: hidden;
-    transition: all 0.3s; cursor: default;
-    box-shadow: var(--card-shadow);
-    position: relative;
-  }
-  .course-card:hover { transform: translateY(-6px); border-color: rgba(233,69,96,0.4); box-shadow: 0 16px 48px rgba(233,69,96,0.2); }
-  .course-banner {
-    height: 120px; display: flex; align-items: center; justify-content: center;
-    font-size: 2.8rem; position: relative; overflow: hidden;
-  }
-  .course-banner::after {
-    content: ''; position: absolute; inset: 0;
-    background: linear-gradient(180deg, transparent 30%, rgba(22,33,62,0.9) 100%);
-  }
-  .course-body { padding: 1.4rem; }
-  .course-tag {
-    display: inline-block; font-size: 0.72rem; font-weight: 800;
-    text-transform: uppercase; letter-spacing: 1px; padding: 3px 10px;
-    border-radius: 20px; margin-bottom: 0.8rem;
-  }
-  .course-card h3 {
-    font-family: 'Baloo 2', cursive; font-size: 1.3rem; font-weight: 800;
-    color: #fff; margin-bottom: 0.5rem;
-  }
-  .course-card p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; margin-bottom: 1.2rem; }
-  .course-meta { display: flex; gap: 1rem; margin-bottom: 1.2rem; flex-wrap: wrap; }
-  .course-meta span { font-size: 0.82rem; color: var(--text-muted); display: flex; align-items: center; gap: 4px; }
-  .btn-study {
-    width: 100%; padding: 12px; border: none; border-radius: 10px;
-    font-family: 'Nunito', sans-serif; font-size: 1rem; font-weight: 800;
-    cursor: pointer; transition: all 0.25s; letter-spacing: 0.5px;
-  }
-
-  /* ─── SOCIAL / CONNECT ─── */
-  .connect-section {
-    max-width: 700px; margin: 0 auto; padding: 2rem 1.5rem 4rem;
-    text-align: center;
-  }
-  .social-cards {
-    display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center;
-    margin-top: 2rem;
-  }
-  .social-card {
-    display: flex; align-items: center; gap: 12px;
-    padding: 14px 28px; border-radius: 14px;
-    font-weight: 700; font-size: 1rem; text-decoration: none;
-    transition: all 0.25s; border: 1.5px solid transparent;
-    min-width: 200px; justify-content: center;
-  }
-  .social-card svg { width: 24px; height: 24px; flex-shrink: 0; }
-  .social-tg { background: rgba(0,136,204,0.15); border-color: #0088cc; color: #0088cc; }
-  .social-tg:hover { background: #0088cc; color: #fff; }
-  .social-wa { background: rgba(37,211,102,0.15); border-color: #25d366; color: #25d366; }
-  .social-wa:hover { background: #25d366; color: #fff; }
-  .social-ig { background: rgba(225,48,108,0.15); border-color: #e1306c; color: #e1306c; }
-  .social-ig:hover { background: linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888); color: #fff; border-color: transparent; }
-
-  /* ─── LOGIN MODAL ─── */
-  .modal-overlay {
-    display: none; position: fixed; inset: 0; z-index: 9999;
-    background: rgba(0,0,0,0.7); backdrop-filter: blur(6px);
-    align-items: center; justify-content: center;
-  }
-  .modal-overlay.open { display: flex; }
-  .modal-box {
-    background: var(--card-bg); border: 1px solid rgba(233,69,96,0.3);
-    border-radius: 22px; padding: 2.5rem; width: 100%; max-width: 420px;
-    box-shadow: 0 24px 80px rgba(0,0,0,0.5); animation: popIn 0.3s cubic-bezier(.34,1.56,.64,1);
-    position: relative;
-  }
-  @keyframes popIn { from { transform: scale(0.85); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-  .modal-close {
-    position: absolute; top: 16px; right: 16px;
-    background: rgba(255,255,255,0.08); border: none; color: #fff;
-    width: 32px; height: 32px; border-radius: 50%; cursor: pointer;
-    font-size: 1.1rem; display: flex; align-items: center; justify-content: center;
-    transition: 0.2s;
-  }
-  .modal-close:hover { background: var(--accent); }
-  .modal-box h2 {
-    font-family: 'Baloo 2', cursive; font-size: 1.8rem; font-weight: 800;
-    color: #fff; margin-bottom: 0.3rem;
-  }
-  .modal-box p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.8rem; }
-  .form-group { margin-bottom: 1.2rem; }
-  .form-group label { display: block; color: var(--text-muted); font-size: 0.85rem; font-weight: 700; margin-bottom: 6px; }
-  .form-group input {
-    width: 100%; padding: 12px 16px;
-    background: rgba(255,255,255,0.06); border: 1.5px solid rgba(255,255,255,0.12);
-    border-radius: 10px; color: #fff; font-size: 1rem; font-family: 'Nunito', sans-serif;
-    outline: none; transition: 0.2s;
-  }
-  .form-group input:focus { border-color: var(--accent); background: rgba(233,69,96,0.08); }
-  .tabs-row { display: flex; gap: 8px; margin-bottom: 1.8rem; }
-  .tab-btn {
-    flex: 1; padding: 10px; border: 1.5px solid rgba(255,255,255,0.12);
-    border-radius: 10px; background: none; color: var(--text-muted);
-    font-family: 'Nunito', sans-serif; font-size: 0.95rem; font-weight: 700;
-    cursor: pointer; transition: 0.2s;
-  }
-  .tab-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
-
-  /* ─── COURSE DETAIL PAGE ─── */
-  .page-header {
-    background: rgba(255,255,255,0.03); border-bottom: 1px solid rgba(255,255,255,0.08);
-    padding: 1.5rem 2rem;
-    display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
-  }
-  .back-btn {
-    background: rgba(233,69,96,0.15); border: 1px solid var(--accent);
-    color: var(--accent); border-radius: 10px; padding: 8px 18px;
-    font-family: 'Nunito', sans-serif; font-size: 0.9rem; font-weight: 700;
-    cursor: pointer; transition: 0.2s;
-  }
-  .back-btn:hover { background: var(--accent); color: #fff; }
-  .page-header h1 {
-    font-family: 'Baloo 2', cursive; font-size: 1.6rem; font-weight: 800; color: #fff;
-  }
-  .page-header p { color: var(--text-muted); font-size: 0.9rem; }
-
-  .subject-grid, .chapter-grid, .topic-grid {
-    display: grid; gap: 1rem; padding: 2rem;
-    max-width: 1200px; margin: 0 auto;
-  }
-  .subject-grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
-  .chapter-grid { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
-  .topic-grid { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
-
-  .subject-card, .chapter-card, .topic-card {
-    background: var(--card-bg); border: 1px solid rgba(255,255,255,0.08);
-    border-radius: var(--radius); padding: 1.5rem; cursor: pointer;
-    transition: all 0.25s; display: flex; flex-direction: column; gap: 0.6rem;
-  }
-  .subject-card:hover, .chapter-card:hover, .topic-card:hover {
-    transform: translateY(-4px); border-color: rgba(233,69,96,0.4);
-    box-shadow: 0 12px 36px rgba(233,69,96,0.18);
-  }
-  .subject-card .icon { font-size: 2.5rem; }
-  .subject-card h3, .chapter-card h3, .topic-card h3 {
-    font-family: 'Baloo 2', cursive; font-size: 1.1rem; font-weight: 800; color: #fff;
-  }
-  .subject-card p, .chapter-card p, .topic-card p { color: var(--text-muted); font-size: 0.85rem; }
-  .arrow-badge {
-    margin-top: auto; color: var(--accent); font-weight: 800; font-size: 0.85rem;
-    display: flex; align-items: center; gap: 4px;
-  }
-
-  /* ─── VIDEO / TOPIC PAGE ─── */
-  .topic-content { max-width: 900px; margin: 0 auto; padding: 2rem; }
-  .video-box {
-    background: #000; border-radius: 16px; overflow: hidden;
-    aspect-ratio: 16/9; width: 100%; margin-bottom: 1.5rem;
-    display: flex; align-items: center; justify-content: center;
-    border: 1px solid rgba(255,255,255,0.1);
-    position: relative;
-  }
-  .video-placeholder {
-    text-align: center; color: rgba(255,255,255,0.4);
-    display: flex; flex-direction: column; align-items: center; gap: 1rem;
-  }
-  .video-play-btn {
-    width: 72px; height: 72px; border-radius: 50%;
-    background: var(--accent); display: flex; align-items: center; justify-content: center;
-    font-size: 2rem; cursor: pointer; transition: 0.2s; border: none; color: #fff;
-  }
-  .video-play-btn:hover { transform: scale(1.1); box-shadow: 0 0 30px rgba(233,69,96,0.6); }
-  .video-url-input {
-    width: 100%; padding: 12px 16px;
-    background: rgba(255,255,255,0.06); border: 1.5px solid rgba(255,255,255,0.12);
-    border-radius: 10px; color: #fff; font-size: 0.95rem;
-    font-family: 'Nunito', sans-serif; outline: none; margin-bottom: 1rem;
-    transition: 0.2s;
-  }
-  .video-url-input:focus { border-color: var(--accent); }
-  .topic-content h2 {
-    font-family: 'Baloo 2', cursive; font-size: 1.6rem; font-weight: 800; color: #fff; margin-bottom: 0.5rem;
-  }
-  .topic-content p { color: var(--text-muted); line-height: 1.8; margin-bottom: 1rem; }
-  .notes-box {
-    background: var(--card-bg); border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 14px; padding: 1.5rem; margin-top: 1.5rem;
-  }
-  .notes-box h3 { color: var(--gold); font-size: 1rem; font-weight: 800; margin-bottom: 0.8rem; }
-  .notes-box ul { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
-  .notes-box ul li { color: var(--text-muted); font-size: 0.9rem; padding-left: 1.2rem; position: relative; }
-  .notes-box ul li::before { content: '→'; position: absolute; left: 0; color: var(--accent); }
-
-  /* ─── FOOTER ─── */
-  footer {
-    text-align: center; padding: 2rem;
-    border-top: 1px solid rgba(255,255,255,0.07);
-    color: var(--text-muted); font-size: 0.88rem;
-  }
-  footer span { color: var(--accent); font-weight: 700; }
-
-  /* ─── BREADCRUMB ─── */
-  .breadcrumb {
-    display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
-    padding: 1rem 2rem 0; font-size: 0.85rem; color: var(--text-muted);
-  }
-  .breadcrumb span { cursor: pointer; transition: 0.2s; }
-  .breadcrumb span:hover { color: var(--accent); }
-  .breadcrumb .sep { color: rgba(255,255,255,0.2); }
-  .breadcrumb .current { color: var(--text); font-weight: 700; }
-
-  /* ─── RESPONSIVE ─── */
-  @media (max-width: 600px) {
-    nav { padding: 0 1rem; }
-    .nav-links button:not(.nav-btn-login) { display: none; }
-    .courses-grid { padding: 1rem; gap: 1rem; }
-    .page-header { padding: 1rem; }
-    .subject-grid, .chapter-grid, .topic-grid { padding: 1rem; }
-    .topic-content { padding: 1rem; }
-  }
+:root{
+  --primary:#1a1a2e;--accent:#e94560;--gold:#f5a623;
+  --teal:#0f9b8e;--card-bg:#16213e;--text:#e0e6ff;
+  --text-muted:#8892b0;--radius:18px;
+  --gradient:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Nunito',sans-serif;background:var(--gradient);color:var(--text);min-height:100vh;overflow-x:hidden}
+.page{display:none;min-height:100vh}
+.page.active{display:block;animation:fadeIn .4s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+ 
+/* NAV */
+nav{position:sticky;top:0;z-index:999;background:rgba(26,26,46,.97);backdrop-filter:blur(14px);
+  border-bottom:1px solid rgba(233,69,96,.2);display:flex;align-items:center;
+  justify-content:space-between;padding:0 2rem;height:64px;gap:1rem}
+.nav-logo{font-family:'Baloo 2',cursive;font-size:1.6rem;font-weight:800;
+  background:linear-gradient(90deg,var(--accent),var(--gold));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;cursor:pointer;letter-spacing:1px;white-space:nowrap}
+.nav-links{display:flex;gap:.8rem;align-items:center;flex-wrap:wrap}
+.nav-links button{background:none;border:none;color:var(--text);font-family:'Nunito',sans-serif;
+  font-size:.9rem;font-weight:600;cursor:pointer;padding:6px 12px;border-radius:8px;transition:.2s;white-space:nowrap}
+.nav-links button:hover{background:rgba(233,69,96,.15);color:var(--accent)}
+.btn-nav-cta{background:var(--accent)!important;color:#fff!important;border-radius:10px!important;padding:7px 18px!important;font-weight:800!important}
+.btn-nav-cta:hover{background:#c73652!important}
+.btn-nav-admin{background:var(--gold)!important;color:#1a1a2e!important;border-radius:10px!important;padding:7px 18px!important;font-weight:800!important;display:none}
+.user-chip{display:none;align-items:center;gap:8px;background:rgba(15,155,142,.18);
+  border:1px solid var(--teal);border-radius:10px;padding:5px 12px;font-size:.82rem;font-weight:700;color:var(--teal)}
+.user-chip button{background:rgba(233,69,96,.25);border:none;color:var(--accent);border-radius:6px;
+  padding:2px 8px;font-size:.72rem;font-weight:800;cursor:pointer;font-family:'Nunito',sans-serif}
+ 
+/* HERO */
+.hero{min-height:88vh;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:3rem 1.5rem;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:-60px;
+  background:radial-gradient(ellipse at 60% 30%,rgba(233,69,96,.18) 0%,transparent 60%),
+             radial-gradient(ellipse at 20% 80%,rgba(15,155,142,.13) 0%,transparent 50%);pointer-events:none}
+.hero-badge{display:inline-block;background:rgba(233,69,96,.15);border:1px solid var(--accent);
+  color:var(--accent);border-radius:50px;padding:6px 22px;font-size:.9rem;font-weight:700;
+  letter-spacing:1px;margin-bottom:1.5rem;text-transform:uppercase}
+.hero h1{font-family:'Baloo 2',cursive;font-size:clamp(2.4rem,6vw,4.5rem);font-weight:800;
+  line-height:1.1;background:linear-gradient(135deg,#fff 30%,var(--gold) 80%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:1.2rem}
+.hero p{font-size:clamp(1rem,2.5vw,1.2rem);color:var(--text-muted);max-width:580px;line-height:1.8;margin-bottom:2.5rem}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center}
+.btn-primary{background:var(--accent);color:#fff;border:none;border-radius:12px;padding:13px 34px;
+  font-family:'Nunito',sans-serif;font-size:1.05rem;font-weight:800;cursor:pointer;transition:.25s;
+  box-shadow:0 4px 20px rgba(233,69,96,.45)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(233,69,96,.6)}
+.btn-secondary{background:rgba(255,255,255,.08);color:#fff;border:1.5px solid rgba(255,255,255,.2);
+  border-radius:12px;padding:13px 34px;font-family:'Nunito',sans-serif;font-size:1.05rem;font-weight:700;cursor:pointer;transition:.25s}
+.btn-secondary:hover{background:rgba(255,255,255,.14)}
+ 
+/* STATS */
+.stats-strip{display:flex;justify-content:center;flex-wrap:wrap;gap:2rem;padding:2rem 1.5rem;
+  background:rgba(255,255,255,.03);border-top:1px solid rgba(255,255,255,.07);border-bottom:1px solid rgba(255,255,255,.07)}
+.stat-item{text-align:center}
+.stat-item span:first-child{display:block;font-family:'Baloo 2',cursive;font-size:2rem;font-weight:800;color:var(--gold)}
+.stat-item span:last-child{font-size:.9rem;color:var(--text-muted);font-weight:600}
+ 
+/* SECTION TITLE */
+.section-title{text-align:center;padding:3rem 1.5rem 1.5rem}
+.section-title h2{font-family:'Baloo 2',cursive;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;color:#fff;margin-bottom:.5rem}
+.section-title p{color:var(--text-muted)}
+.accent-line{width:56px;height:4px;background:linear-gradient(90deg,var(--accent),var(--gold));border-radius:4px;margin:.8rem auto 0}
+ 
+/* COURSES GRID */
+.courses-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+  gap:1.6rem;padding:1.5rem 2rem 4rem;max-width:1300px;margin:0 auto}
+.course-card{background:var(--card-bg);border:1px solid rgba(255,255,255,.07);border-radius:var(--radius);
+  overflow:hidden;transition:.3s;box-shadow:0 8px 32px rgba(233,69,96,.12)}
+.course-card:hover{transform:translateY(-6px);border-color:rgba(233,69,96,.4);box-shadow:0 16px 48px rgba(233,69,96,.2)}
+.course-banner{height:120px;display:flex;align-items:center;justify-content:center;font-size:2.8rem;position:relative;overflow:hidden}
+.course-banner::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 30%,rgba(22,33,62,.9) 100%)}
+.course-body{padding:1.4rem}
+.course-tag{display:inline-block;font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:1px;padding:3px 10px;border-radius:20px;margin-bottom:.8rem}
+.course-card h3{font-family:'Baloo 2',cursive;font-size:1.3rem;font-weight:800;color:#fff;margin-bottom:.5rem}
+.course-card .cdesc{color:var(--text-muted);font-size:.9rem;line-height:1.6;margin-bottom:1.2rem}
+.course-meta{display:flex;gap:1rem;margin-bottom:1.2rem;flex-wrap:wrap}
+.course-meta span{font-size:.82rem;color:var(--text-muted)}
+.btn-study{width:100%;padding:12px;border:none;border-radius:10px;font-family:'Nunito',sans-serif;font-size:1rem;font-weight:800;cursor:pointer;transition:.25s}
+ 
+/* SOCIAL */
+.connect-section{max-width:700px;margin:0 auto;padding:2rem 1.5rem 4rem;text-align:center}
+.social-cards{display:flex;flex-wrap:wrap;gap:1rem;justify-content:center;margin-top:2rem}
+.social-card{display:flex;align-items:center;gap:12px;padding:14px 28px;border-radius:14px;
+  font-weight:700;font-size:1rem;text-decoration:none;transition:.25s;border:1.5px solid transparent;min-width:200px;justify-content:center}
+.social-card svg{width:24px;height:24px;flex-shrink:0}
+.stg{background:rgba(0,136,204,.15);border-color:#0088cc;color:#0088cc}
+.stg:hover{background:#0088cc;color:#fff}
+.swa{background:rgba(37,211,102,.15);border-color:#25d366;color:#25d366}
+.swa:hover{background:#25d366;color:#fff}
+.sig{background:rgba(225,48,108,.15);border-color:#e1306c;color:#e1306c}
+.sig:hover{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);color:#fff;border-color:transparent}
+ 
+/* MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.72);
+  backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:1rem}
+.modal-overlay.open{display:flex}
+.modal-box{background:var(--card-bg);border:1px solid rgba(233,69,96,.3);border-radius:22px;
+  padding:2.5rem;width:100%;max-width:420px;box-shadow:0 24px 80px rgba(0,0,0,.5);
+  animation:popIn .3s cubic-bezier(.34,1.56,.64,1);position:relative}
+@keyframes popIn{from{transform:scale(.85);opacity:0}to{transform:scale(1);opacity:1}}
+.modal-close{position:absolute;top:14px;right:14px;background:rgba(255,255,255,.08);border:none;
+  color:#fff;width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:1rem;
+  display:flex;align-items:center;justify-content:center;transition:.2s}
+.modal-close:hover{background:var(--accent)}
+.modal-box h2{font-family:'Baloo 2',cursive;font-size:1.8rem;font-weight:800;color:#fff;margin-bottom:.3rem}
+.modal-box>p{color:var(--text-muted);font-size:.9rem;margin-bottom:1.5rem}
+.tabs-row{display:flex;gap:8px;margin-bottom:1.5rem}
+.tab-btn{flex:1;padding:10px;border:1.5px solid rgba(255,255,255,.12);border-radius:10px;
+  background:none;color:var(--text-muted);font-family:'Nunito',sans-serif;font-size:.92rem;font-weight:700;cursor:pointer;transition:.2s}
+.tab-btn.active{background:var(--accent);border-color:var(--accent);color:#fff}
+.form-group{margin-bottom:1.1rem}
+.form-group label{display:block;color:var(--text-muted);font-size:.82rem;font-weight:700;margin-bottom:5px}
+.form-group input{width:100%;padding:11px 15px;background:rgba(255,255,255,.06);
+  border:1.5px solid rgba(255,255,255,.12);border-radius:10px;color:#fff;font-size:.97rem;
+  font-family:'Nunito',sans-serif;outline:none;transition:.2s}
+.form-group input:focus{border-color:var(--accent);background:rgba(233,69,96,.07)}
+.err-msg{color:#e94560;font-size:.83rem;margin-bottom:.8rem;display:none;padding:8px 12px;
+  background:rgba(233,69,96,.1);border-radius:8px;border-left:3px solid var(--accent)}
+ 
+/* PAGE HEADER */
+.page-header{background:rgba(255,255,255,.03);border-bottom:1px solid rgba(255,255,255,.08);
+  padding:1.4rem 2rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+.back-btn{background:rgba(233,69,96,.15);border:1px solid var(--accent);color:var(--accent);
+  border-radius:10px;padding:8px 18px;font-family:'Nunito',sans-serif;font-size:.88rem;font-weight:700;cursor:pointer;transition:.2s;white-space:nowrap}
+.back-btn:hover{background:var(--accent);color:#fff}
+.page-header h1{font-family:'Baloo 2',cursive;font-size:1.55rem;font-weight:800;color:#fff}
+.page-header p{color:var(--text-muted);font-size:.88rem}
+ 
+/* GRIDS */
+.sub-grid,.ch-grid,.tp-grid{display:grid;gap:1rem;padding:2rem;max-width:1200px;margin:0 auto}
+.sub-grid{grid-template-columns:repeat(auto-fill,minmax(210px,1fr))}
+.ch-grid{grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
+.tp-grid{grid-template-columns:repeat(auto-fill,minmax(290px,1fr))}
+.sub-card,.ch-card,.tp-card{background:var(--card-bg);border:1px solid rgba(255,255,255,.08);
+  border-radius:var(--radius);padding:1.4rem;cursor:pointer;transition:.25s;display:flex;flex-direction:column;gap:.5rem}
+.sub-card:hover,.ch-card:hover,.tp-card:hover{transform:translateY(-4px);border-color:rgba(233,69,96,.4);box-shadow:0 12px 36px rgba(233,69,96,.18)}
+.sub-card .icon{font-size:2.4rem}
+.sub-card h3,.ch-card h3,.tp-card h3{font-family:'Baloo 2',cursive;font-size:1.08rem;font-weight:800;color:#fff}
+.sub-card p,.ch-card p,.tp-card p{color:var(--text-muted);font-size:.83rem}
+.arr{margin-top:auto;color:var(--accent);font-weight:800;font-size:.83rem}
+ 
+/* VIDEO */
+.topic-content{max-width:900px;margin:0 auto;padding:2rem}
+.video-box{background:#000;border-radius:16px;overflow:hidden;aspect-ratio:16/9;width:100%;
+  margin-bottom:1.2rem;display:flex;align-items:center;justify-content:center;
+  border:1px solid rgba(255,255,255,.1)}
+.vid-placeholder{text-align:center;color:rgba(255,255,255,.35);display:flex;flex-direction:column;align-items:center;gap:1rem}
+.vid-play-btn{width:68px;height:68px;border-radius:50%;background:var(--accent);
+  display:flex;align-items:center;justify-content:center;font-size:1.8rem;cursor:default;border:none;color:#fff}
+.topic-content h2{font-family:'Baloo 2',cursive;font-size:1.5rem;font-weight:800;color:#fff;margin-bottom:.5rem}
+.notes-box{background:var(--card-bg);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:1.4rem;margin-top:1.4rem}
+.notes-box h3{color:var(--gold);font-size:.95rem;font-weight:800;margin-bottom:.8rem}
+.notes-box ul{list-style:none;display:flex;flex-direction:column;gap:.45rem}
+.notes-box ul li{color:var(--text-muted);font-size:.88rem;padding-left:1.2rem;position:relative}
+.notes-box ul li::before{content:'→';position:absolute;left:0;color:var(--accent)}
+ 
+/* BREADCRUMB */
+.bc{display:flex;align-items:center;gap:5px;flex-wrap:wrap;padding:.8rem 2rem 0;font-size:.82rem;color:var(--text-muted)}
+.bc span{cursor:pointer;transition:.2s}.bc span:hover{color:var(--accent)}
+.bc .sep{color:rgba(255,255,255,.18)}.bc .cur{color:var(--text);font-weight:700}
+ 
+/* ADMIN */
+.admin-wrap{max-width:960px;margin:0 auto;padding:2rem}
+.adm-card{background:var(--card-bg);border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);padding:1.5rem;margin-bottom:1.5rem}
+.adm-card h3{font-family:'Baloo 2',cursive;font-size:1.15rem;font-weight:800;color:var(--gold);margin-bottom:1rem}
+.row{display:flex;gap:.8rem;flex-wrap:wrap;margin-bottom:.8rem}
+.row input,.row select{flex:1;min-width:140px;padding:10px 13px;background:rgba(255,255,255,.06);
+  border:1.5px solid rgba(255,255,255,.12);border-radius:10px;color:#fff;font-family:'Nunito',sans-serif;font-size:.88rem;outline:none}
+.row input:focus,.row select:focus{border-color:var(--accent)}
+.row select option{background:#16213e;color:#fff}
+.btn-adm{background:var(--teal);color:#fff;border:none;border-radius:10px;padding:10px 22px;
+  font-family:'Nunito',sans-serif;font-size:.88rem;font-weight:800;cursor:pointer;transition:.2s;white-space:nowrap}
+.btn-adm:hover{background:#0a7a6e}
+.btn-del{background:rgba(233,69,96,.2);border:1px solid var(--accent);color:var(--accent);
+  border-radius:8px;padding:4px 12px;font-size:.75rem;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif}
+.u-table{width:100%;border-collapse:collapse;margin-top:.5rem;font-size:.83rem}
+.u-table th{text-align:left;padding:8px 10px;color:var(--text-muted);border-bottom:1px solid rgba(255,255,255,.08);font-size:.78rem;font-weight:800}
+.u-table td{padding:9px 10px;border-bottom:1px solid rgba(255,255,255,.05)}
+.u-table tr:hover td{background:rgba(255,255,255,.025)}
+.dot-on{width:7px;height:7px;border-radius:50%;background:#10b981;display:inline-block;margin-right:4px}
+.vid-item{display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,.04);
+  border-radius:10px;padding:10px 14px;gap:1rem}
+.vid-item .vname{font-weight:700;font-size:.88rem}
+.vid-item .vmeta{color:var(--text-muted);font-size:.78rem}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:1rem}
+.stat-box{border-radius:12px;padding:1rem;text-align:center}
+.stat-box .num{font-family:'Baloo 2',cursive;font-size:2rem;font-weight:800}
+.stat-box .lbl{color:var(--text-muted);font-size:.78rem;margin-top:2px}
+ 
+/* AUTH WALL */
+.auth-wall{display:none;position:fixed;inset:0;z-index:8888;background:rgba(0,0,0,.85);
+  backdrop-filter:blur(10px);align-items:center;justify-content:center;padding:1rem}
+.auth-wall.show{display:flex}
+.auth-box{background:var(--card-bg);border:1px solid rgba(233,69,96,.3);border-radius:22px;
+  padding:2.5rem;width:100%;max-width:380px;text-align:center}
+.auth-box .lock{font-size:3rem;margin-bottom:.8rem}
+.auth-box h2{font-family:'Baloo 2',cursive;font-size:1.7rem;color:#fff;margin-bottom:.4rem}
+.auth-box p{color:var(--text-muted);margin-bottom:1.4rem;font-size:.9rem}
+ 
+/* TOAST */
+#toast{position:fixed;bottom:22px;right:22px;border-radius:12px;padding:12px 22px;
+  font-weight:700;font-size:.88rem;z-index:99999;transform:translateY(50px);opacity:0;
+  transition:.3s;pointer-events:none;max-width:320px;line-height:1.4}
+#toast.show{transform:translateY(0);opacity:1}
+ 
+/* SPIN */
+.spin{display:inline-block;width:16px;height:16px;border:2px solid rgba(255,255,255,.3);
+  border-top-color:#fff;border-radius:50%;animation:sp .6s linear infinite;vertical-align:middle;margin-right:6px}
+@keyframes sp{to{transform:rotate(360deg)}}
+ 
+footer{text-align:center;padding:2rem;border-top:1px solid rgba(255,255,255,.07);color:var(--text-muted);font-size:.86rem}
+footer span{color:var(--accent);font-weight:700}
+ 
+@media(max-width:640px){
+  nav{padding:0 1rem}
+  .nav-links button.hide-sm{display:none}
+  .courses-grid{padding:1rem;gap:1rem}
+  .page-header,.sub-grid,.ch-grid,.tp-grid,.topic-content,.admin-wrap{padding:1rem}
+  .bc{padding:.6rem 1rem 0}
+}
 </style>
 </head>
 <body>
-
-<!-- ══════════════════ NAVBAR ══════════════════ -->
+ 
+<div id="toast"></div>
+ 
+<!-- AUTH WALL -->
+<div class="auth-wall" id="auth-wall">
+  <div class="auth-box">
+    <div class="lock">🔒</div>
+    <h2>Login Required</h2>
+    <p>Courses access karne ke liye pehle login karo</p>
+    <button class="btn-primary" style="width:100%;margin-bottom:.8rem" onclick="closeAuthWall();openLogin()">🔓 Login करें</button>
+    <button class="btn-secondary" style="width:100%" onclick="closeAuthWall()">← Wapas Jao</button>
+  </div>
+</div>
+ 
+<!-- NAVBAR -->
 <nav>
-  <div class="nav-logo" onclick="showPage('home')">AlphaVerse</div>
+  <div class="nav-logo" onclick="goHome()">📚 EduVision</div>
   <div class="nav-links">
-    <button onclick="showPage('home')">🏠 Home</button>
-    <button onclick="showPage('home'); scrollToCourses()">📖 Courses</button>
-    <button onclick="showPage('connect')">🔗 Connect</button>
-    <button class="nav-btn-login" onclick="openLogin()">🔓 Login</button>
+    <button class="hide-sm" onclick="goHome()">🏠 Home</button>
+    <button class="hide-sm" onclick="goHome();scrollToCourses()">📖 Courses</button>
+    <button class="hide-sm" onclick="showPage('connect')">🔗 Connect</button>
+    <button class="btn-nav-cta" id="nav-login-btn" onclick="openLogin()">🔓 Login</button>
+    <div class="user-chip" id="user-chip">
+      <span id="chip-name">User</span>
+      <button onclick="doLogout()">Logout</button>
+    </div>
+    <button class="btn-nav-admin" id="admin-btn" onclick="showPage('admin')">⚙️ Admin</button>
   </div>
 </nav>
-
-<!-- ══════════════════ PAGE: HOME ══════════════════ -->
+ 
+<!-- ══ HOME ══ -->
 <div id="page-home" class="page active">
-
-  <!-- HERO -->
   <section class="hero">
-    <div class="hero-badge">🎯 India's Best Exam Preparation Platform</div>
-     <h1>Acheive Your<br>DREAM</h1>
-    <p>JEE NEET & Boards Preparation</p>
+    <div class="hero-badge">🎯 India's Best Exam Prep Platform</div>
+    <h1>अपने सपनों को<br>हकीकत बनाओ!</h1>
+    <p>JEE, NEET और Commerce के लिए भारत का सबसे बेहतरीन learning platform। Expert faculty, structured content, smart learning.</p>
     <div class="hero-btns">
-      <button class="btn-primary" onclick="scrollToCourses()">🚀Explore Courses</button>
+      <button class="btn-primary" onclick="scrollToCourses()">🚀 Courses देखें</button>
       <button class="btn-secondary" onclick="showPage('connect')">📱 Join Community</button>
     </div>
   </section>
-
-  <!-- STATS -->
   <div class="stats-strip">
-    <div class="stat-item"><span>500+</span><span>Students Enrolled</span></div>
+    <div class="stat-item"><span>50,000+</span><span>Students Enrolled</span></div>
     <div class="stat-item"><span>7</span><span>Premium Courses</span></div>
-    <div class="stat-item"><span>400+</span><span>Video Lectures</span></div>
+    <div class="stat-item"><span>500+</span><span>Video Lectures</span></div>
+    <div class="stat-item"><span>95%</span><span>Success Rate</span></div>
   </div>
-
-  <!-- COURSES -->
   <div id="courses-anchor" class="section-title">
-    <h2>Premium Courses</h2>
-    <p>Expert faculty with comprehensive courses</p>
+    <h2>हमारे Premium Courses</h2>
+    <p>Expert faculty द्वारा तैयार किए गए comprehensive courses</p>
     <div class="accent-line"></div>
   </div>
-
   <div class="courses-grid">
-
-    <!-- 1. Udaan 2027 -->
     <div class="course-card">
-      <div class="course-banner" style="background: linear-gradient(135deg,#1a1a2e,#e94560);">🕊️</div>
+      <div class="course-banner" style="background:linear-gradient(135deg,#1a1a2e,#e94560)">🕊️</div>
       <div class="course-body">
-        <span class="course-tag" style="background:rgba(233,69,96,0.2);color:#e94560;">FOUNDATION</span>
-        <h3>Udaan 2027</h3>
-        <p>Smart learning with OGs Teachers</p>
-        <div class="course-meta">
-          <span>📹 200+ Videos</span>
-          <span>📚 All Subjects</span>
-        </div>
-        <button class="btn-study" style="background:linear-gradient(135deg,#e94560,#c73652);color:#fff;" onclick="openCourse('udaan2027')">🚀 Let's Study</button>
+        <span class="course-tag" style="background:rgba(233,69,96,.2);color:#e94560">FOUNDATION</span>
+        <h3>Udaan 2027</h3><p class="cdesc">सपनों की उड़ान भरो! Foundation से Advanced तक, सब कुछ एक जगह।</p>
+        <div class="course-meta"><span>📹 200+ Videos</span><span>📚 All Subjects</span></div>
+        <button class="btn-study" style="background:linear-gradient(135deg,#e94560,#c73652);color:#fff" onclick="goCourse('udaan2027')">🚀 Let's Study</button>
       </div>
     </div>
-
-    <!-- 2. Arjuna NEET 2027 -->
     <div class="course-card">
-      <div class="course-banner" style="background: linear-gradient(135deg,#0f3460,#0f9b8e);">🎯</div>
+      <div class="course-banner" style="background:linear-gradient(135deg,#0f3460,#0f9b8e)">🎯</div>
       <div class="course-body">
-        <span class="course-tag" style="background:rgba(15,155,142,0.2);color:#0f9b8e;">NEET</span>
-        <h3>Arjuna NEET 2027</h3>
-        <p>NEET Preparation with focused, disciplined,unbeatable</p>
-        <div class="course-meta">
-          <span>📹 300+ Videos</span>
-          <span>🧬 PCB Subjects</span>
-        </div>
-        <button class="btn-study" style="background:linear-gradient(135deg,#0f9b8e,#0a7a6e);color:#fff;" onclick="openCourse('arjunaneet2027')">🚀 Let's Study</button>
+        <span class="course-tag" style="background:rgba(15,155,142,.2);color:#0f9b8e">NEET</span>
+        <h3>Arjuna NEET 2027</h3><p class="cdesc">NEET की तैयारी करें Arjuna की तरह – focused, disciplined, unbeatable!</p>
+        <div class="course-meta"><span>📹 300+ Videos</span><span>🧬 PCB</span></div>
+        <button class="btn-study" style="background:linear-gradient(135deg,#0f9b8e,#0a7a6e);color:#fff" onclick="goCourse('arjunaneet2027')">🚀 Let's Study</button>
       </div>
     </div>
-
-    <!-- 3. Arjuna JEE 2027 -->
     <div class="course-card">
-      <div class="course-banner" style="background: linear-gradient(135deg,#0f3460,#f5a623);">⚡</div>
+      <div class="course-banner" style="background:linear-gradient(135deg,#0f3460,#f5a623)">⚡</div>
       <div class="course-body">
-        <span class="course-tag" style="background:rgba(245,166,35,0.2);color:#f5a623;">JEE</span>
-        <h3>Arjuna JEE 2027</h3>
-        <p>Acheive Your Dream IIT College</p>
-        <div class="course-meta">
-          <span>📹 350+ Videos</span>
-          <span>⚗️ PCM Subjects</span>
-        </div>
-        <button class="btn-study" style="background:linear-gradient(135deg,#f5a623,#d4891a);color:#fff;" onclick="openCourse('arjunajee2027')">🚀 Let's Study</button>
+        <span class="course-tag" style="background:rgba(245,166,35,.2);color:#f5a623">JEE</span>
+        <h3>Arjuna JEE 2027</h3><p class="cdesc">IIT का सपना? Arjuna के साथ PCM master करो!</p>
+        <div class="course-meta"><span>📹 350+ Videos</span><span>⚗️ PCM</span></div>
+        <button class="btn-study" style="background:linear-gradient(135deg,#f5a623,#d4891a);color:#fff" onclick="goCourse('arjunajee2027')">🚀 Let's Study</button>
       </div>
     </div>
-
-    <!-- 4. Uday Commerce 2027 -->
     <div class="course-card">
-      <div class="course-banner" style="background: linear-gradient(135deg,#1a1a2e,#7c3aed);">💼</div>
+      <div class="course-banner" style="background:linear-gradient(135deg,#1a1a2e,#7c3aed)">💼</div>
       <div class="course-body">
-        <span class="course-tag" style="background:rgba(124,58,237,0.2);color:#a78bfa;">COMMERCE</span>
-        <h3>Uday Commerce 2027</h3>
-        <p>Shine With Commerce Stream </p>
-        <div class="course-meta">
-          <span>📹 250+ Videos</span>
-          <span>💰 Commerce</span>
-        </div>
-        <button class="btn-study" style="background:linear-gradient(135deg,#7c3aed,#6d28d9);color:#fff;" onclick="openCourse('udaycommerce2027')">🚀 Let's Study</button>
+        <span class="course-tag" style="background:rgba(124,58,237,.2);color:#a78bfa">COMMERCE</span>
+        <h3>Uday Commerce 2027</h3><p class="cdesc">Commerce stream में shine करो! Accounts, Business और Economics.</p>
+        <div class="course-meta"><span>📹 250+ Videos</span><span>💰 Commerce</span></div>
+        <button class="btn-study" style="background:linear-gradient(135deg,#7c3aed,#6d28d9);color:#fff" onclick="goCourse('udaycommerce2027')">🚀 Let's Study</button>
       </div>
     </div>
-
-    <!-- 5. Lakshya JEE 2027 -->
     <div class="course-card">
-      <div class="course-banner" style="background: linear-gradient(135deg,#0f3460,#e94560);">🎯</div>
+      <div class="course-banner" style="background:linear-gradient(135deg,#0f3460,#e94560)">🎯</div>
       <div class="course-body">
-        <span class="course-tag" style="background:rgba(233,69,96,0.2);color:#e94560;">JEE ADVANCED</span>
-        <h3>Lakshya JEE 2027</h3>
-        <p>IIT Advanced ke liye specially designed। Lakshya achieve karo with confidence!</p>
-        <div class="course-meta">
-          <span>📹 400+ Videos</span>
-          <span>⚗️ PCM Advanced</span>
-        </div>
-        <button class="btn-study" style="background:linear-gradient(135deg,#e94560,#0f3460);color:#fff;" onclick="openCourse('lakshyajee2027')">🚀 Let's Study</button>
+        <span class="course-tag" style="background:rgba(233,69,96,.2);color:#e94560">JEE ADVANCED</span>
+        <h3>Lakshya JEE 2027</h3><p class="cdesc">IIT Advanced ke liye specially designed. Lakshya achieve karo!</p>
+        <div class="course-meta"><span>📹 400+ Videos</span><span>⚗️ PCM Advanced</span></div>
+        <button class="btn-study" style="background:linear-gradient(135deg,#e94560,#0f3460);color:#fff" onclick="goCourse('lakshyajee2027')">🚀 Let's Study</button>
       </div>
     </div>
-
-    <!-- 6. Lakshya NEET 2027 -->
     <div class="course-card">
-      <div class="course-banner" style="background: linear-gradient(135deg,#064e3b,#0f9b8e);">🩺</div>
+      <div class="course-banner" style="background:linear-gradient(135deg,#064e3b,#0f9b8e)">🩺</div>
       <div class="course-body">
-        <span class="course-tag" style="background:rgba(16,185,129,0.2);color:#10b981;">NEET ADVANCED</span>
-        <h3>Lakshya NEET 2027</h3>
-        <p>Start your Medical Profession </p>
-        <div class="course-meta">
-          <span>📹 380+ Videos</span>
-          <span>🧬 PCB Advanced</span>
-        </div>
-        <button class="btn-study" style="background:linear-gradient(135deg,#10b981,#059669);color:#fff;" onclick="openCourse('lakshyaneet2027')">🚀 Let's Study</button>
+        <span class="course-tag" style="background:rgba(16,185,129,.2);color:#10b981">NEET ADVANCED</span>
+        <h3>Lakshya NEET 2027</h3><p class="cdesc">Doctor बनने का सपना? Lakshya NEET के साथ MBBS guaranteed!</p>
+        <div class="course-meta"><span>📹 380+ Videos</span><span>🧬 PCB Advanced</span></div>
+        <button class="btn-study" style="background:linear-gradient(135deg,#10b981,#059669);color:#fff" onclick="goCourse('lakshyaneet2027')">🚀 Let's Study</button>
       </div>
     </div>
-
-    <!-- 7. Parishram Commerce 2027 -->
     <div class="course-card">
-      <div class="course-banner" style="background: linear-gradient(135deg,#7c2d12,#f5a623);">📊</div>
+      <div class="course-banner" style="background:linear-gradient(135deg,#7c2d12,#f5a623)">📊</div>
       <div class="course-body">
-        <span class="course-tag" style="background:rgba(245,166,35,0.2);color:#f5a623;">COMMERCE PRO</span>
-        <h3>Parishram Commerce 2027</h3>
-        <p>Ready For CA Foundation</p>
-        <div class="course-meta">
-          <span>📹 280+ Videos</span>
-          <span>💰 Advanced Commerce</span>
-        </div>
-        <button class="btn-study" style="background:linear-gradient(135deg,#f5a623,#7c2d12);color:#fff;" onclick="openCourse('parishramcommerce2027')">🚀 Let's Study</button>
+        <span class="course-tag" style="background:rgba(245,166,35,.2);color:#f5a623">COMMERCE PRO</span>
+        <h3>Parishram Commerce 2027</h3><p class="cdesc">मेहनत और strategy के साथ Commerce में top करो. CA Foundation!</p>
+        <div class="course-meta"><span>📹 280+ Videos</span><span>💰 Advanced</span></div>
+        <button class="btn-study" style="background:linear-gradient(135deg,#f5a623,#7c2d12);color:#fff" onclick="goCourse('parishramcommerce2027')">🚀 Let's Study</button>
       </div>
     </div>
-
   </div>
-
-  <footer>
-    <p>Made with ❤️ by <span>AlphaVerse</span> | © 2026 All Rights Reserved</p>
-    <p style="margin-top:6px;font-size:0.8rem;">Empowering Students Across India 🇮🇳</p>
-  </footer>
+  <footer><p>Made with ❤️ by <span>EduVision Team</span> | © 2027 All Rights Reserved 🇮🇳</p></footer>
 </div>
-
-<!-- ══════════════════ PAGE: CONNECT ══════════════════ -->
+ 
+<!-- ══ CONNECT ══ -->
 <div id="page-connect" class="page">
-  <div class="section-title" style="padding-top:4rem;">
-    <h2>📱 Connect with us</h2>
-    <p>Telegram, WhatsApp ,Instagram </p>
+  <div class="section-title" style="padding-top:4rem">
+    <h2>📱 हमसे जुड़ें</h2><p>Telegram, WhatsApp और Instagram पर connect करें</p>
     <div class="accent-line"></div>
   </div>
   <div class="connect-section">
     <div class="social-cards">
-
-      <a href="https://t.me/@alphaa_01" target="_blank" class="social-card social-tg" id="link-telegram">
+      <a id="lnk-tg" href="#" target="_blank" class="social-card stg">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.16 13.26l-2.963-.924c-.643-.204-.657-.643.136-.953l11.573-4.462c.537-.194 1.006.131.988.3z"/></svg>
-        Telegram
+        Telegram Channel
       </a>
-
-      <a href="https://wa.me/919044588281" target="_blank" class="social-card social-wa" id="link-whatsapp">
+      <a id="lnk-wa" href="#" target="_blank" class="social-card swa">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-        WhatsApp
+        WhatsApp Group
       </a>
-
-      <a href="https://instagram.com/YOUR_INSTAGRAM" target="_blank" class="social-card social-ig" id="link-instagram">
+      <a id="lnk-ig" href="#" target="_blank" class="social-card sig">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
         Instagram
       </a>
-
     </div>
-
-<!-- ══════════════════ PAGE: SUBJECTS ══════════════════ -->
-<div id="page-subjects" class="page">
-  <div class="breadcrumb">
-    <span onclick="showPage('home')">🏠 Home</span>
-    <span class="sep">›</span>
-    <span class="current" id="bc-course">Course</span>
-  </div>
-  <div class="page-header">
-    <button class="back-btn" onclick="showPage('home')">← Back</button>
-    <div>
-      <h1 id="subject-page-title">Subjects</h1>
-      <p id="subject-page-subtitle">Select a subject to continue</p>
+    <div style="margin-top:2rem;background:var(--card-bg);border-radius:14px;padding:1.2rem;border:1px solid rgba(255,255,255,.07);text-align:left">
+      <p style="color:var(--text-muted);font-size:.85rem;line-height:1.7">💡 <strong style="color:var(--gold)">Admin Tip:</strong> Links change karne ke liye file ke top mein <code style="background:rgba(255,255,255,.1);padding:2px 6px;border-radius:4px;color:var(--accent)">ADMIN_CONFIG</code> section mein apne links update karo.</p>
     </div>
   </div>
-  <div class="subject-grid" id="subjects-container"></div>
 </div>
-
-<!-- ══════════════════ PAGE: CHAPTERS ══════════════════ -->
-<div id="page-chapters" class="page">
-  <div class="breadcrumb">
-    <span onclick="showPage('home')">🏠 Home</span>
-    <span class="sep">›</span>
-    <span onclick="showPage('subjects')" id="bc-course2" style="cursor:pointer;">Course</span>
-    <span class="sep">›</span>
-    <span class="current" id="bc-subject">Subject</span>
+ 
+<!-- ══ SUBJECTS ══ -->
+<div id="page-subjects" class="page">
+  <div class="bc"><span onclick="goHome()">🏠 Home</span><span class="sep">›</span><span class="cur" id="bc1">Course</span></div>
+  <div class="page-header">
+    <button class="back-btn" onclick="goHome()">← Back</button>
+    <div><h1 id="sub-title">Subjects</h1><p id="sub-sub">Select a subject</p></div>
   </div>
+  <div class="sub-grid" id="sub-container"></div>
+</div>
+ 
+<!-- ══ CHAPTERS ══ -->
+<div id="page-chapters" class="page">
+  <div class="bc"><span onclick="goHome()">🏠 Home</span><span class="sep">›</span><span onclick="showPage('subjects')" id="bc2">Course</span><span class="sep">›</span><span class="cur" id="bc3">Subject</span></div>
   <div class="page-header">
     <button class="back-btn" onclick="showPage('subjects')">← Back</button>
-    <div>
-      <h1 id="chapter-page-title">Chapters</h1>
-      <p id="chapter-page-subtitle">Select a chapter</p>
-    </div>
+    <div><h1 id="ch-title">Chapters</h1><p id="ch-sub">Select a chapter</p></div>
   </div>
-  <div class="chapter-grid" id="chapters-container"></div>
+  <div class="ch-grid" id="ch-container"></div>
 </div>
-
-<!-- ══════════════════ PAGE: TOPICS ══════════════════ -->
+ 
+<!-- ══ TOPICS ══ -->
 <div id="page-topics" class="page">
-  <div class="breadcrumb">
-    <span onclick="showPage('home')">🏠 Home</span>
-    <span class="sep">›</span>
-    <span onclick="showPage('subjects')" id="bc-course3" style="cursor:pointer;">Course</span>
-    <span class="sep">›</span>
-    <span onclick="showPage('chapters')" id="bc-subject2" style="cursor:pointer;">Subject</span>
-    <span class="sep">›</span>
-    <span class="current" id="bc-chapter">Chapter</span>
-  </div>
+  <div class="bc"><span onclick="goHome()">🏠 Home</span><span class="sep">›</span><span onclick="showPage('subjects')" id="bc4">Course</span><span class="sep">›</span><span onclick="showPage('chapters')" id="bc5">Subject</span><span class="sep">›</span><span class="cur" id="bc6">Chapter</span></div>
   <div class="page-header">
     <button class="back-btn" onclick="showPage('chapters')">← Back</button>
-    <div>
-      <h1 id="topic-page-title">Topics</h1>
-      <p id="topic-page-subtitle">Select a topic to watch</p>
-    </div>
+    <div><h1 id="tp-title">Topics</h1><p id="tp-sub">Select a topic</p></div>
   </div>
-  <div class="topic-grid" id="topics-container"></div>
+  <div class="tp-grid" id="tp-container"></div>
 </div>
-
-<!-- ══════════════════ PAGE: VIDEO ══════════════════ -->
+ 
+<!-- ══ VIDEO ══ -->
 <div id="page-video" class="page">
-  <div class="breadcrumb">
-    <span onclick="showPage('home')">🏠 Home</span>
-    <span class="sep">›</span>
-    <span onclick="showPage('subjects')" id="bc-course4" style="cursor:pointer;">Course</span>
-    <span class="sep">›</span>
-    <span onclick="showPage('chapters')" id="bc-subject3" style="cursor:pointer;">Subject</span>
-    <span class="sep">›</span>
-    <span onclick="showPage('topics')" id="bc-chapter2" style="cursor:pointer;">Chapter</span>
-    <span class="sep">›</span>
-    <span class="current" id="bc-topic">Topic</span>
-  </div>
+  <div class="bc"><span onclick="goHome()">🏠 Home</span><span class="sep">›</span><span onclick="showPage('subjects')" id="bc7">Course</span><span class="sep">›</span><span onclick="showPage('chapters')" id="bc8">Subject</span><span class="sep">›</span><span onclick="showPage('topics')" id="bc9">Chapter</span><span class="sep">›</span><span class="cur" id="bc10">Topic</span></div>
   <div class="page-header">
     <button class="back-btn" onclick="showPage('topics')">← Back</button>
-    <div>
-      <h1 id="video-page-title">Topic</h1>
-      <p id="video-page-subtitle">Watch & Learn</p>
-    </div>
+    <div><h1 id="vid-title">Topic</h1><p id="vid-sub">Watch & Learn</p></div>
   </div>
   <div class="topic-content">
-    <div class="video-box" id="video-container">
-      <div class="video-placeholder" id="video-placeholder">
-        <button class="video-play-btn">▶</button>
-        <p>Video यहाँ embed होगी</p>
-        <p style="font-size:0.8rem;">नीचे YouTube / Drive link डालें</p>
+    <div class="video-box">
+      <div class="vid-placeholder" id="vid-placeholder">
+        <div class="vid-play-btn">▶</div>
+        <p style="font-size:.85rem">Admin ne abhi yeh video upload nahi ki</p>
+        <p style="font-size:.78rem">Jald hi available hogi!</p>
       </div>
-      <iframe id="video-iframe" style="display:none;width:100%;height:100%;border:none;" allowfullscreen></iframe>
+      <iframe id="vid-iframe" style="display:none;width:100%;height:100%;border:none" allowfullscreen></iframe>
     </div>
-    <input type="text" class="video-url-input" id="video-url-input" placeholder="📎 YouTube या Google Drive video link यहाँ paste करें और Enter दबाएं" onkeydown="if(event.key==='Enter') loadVideo()">
-    <button onclick="loadVideo()" style="background:var(--accent);color:#fff;border:none;border-radius:10px;padding:10px 24px;font-family:'Nunito',sans-serif;font-size:0.9rem;font-weight:800;cursor:pointer;margin-bottom:1.5rem;">▶ Video Load करें</button>
-    <h2 id="video-topic-name">Topic Name</h2>
-    <p id="video-topic-desc" style="color:var(--text-muted);">Topic description</p>
-    <div class="notes-box" id="video-notes">
-      <h3>📝 Key Points</h3>
-      <ul id="key-points-list"></ul>
+    <h2 id="vid-topic-name">Topic</h2>
+    <p id="vid-topic-desc" style="color:var(--text-muted);margin-bottom:1rem;line-height:1.7"></p>
+    <div class="notes-box">
+      <h3>📝 Study Tips</h3>
+      <ul><li>इस topic को ध्यान से पढ़ें और notes बनाएं</li><li>Video pause करके practice करें</li><li>Doubt के लिए Telegram join करें</li><li>Chapter complete करने के बाद revision ज़रूरी है</li></ul>
     </div>
   </div>
 </div>
-
-<!-- ══════════════════ LOGIN MODAL ══════════════════ -->
-<div class="modal-overlay" id="login-modal" onclick="closeLoginOutside(event)">
+ 
+<!-- ══ ADMIN ══ -->
+<div id="page-admin" class="page">
+  <div class="page-header">
+    <button class="back-btn" onclick="goHome()">← Home</button>
+    <div><h1>⚙️ Admin Panel</h1><p id="admin-user-label">Loading...</p></div>
+  </div>
+  <div class="admin-wrap">
+ 
+    <!-- STATS -->
+    <div class="adm-card">
+      <h3>📊 Dashboard</h3>
+      <div class="stat-grid">
+        <div class="stat-box" style="background:rgba(233,69,96,.1);border:1px solid rgba(233,69,96,.3)">
+          <div class="num" style="color:var(--accent)" id="st-users">–</div><div class="lbl">Total Users</div>
+        </div>
+        <div class="stat-box" style="background:rgba(15,155,142,.1);border:1px solid rgba(15,155,142,.3)">
+          <div class="num" style="color:var(--teal)" id="st-vids">–</div><div class="lbl">Videos Uploaded</div>
+        </div>
+        <div class="stat-box" style="background:rgba(245,166,35,.1);border:1px solid rgba(245,166,35,.3)">
+          <div class="num" style="color:var(--gold)" id="st-today">–</div><div class="lbl">Today's Logins</div>
+        </div>
+      </div>
+    </div>
+ 
+    <!-- VIDEO UPLOAD -->
+    <div class="adm-card">
+      <h3>🎬 Video Upload karo</h3>
+      <p style="color:var(--text-muted);font-size:.85rem;margin-bottom:1rem">Course → Subject → Chapter → Topic select karo, phir YouTube/Drive link paste karo</p>
+      <div class="row">
+        <select id="adm-c" onchange="admFillSub()"><option value="">📚 Course</option></select>
+        <select id="adm-s" onchange="admFillCh()"><option value="">📖 Subject</option></select>
+      </div>
+      <div class="row">
+        <select id="adm-ch" onchange="admFillTp()"><option value="">📂 Chapter</option></select>
+        <select id="adm-tp"><option value="">🎬 Topic</option></select>
+      </div>
+      <div class="row">
+        <input type="text" id="adm-url" placeholder="🔗 YouTube ya Drive link yahan paste karo">
+        <button class="btn-adm" onclick="admUpload()">📤 Upload</button>
+      </div>
+      <div style="background:rgba(0,136,204,.1);border:1px solid rgba(0,136,204,.3);border-radius:12px;padding:1rem;margin-top:.5rem">
+        <p style="color:#60c3f5;font-size:.83rem;font-weight:700;margin-bottom:.5rem">🤖 Telegram Bot Commands (Bot se bhi upload kar sakte ho):</p>
+        <code style="color:#aac;font-size:.78rem;line-height:2;display:block">
+          /upload → Video upload wizard start karo<br>
+          /users → Sare registered users dekho<br>
+          /stats → Site ka statistics dekho<br>
+          /videos → Uploaded videos ki list<br>
+          /help → Sare commands
+        </code>
+      </div>
+    </div>
+ 
+    <!-- UPLOADED VIDEOS -->
+    <div class="adm-card">
+      <h3>📹 Uploaded Videos</h3>
+      <div id="adm-vid-list" style="display:flex;flex-direction:column;gap:.6rem;margin-top:.5rem">
+        <p style="color:var(--text-muted);font-size:.88rem">Loading...</p>
+      </div>
+    </div>
+ 
+    <!-- USERS -->
+    <div class="adm-card">
+      <h3>👥 Registered Users — Real-Time</h3>
+      <div style="overflow-x:auto">
+        <table class="u-table">
+          <thead><tr><th>Name</th><th>Email</th><th>Joined</th><th>Last Login</th><th>Status</th></tr></thead>
+          <tbody id="adm-users"><tr><td colspan="5" style="color:var(--text-muted);padding:1rem">Loading...</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+ 
+  </div>
+</div>
+ 
+<!-- ══ LOGIN MODAL ══ -->
+<div class="modal-overlay" id="login-modal" onclick="modalOutClick(event)">
   <div class="modal-box">
     <button class="modal-close" onclick="closeLogin()">✕</button>
-    <h2>👋 Welcome Back!</h2>
-    <p>AlphaVerse , Start Learning</p>
+    <h2>👋 Welcome!</h2>
+    <p>EduVision mein login karo ya account banao</p>
     <div class="tabs-row">
-      <button class="tab-btn active" id="tab-login" onclick="switchTab('login')">🔓 Login</button>
-      <button class="tab-btn" id="tab-signup" onclick="switchTab('signup')">✨ Sign Up</button>
+      <button class="tab-btn active" id="t-login" onclick="switchTab('l')">🔓 Login</button>
+      <button class="tab-btn" id="t-signup" onclick="switchTab('s')">✨ Sign Up</button>
     </div>
-    <div id="login-form">
-      <div class="form-group">
-        <label>📧 Email / Mobile</label>
-        <input type="text" placeholder="email@example.com या 9999999999">
+    <!-- LOGIN -->
+    <div id="f-login">
+      <div class="form-group"><label>📧 Email</label><input type="email" id="l-em" placeholder="email@example.com"></div>
+      <div class="form-group"><label>🔑 Password</label><input type="password" id="l-pw" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()"></div>
+      <div class="err-msg" id="l-err"></div>
+      <button class="btn-primary" style="width:100%" onclick="doLogin()" id="l-btn">🚀 Login करें</button>
+      <div style="margin-top:1rem;display:flex;flex-direction:column;gap:.6rem">
+        <button onclick="doGoogle()" style="background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.14);border-radius:10px;padding:10px;color:#fff;font-family:'Nunito',sans-serif;font-size:.9rem;font-weight:700;cursor:pointer">🌐 Google se Login</button>
+        <p style="text-align:center;font-size:.82rem;color:var(--text-muted)">Password bhule? <span style="color:var(--accent);cursor:pointer;font-weight:700" onclick="doReset()">Reset करें</span></p>
       </div>
-      <div class="form-group">
-        <label>🔑 Password</label>
-        <input type="password" placeholder="••••••••">
-      </div>
-      <button class="btn-primary" style="width:100%;margin-top:4px;" onclick="closeLogin()">🚀 Login </button>
-      <p style="text-align:center;margin-top:1rem;font-size:0.85rem;color:var(--text-muted);">Password Forgotten? <span style="color:var(--accent);cursor:pointer;font-weight:700;">Reset</span></p>
     </div>
-    <div id="signup-form" style="display:none;">
-      <div class="form-group">
-        <label>👤 Full Name</label>
-        <input type="text" placeholder="Aapka naam">
-      </div>
-      <div class="form-group">
-        <label>📧 Email</label>
-        <input type="email" placeholder="email@example.com">
-      </div>
-      <div class="form-group">
-        <label>📱 Mobile</label>
-        <input type="tel" placeholder="9999999999">
-      </div>
-      <div class="form-group">
-        <label>🔑 Password</label>
-        <input type="password" placeholder="Strong password">
-      </div>
-      <button class="btn-primary" style="width:100%;margin-top:4px;" onclick="closeLogin()">✨ Account बनाएं</button>
+    <!-- SIGNUP -->
+    <div id="f-signup" style="display:none">
+      <div class="form-group"><label>👤 Full Name</label><input type="text" id="s-nm" placeholder="Aapka poora naam"></div>
+      <div class="form-group"><label>📧 Email</label><input type="email" id="s-em" placeholder="email@example.com"></div>
+      <div class="form-group"><label>🔑 Password</label><input type="password" id="s-pw" placeholder="Minimum 6 characters"></div>
+      <div class="err-msg" id="s-err"></div>
+      <button class="btn-primary" style="width:100%" onclick="doSignup()" id="s-btn">✨ Account बनाएं</button>
     </div>
   </div>
 </div>
-
-<script>
-// ═══════════════════════════════════════════════
-//  COURSE DATA
-// ═══════════════════════════════════════════════
-const COURSES = {
-
-  udaan2027: {
-    name: "Udaan 2027", emoji: "🕊️",
-    color: "#e94560",
-    desc: "Foundation level comprehensive course",
-    subjects: [
-      { id: "physics", name: "Physics", icon: "⚡", desc: "Light, Human Eye and The Colourful World, Optics", chapters: [
-        { id: "mechanics", name: "Mechanics", desc: "Force, Motion, Energy", topics: [
-          { name: "Newton's Laws of Motion", desc: "तीनों नियम और उनके applications" },
-          { name: "Work, Energy & Power", desc: "Work-Energy theorem और Power" },
-          { name: "Circular Motion", desc: "Uniform & Non-uniform circular motion" },
-          { name: "Gravitation", desc: "Kepler's laws, Satellites" }
-        ]},
-        { id: "thermo", name: "Thermodynamics", desc: "Heat, Temperature, Laws", topics: [
-          { name: "First Law of Thermodynamics", desc: "Heat & Internal Energy" },
-          { name: "Second Law & Entropy", desc: "Carnot Engine, Efficiency" },
-          { name: "Kinetic Theory of Gases", desc: "Ideal gas & real gas behavior" }
-        ]},
-        { id: "optics", name: "Optics", desc: "Light, Reflection, Refraction", topics: [
-          { name: "Reflection of Light", desc: "Mirrors, Image formation" },
-          { name: "Refraction & Lenses", desc: "Snell's law, Lens formula" },
-          { name: "Wave Optics", desc: "Interference, Diffraction" }
-        ]}
-      ]},
-      { id: "chemistry", name: "Chemistry", icon: "⚗️", desc: "Physical, Organic, Inorganic", chapters: [
-        { id: "physical", name: "Physical Chemistry", desc: "Atoms, Moles, Solutions", topics: [
-          { name: "Atomic Structure", desc: "Bohr model, Quantum numbers" },
-          { name: "Chemical Equilibrium", desc: "Le Chatelier's principle" },
-          { name: "Electrochemistry", desc: "Cells, Nernst equation" }
-        ]},
-        { id: "organic", name: "Organic Chemistry", desc: "Carbon compounds", topics: [
-          { name: "Hydrocarbons", desc: "Alkanes, Alkenes, Alkynes" },
-          { name: "Functional Groups", desc: "Alcohols, Aldehydes, Ketones" },
-          { name: "Biomolecules", desc: "Carbohydrates, Proteins, Lipids" }
-        ]},
-        { id: "inorganic", name: "Inorganic Chemistry", desc: "Periodic table & reactions", topics: [
-          { name: "Periodic Table Trends", desc: "IE, EA, Electronegativity" },
-          { name: "Chemical Bonding", desc: "Ionic, Covalent, Metallic" },
-          { name: "Coordination Compounds", desc: "Werner's theory, IUPAC" }
-        ]}
-      ]},
-      { id: "maths", name: "Mathematics", icon: "📐", desc: "Algebra, Calculus, Coordinate Geometry", chapters: [
-        { id: "algebra", name: "Algebra", desc: "Equations, Functions", topics: [
-          { name: "Quadratic Equations", desc: "Roots, Discriminant, Nature" },
-          { name: "Sequences & Series", desc: "AP, GP, HP" },
-          { name: "Permutation & Combination", desc: "nPr, nCr, Binomial" }
-        ]},
-        { id: "calculus", name: "Calculus", desc: "Limits, Derivatives, Integrals", topics: [
-          { name: "Limits & Continuity", desc: "L'Hopital, Sandwich theorem" },
-          { name: "Differentiation", desc: "Chain rule, Product rule" },
-          { name: "Integration", desc: "By parts, Substitution" }
-        ]}
-      ]}
-    ]
-  },
-
-  arjunaneet2027: {
-    name: "Arjuna NEET 2027", emoji: "🎯",
-    color: "#0f9b8e",
-    subjects: [
-      { id: "bio", name: "Biology", icon: "🧬", desc: "Botany + Zoology", chapters: [
-        { id: "cell", name: "Cell Biology", desc: "Structure, Function, Division", topics: [
-          { name: "Cell Structure & Organelles", desc: "Nucleus, Mitochondria, Ribosomes" },
-          { name: "Cell Division - Mitosis", desc: "Phases of Mitosis in detail" },
-          { name: "Cell Division - Meiosis", desc: "Meiosis I & II, Significance" },
-          { name: "Cell Membrane & Transport", desc: "Osmosis, Diffusion, Active transport" }
-        ]},
-        { id: "genetics", name: "Genetics", desc: "Heredity and Variation", topics: [
-          { name: "Mendel's Laws", desc: "Law of segregation, Independent assortment" },
-          { name: "DNA Structure & Replication", desc: "Double helix, Semi-conservative" },
-          { name: "Genetic Disorders", desc: "Down syndrome, Sickle cell, Haemophilia" }
-        ]},
-        { id: "ecology", name: "Ecology", desc: "Environment & Ecosystems", topics: [
-          { name: "Ecosystem & Food Chain", desc: "Producers, Consumers, Decomposers" },
-          { name: "Biodiversity & Conservation", desc: "Hotspots, Ex-situ, In-situ" },
-          { name: "Environmental Pollution", desc: "Air, Water, Soil pollution" }
-        ]}
-      ]},
-      { id: "neet-phy", name: "Physics", icon: "⚡", desc: "NEET level Physics", chapters: [
-        { id: "electro", name: "Electrostatics", desc: "Coulomb's law, Fields", topics: [
-          { name: "Coulomb's Law", desc: "Electric force between charges" },
-          { name: "Electric Field & Potential", desc: "Field lines, Equipotential surfaces" },
-          { name: "Capacitors", desc: "Capacitance, Energy stored" }
-        ]},
-        { id: "modern", name: "Modern Physics", desc: "Quantum & Nuclear", topics: [
-          { name: "Photoelectric Effect", desc: "Einstein's explanation, Work function" },
-          { name: "Nuclear Physics", desc: "Fission, Fusion, Radioactivity" },
-          { name: "Semiconductor Devices", desc: "Diode, Transistor, Logic gates" }
-        ]}
-      ]},
-      { id: "neet-chem", name: "Chemistry", icon: "⚗️", desc: "NEET Chemistry", chapters: [
-        { id: "biomol", name: "Biomolecules", desc: "Life's molecules", topics: [
-          { name: "Carbohydrates Classification", desc: "Monosaccharides, Polysaccharides" },
-          { name: "Proteins & Amino Acids", desc: "Primary to Quaternary structure" },
-          { name: "Vitamins & Hormones", desc: "Fat & Water soluble vitamins" }
-        ]},
-        { id: "surface", name: "Surface Chemistry", desc: "Colloids & Catalysis", topics: [
-          { name: "Adsorption", desc: "Physisorption vs Chemisorption" },
-          { name: "Colloids", desc: "Types, Tyndall effect, Coagulation" }
-        ]}
-      ]}
-    ]
-  },
-
-  arjunajee2027: {
-    name: "Arjuna JEE 2027", emoji: "⚡",
-    color: "#f5a623",
-    subjects: [
-      { id: "jee-phy", name: "Physics", icon: "⚡", desc: "JEE level Physics", chapters: [
-        { id: "waves", name: "Waves & Sound", desc: "SHM, Wave motion", topics: [
-          { name: "Simple Harmonic Motion", desc: "Amplitude, Frequency, Phase" },
-          { name: "Wave Equation & Properties", desc: "Speed, Wavelength, Superposition" },
-          { name: "Doppler Effect", desc: "Moving source & observer" },
-          { name: "Standing Waves", desc: "Nodes, Antinodes, Harmonics" }
-        ]},
-        { id: "em", name: "Electromagnetism", desc: "Current, Magnetism, EMI", topics: [
-          { name: "Biot-Savart & Ampere Law", desc: "Magnetic field calculations" },
-          { name: "Faraday's Law of EMI", desc: "Lenz's law, Induced EMF" },
-          { name: "AC Circuits", desc: "LCR circuits, Resonance, Power factor" }
-        ]}
-      ]},
-      { id: "jee-chem", name: "Chemistry", icon: "⚗️", desc: "JEE Chemistry", chapters: [
-        { id: "stereo", name: "Stereochemistry", desc: "Isomers & Chirality", topics: [
-          { name: "Structural Isomers", desc: "Chain, Position, Functional isomers" },
-          { name: "Optical Isomers & Chirality", desc: "R/S configuration, Enantiomers" },
-          { name: "Geometric Isomers E/Z", desc: "cis-trans isomerism" }
-        ]},
-        { id: "reactions", name: "Named Reactions", desc: "Important organic reactions", topics: [
-          { name: "Aldol Condensation", desc: "Mechanism and applications" },
-          { name: "Cannizzaro Reaction", desc: "Disproportionation of aldehydes" },
-          { name: "Grignard Reagent", desc: "Preparation and reactions" }
-        ]}
-      ]},
-      { id: "jee-math", name: "Mathematics", icon: "📐", desc: "JEE Mathematics", chapters: [
-        { id: "3d", name: "3D Geometry", desc: "Lines, Planes in 3D", topics: [
-          { name: "Direction Cosines & Ratios", desc: "Angles with coordinate axes" },
-          { name: "Equation of Line in 3D", desc: "Vector & Cartesian form" },
-          { name: "Equation of Plane", desc: "Normal vector, Distance from point" }
-        ]},
-        { id: "complex", name: "Complex Numbers", desc: "Imaginary numbers", topics: [
-          { name: "Algebra of Complex Numbers", desc: "Addition, Multiplication, Division" },
-          { name: "Argand Plane & Modulus", desc: "Polar form, De Moivre's theorem" },
-          { name: "Roots of Unity", desc: "nth roots, their properties" }
-        ]}
-      ]}
-    ]
-  },
-
-  udaycommerce2027: {
-    name: "Uday Commerce 2027", emoji: "💼",
-    color: "#a78bfa",
-    subjects: [
-      { id: "accounts", name: "Accountancy", icon: "📒", desc: "Financial Accounting", chapters: [
-        { id: "basic-acc", name: "Basic Accounting", desc: "Fundamentals of accounting", topics: [
-          { name: "Accounting Equation", desc: "Assets = Liabilities + Capital" },
-          { name: "Journal Entries", desc: "Debit & Credit rules" },
-          { name: "Ledger Posting", desc: "T-accounts and balancing" },
-          { name: "Trial Balance", desc: "Preparation and purpose" }
-        ]},
-        { id: "fs", name: "Financial Statements", desc: "P&L and Balance Sheet", topics: [
-          { name: "Trading & P&L Account", desc: "Gross profit, Net profit" },
-          { name: "Balance Sheet", desc: "Assets, Liabilities layout" },
-          { name: "Cash Flow Statement", desc: "Operating, Investing, Financing" }
-        ]}
-      ]},
-      { id: "bst", name: "Business Studies", icon: "🏢", desc: "Management & Business", chapters: [
-        { id: "mgmt", name: "Management Principles", desc: "Taylor & Fayol", topics: [
-          { name: "Functions of Management", desc: "Planning, Organizing, Directing, Controlling" },
-          { name: "Taylor's Scientific Management", desc: "Principles and techniques" },
-          { name: "Fayol's Principles", desc: "14 principles of management" }
-        ]},
-        { id: "marketing", name: "Marketing", desc: "4Ps and Consumer behavior", topics: [
-          { name: "Marketing Mix 4P", desc: "Product, Price, Place, Promotion" },
-          { name: "Consumer Protection", desc: "COPRA, Consumer Rights" }
-        ]}
-      ]},
-      { id: "eco", name: "Economics", icon: "📈", desc: "Micro & Macro Economics", chapters: [
-        { id: "micro", name: "Microeconomics", desc: "Demand, Supply, Market", topics: [
-          { name: "Law of Demand", desc: "Demand curve, Elasticity" },
-          { name: "Law of Supply", desc: "Supply schedule, Producer surplus" },
-          { name: "Market Equilibrium", desc: "Demand-supply equilibrium" },
-          { name: "Market Structures", desc: "Perfect, Monopoly, Oligopoly" }
-        ]},
-        { id: "macro", name: "Macroeconomics", desc: "GDP, Money, Banking", topics: [
-          { name: "National Income (GDP)", desc: "Methods of calculation" },
-          { name: "Money & Banking", desc: "Functions of RBI, Credit creation" },
-          { name: "Government Budget", desc: "Fiscal deficit, Revenue, Capital" }
-        ]}
-      ]}
-    ]
-  },
-
-  lakshyajee2027: {
-    name: "Lakshya JEE 2027", emoji: "🎯",
-    color: "#e94560",
-    subjects: [
-      { id: "lj-phy", name: "Physics", icon: "⚡", desc: "Advanced JEE Physics", chapters: [
-        { id: "rotation", name: "Rotational Motion", desc: "Torque, MOI, Angular momentum", topics: [
-          { name: "Moment of Inertia", desc: "Parallel & Perpendicular axis theorems" },
-          { name: "Torque & Angular Momentum", desc: "Conservation laws" },
-          { name: "Rolling Motion", desc: "Pure rolling, Slipping conditions" }
-        ]},
-        { id: "fluid", name: "Fluid Mechanics", desc: "Pressure, Flow, Bernoulli", topics: [
-          { name: "Pressure & Pascal's Law", desc: "Hydrostatic pressure" },
-          { name: "Bernoulli's Theorem", desc: "Applications in real life" },
-          { name: "Viscosity & Surface Tension", desc: "Stokes law, Capillarity" }
-        ]}
-      ]},
-      { id: "lj-math", name: "Mathematics", icon: "📐", desc: "Advanced JEE Maths", chapters: [
-        { id: "prob", name: "Probability", desc: "Classical & Modern", topics: [
-          { name: "Classical Probability", desc: "Sample space, Events, Favorable outcomes" },
-          { name: "Conditional Probability", desc: "Bayes' theorem, Total probability" },
-          { name: "Binomial Distribution", desc: "Mean, Variance, Applications" }
-        ]},
-        { id: "vec", name: "Vectors", desc: "Vector algebra", topics: [
-          { name: "Dot Product", desc: "Projection, Angle between vectors" },
-          { name: "Cross Product", desc: "Area of triangle, Torque" },
-          { name: "Triple Products", desc: "Scalar triple product, Volume" }
-        ]}
-      ]},
-      { id: "lj-chem", name: "Chemistry", icon: "⚗️", desc: "Advanced JEE Chem", chapters: [
-        { id: "thermo-chem", name: "Thermochemistry", desc: "Enthalpy & Entropy", topics: [
-          { name: "Hess's Law", desc: "Standard enthalpy of formation" },
-          { name: "Bond Enthalpy", desc: "Breaking & forming bonds" },
-          { name: "Gibbs Free Energy", desc: "Spontaneity of reactions" }
-        ]}
-      ]}
-    ]
-  },
-
-  lakshyaneet2027: {
-    name: "Lakshya NEET 2027", emoji: "🩺",
-    color: "#10b981",
-    subjects: [
-      { id: "ln-bio", name: "Biology", icon: "🧬", desc: "Advanced NEET Biology", chapters: [
-        { id: "human-phy", name: "Human Physiology", desc: "Body systems", topics: [
-          { name: "Digestive System", desc: "Organs, Enzymes, Absorption" },
-          { name: "Circulatory System", desc: "Heart, Blood vessels, ECG" },
-          { name: "Nervous System", desc: "Neurons, Brain, Reflexes" },
-          { name: "Endocrine System", desc: "Hormones and their functions" },
-          { name: "Excretory System", desc: "Kidney, Nephron, Urine formation" }
-        ]},
-        { id: "plant", name: "Plant Physiology", desc: "Plant life processes", topics: [
-          { name: "Photosynthesis - Light Reactions", desc: "Chlorophyll, Photosystems I & II" },
-          { name: "Calvin Cycle (Dark Reaction)", desc: "CO2 fixation, RuBisCO" },
-          { name: "Transpiration & Water movement", desc: "Stomata, Ascent of sap" },
-          { name: "Plant Growth Hormones", desc: "Auxin, Gibberellin, Cytokinin" }
-        ]}
-      ]},
-      { id: "ln-chem", name: "Chemistry", icon: "⚗️", desc: "NEET Chemistry Advanced", chapters: [
-        { id: "pblock", name: "p-Block Elements", desc: "Groups 13-18", topics: [
-          { name: "Group 15 - Nitrogen family", desc: "N2, NH3, HNO3 preparation" },
-          { name: "Group 16 - Oxygen family", desc: "SO2, H2SO4, Ozone" },
-          { name: "Group 17 - Halogens", desc: "Cl2, HCl, Interhalogen compounds" },
-          { name: "Group 18 - Noble Gases", desc: "Properties and compounds" }
-        ]}
-      ]}
-    ]
-  },
-
-  parishramcommerce2027: {
-    name: "Parishram Commerce 2027", emoji: "📊",
-    color: "#f5a623",
-    subjects: [
-      { id: "adv-acc", name: "Advanced Accountancy", icon: "📊", desc: "Partnership & Company accounts", chapters: [
-        { id: "partnership", name: "Partnership Accounts", desc: "All partnership transactions", topics: [
-          { name: "Goodwill Valuation", desc: "Average profit, Super profit, Capitalisation" },
-          { name: "Admission of Partner", desc: "Revaluation, New profit ratio" },
-          { name: "Retirement of Partner", desc: "Gaining ratio, Settlement" },
-          { name: "Death of Partner", desc: "Executor's account, Final settlement" },
-          { name: "Dissolution of Firm", desc: "Realisation account, Garner vs Murray" }
-        ]},
-        { id: "company-acc", name: "Company Accounts", desc: "Share capital & Debentures", topics: [
-          { name: "Issue of Shares", desc: "At par, Premium, Discount, Forfeiture" },
-          { name: "Issue of Debentures", desc: "Types, Redemption methods" },
-          { name: "Financial Statement Analysis", desc: "Ratio analysis, Comparative statements" }
-        ]}
-      ]},
-      { id: "adv-eco", name: "Economics", icon: "📈", desc: "Advanced Economics", chapters: [
-        { id: "growth", name: "Economic Development", desc: "India's growth story", topics: [
-          { name: "Indian Economy Pre-liberalisation", desc: "1947-1991 economic policies" },
-          { name: "LPG Reforms 1991", desc: "Liberalisation, Privatisation, Globalisation" },
-          { name: "Current Economic Issues", desc: "Inflation, Unemployment, Poverty" }
-        ]}
-      ]},
-      { id: "ca-found", name: "CA Foundation Basics", icon: "🎓", desc: "CA Foundation preparation", chapters: [
-        { id: "law", name: "Business Law", desc: "Indian Contract & Company Law", topics: [
-          { name: "Indian Contract Act 1872", desc: "Offer, Acceptance, Consideration" },
-          { name: "Sale of Goods Act", desc: "Conditions, Warranties, Rights" },
-          { name: "Companies Act Basics", desc: "Types of companies, Incorporation" }
-        ]}
-      ]}
-    ]
+ 
+<!-- FIREBASE SDK -->
+<script type="module">
+import{initializeApp}from"https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import{getAuth,createUserWithEmailAndPassword,signInWithEmailAndPassword,signOut,
+  onAuthStateChanged,updateProfile,GoogleAuthProvider,signInWithPopup,sendPasswordResetEmail
+}from"https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import{getDatabase,ref,set,get,onValue,serverTimestamp
+}from"https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+ 
+const app=initializeApp(ADMIN_CONFIG.firebase);
+const auth=getAuth(app);
+const db=getDatabase(app);
+const gp=new GoogleAuthProvider();
+ 
+// Set social links from config (no popup needed)
+document.getElementById('lnk-tg').href=ADMIN_CONFIG.telegram;
+document.getElementById('lnk-wa').href=ADMIN_CONFIG.whatsapp;
+document.getElementById('lnk-ig').href=ADMIN_CONFIG.instagram;
+ 
+// Auth state listener
+onAuthStateChanged(auth,async u=>{
+  if(u){
+    const isAdmin=u.email===ADMIN_CONFIG.adminEmail;
+    document.getElementById('nav-login-btn').style.display='none';
+    const chip=document.getElementById('user-chip');
+    chip.style.display='flex';
+    document.getElementById('chip-name').textContent=u.displayName||u.email.split('@')[0];
+    if(isAdmin){
+      document.getElementById('admin-btn').style.display='inline-block';
+      document.getElementById('admin-user-label').textContent='Logged in as: '+u.email+' (Admin)';
+      loadAdminData();
+    }
+    const today=new Date().toISOString().split('T')[0];
+    await set(ref(db,`users/${u.uid}`),{
+      name:u.displayName||'User',email:u.email,uid:u.uid,
+      joined:u.metadata.creationTime,lastLogin:new Date().toISOString(),
+      loginDate:today,photo:u.photoURL||''
+    });
+    tgNotify(`🔔 *New Login*\n👤 ${u.displayName||'User'}\n📧 ${u.email}\n📅 ${new Date().toLocaleString('hi-IN')}`);
+  }else{
+    document.getElementById('nav-login-btn').style.display='inline-block';
+    document.getElementById('user-chip').style.display='none';
+    document.getElementById('admin-btn').style.display='none';
   }
+});
+ 
+// LOGIN
+window.doLogin=async()=>{
+  const em=document.getElementById('l-em').value.trim();
+  const pw=document.getElementById('l-pw').value;
+  const err=document.getElementById('l-err');
+  const btn=document.getElementById('l-btn');
+  err.style.display='none';
+  if(!em||!pw){err.textContent='Email aur password bharo';err.style.display='block';return}
+  btn.innerHTML='<span class="spin"></span>Logging in...';btn.disabled=true;
+  try{
+    await signInWithEmailAndPassword(auth,em,pw);
+    showToast('✅ Login ho gaye!');closeLogin();
+  }catch(e){
+    err.textContent=e.code==='auth/wrong-password'?'❌ Password galat hai':
+      e.code==='auth/user-not-found'?'❌ Email registered nahi hai':
+      e.code==='auth/too-many-requests'?'❌ Bahut zyada attempts. Baad mein try karo':'❌ '+e.message;
+    err.style.display='block';
+  }
+  btn.innerHTML='🚀 Login करें';btn.disabled=false;
 };
-
-// ═══════════════════════════════════════════════
-//  STATE
-// ═══════════════════════════════════════════════
-let state = { courseId: null, subjectIdx: null, chapterIdx: null, topicIdx: null };
-
-// ═══════════════════════════════════════════════
-//  PAGE ROUTING
-// ═══════════════════════════════════════════════
-function showPage(name) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.getElementById('page-' + name).classList.add('active');
-  window.scrollTo(0,0);
+ 
+// SIGNUP
+window.doSignup=async()=>{
+  const nm=document.getElementById('s-nm').value.trim();
+  const em=document.getElementById('s-em').value.trim();
+  const pw=document.getElementById('s-pw').value;
+  const err=document.getElementById('s-err');
+  const btn=document.getElementById('s-btn');
+  err.style.display='none';
+  if(!nm||!em||!pw){err.textContent='Sab fields bharo';err.style.display='block';return}
+  if(pw.length<6){err.textContent='Password kam se kam 6 characters ka hona chahiye';err.style.display='block';return}
+  btn.innerHTML='<span class="spin"></span>Creating...';btn.disabled=true;
+  try{
+    const c=await createUserWithEmailAndPassword(auth,em,pw);
+    await updateProfile(c.user,{displayName:nm});
+    showToast('🎉 Account ban gaya! Welcome '+nm);closeLogin();
+  }catch(e){
+    err.textContent=e.code==='auth/email-already-in-use'?'❌ Yeh email pehle se registered hai':'❌ '+e.message;
+    err.style.display='block';
+  }
+  btn.innerHTML='✨ Account बनाएं';btn.disabled=false;
+};
+ 
+// GOOGLE
+window.doGoogle=async()=>{
+  try{await signInWithPopup(auth,gp);showToast('✅ Google login successful!');closeLogin();}
+  catch(e){showToast('❌ Google login fail: '+e.message,true);}
+};
+ 
+// LOGOUT
+window.doLogout=async()=>{await signOut(auth);showToast('👋 Logout ho gaye');goHome();};
+ 
+// RESET
+window.doReset=async()=>{
+  const em=document.getElementById('l-em').value.trim();
+  if(!em){alert('Email field mein email bharo pehle');return}
+  try{await sendPasswordResetEmail(auth,em);showToast('📧 Reset email bhej diya!');}
+  catch(e){showToast('❌ '+e.message,true);}
+};
+ 
+// GET VIDEO URL
+window.getVidUrl=async(cId,sI,chI,tI)=>{
+  const k=`${cId}_${sI}_${chI}_${tI}`;
+  try{const s=await get(ref(db,`videos/${k}`));return s.exists()?s.val().url:null;}
+  catch{return null;}
+};
+ 
+// LOAD ADMIN DATA
+function loadAdminData(){
+  // Users realtime
+  onValue(ref(db,'users'),snap=>{
+    const d=snap.val()||{};const rows=Object.values(d);
+    document.getElementById('st-users').textContent=rows.length;
+    const today=new Date().toISOString().split('T')[0];
+    document.getElementById('st-today').textContent=rows.filter(u=>u.loginDate===today).length;
+    const tb=document.getElementById('adm-users');
+    if(!rows.length){tb.innerHTML='<tr><td colspan="5" style="color:var(--text-muted)">Koi user nahi abhi</td></tr>';return;}
+    tb.innerHTML=rows.sort((a,b)=>new Date(b.lastLogin)-new Date(a.lastLogin)).map(u=>`
+      <tr>
+        <td style="font-weight:700">${u.name||'–'}</td>
+        <td style="color:var(--text-muted);font-size:.8rem">${u.email}</td>
+        <td style="color:var(--text-muted);font-size:.78rem">${u.joined?new Date(u.joined).toLocaleDateString('hi-IN'):'-'}</td>
+        <td style="color:var(--teal);font-size:.78rem">${u.lastLogin?new Date(u.lastLogin).toLocaleString('hi-IN',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}):'-'}</td>
+        <td>${u.loginDate===today?'<span class="dot-on"></span><span style="color:#10b981;font-size:.78rem">Today</span>':'<span style="color:var(--text-muted);font-size:.78rem">Offline</span>'}</td>
+      </tr>`).join('');
+  });
+  // Videos realtime
+  onValue(ref(db,'videos'),snap=>{
+    const d=snap.val()||{};const entries=Object.entries(d).filter(([,v])=>v);
+    document.getElementById('st-vids').textContent=entries.length;
+    const el=document.getElementById('adm-vid-list');
+    if(!entries.length){el.innerHTML='<p style="color:var(--text-muted)">Koi video upload nahi hui abhi</p>';return;}
+    el.innerHTML=entries.slice(-30).reverse().map(([id,v])=>`
+      <div class="vid-item">
+        <div><div class="vname">🎬 ${v.topicName||'Unknown'}</div>
+          <div class="vmeta">${v.courseName||''} › ${v.subjectName||''} › ${v.chapterName||''}</div></div>
+        <div style="display:flex;gap:.5rem;align-items:center">
+          <a href="${v.url}" target="_blank" style="color:var(--teal);font-size:.8rem;font-weight:700;white-space:nowrap">▶ Play</a>
+          <button class="btn-del" onclick="admDel('${id}')">🗑</button>
+        </div>
+      </div>`).join('');
+  });
+  // Fill course dropdown
+  admInitDropdowns();
 }
-
-function scrollToCourses() {
-  showPage('home');
-  setTimeout(() => document.getElementById('courses-anchor').scrollIntoView({behavior:'smooth'}), 100);
+ 
+function admInitDropdowns(){
+  const cel=document.getElementById('adm-c');
+  cel.innerHTML='<option value="">📚 Course</option>';
+  Object.entries(COURSES).forEach(([id,c])=>cel.innerHTML+=`<option value="${id}">${c.name}</option>`);
 }
-
-// ═══════════════════════════════════════════════
-//  COURSE → SUBJECTS
-// ═══════════════════════════════════════════════
-function openCourse(courseId) {
-  state.courseId = courseId;
-  const course = COURSES[courseId];
-  document.getElementById('subject-page-title').textContent = course.name;
-  document.getElementById('subject-page-subtitle').textContent = 'Subject select करें';
-  document.getElementById('bc-course').textContent = course.name;
-  document.getElementById('bc-course2').textContent = course.name;
-  document.getElementById('bc-course3').textContent = course.name;
-  document.getElementById('bc-course4').textContent = course.name;
-
-  const container = document.getElementById('subjects-container');
-  container.innerHTML = '';
-  course.subjects.forEach((sub, idx) => {
-    const card = document.createElement('div');
-    card.className = 'subject-card';
-    card.innerHTML = `
-      <div class="icon">${sub.icon}</div>
-      <h3>${sub.name}</h3>
-      <p>${sub.desc}</p>
-      <p style="font-size:0.8rem;color:var(--text-muted);">📂 ${sub.chapters.length} Chapters</p>
-      <div class="arrow-badge">Chapters देखें →</div>
-    `;
-    card.style.borderLeft = '4px solid ' + course.color;
-    card.onclick = () => openSubject(idx);
-    container.appendChild(card);
+window.admFillSub=function(){
+  const cId=document.getElementById('adm-c').value;
+  const sel=document.getElementById('adm-s');
+  sel.innerHTML='<option value="">📖 Subject</option>';
+  document.getElementById('adm-ch').innerHTML='<option value="">📂 Chapter</option>';
+  document.getElementById('adm-tp').innerHTML='<option value="">🎬 Topic</option>';
+  if(cId) COURSES[cId].subjects.forEach((s,i)=>sel.innerHTML+=`<option value="${i}">${s.name}</option>`);
+};
+window.admFillCh=function(){
+  const cId=document.getElementById('adm-c').value;
+  const sI=parseInt(document.getElementById('adm-s').value);
+  const cel=document.getElementById('adm-ch');
+  cel.innerHTML='<option value="">📂 Chapter</option>';
+  document.getElementById('adm-tp').innerHTML='<option value="">🎬 Topic</option>';
+  if(cId&&!isNaN(sI)) COURSES[cId].subjects[sI].chapters.forEach((ch,i)=>cel.innerHTML+=`<option value="${i}">${ch.name}</option>`);
+};
+window.admFillTp=function(){
+  const cId=document.getElementById('adm-c').value;
+  const sI=parseInt(document.getElementById('adm-s').value);
+  const chI=parseInt(document.getElementById('adm-ch').value);
+  const tel=document.getElementById('adm-tp');
+  tel.innerHTML='<option value="">🎬 Topic</option>';
+  if(cId&&!isNaN(sI)&&!isNaN(chI)) COURSES[cId].subjects[sI].chapters[chI].topics.forEach((t,i)=>tel.innerHTML+=`<option value="${i}">${t.name}</option>`);
+};
+ 
+// UPLOAD VIDEO
+window.admUpload=async()=>{
+  const cId=document.getElementById('adm-c').value;
+  const sI=parseInt(document.getElementById('adm-s').value);
+  const chI=parseInt(document.getElementById('adm-ch').value);
+  const tI=parseInt(document.getElementById('adm-tp').value);
+  const url=document.getElementById('adm-url').value.trim();
+  if(!cId||isNaN(sI)||isNaN(chI)||isNaN(tI)||!url){showToast('❌ Sab fields bharo aur link dalo',true);return}
+  const c=COURSES[cId],s=c.subjects[sI],ch=s.chapters[chI],t=ch.topics[tI];
+  await set(ref(db,`videos/${cId}_${sI}_${chI}_${tI}`),{
+    url,courseId:cId,courseName:c.name,subjectIdx:sI,subjectName:s.name,
+    chapterIdx:chI,chapterName:ch.name,topicIdx:tI,topicName:t.name,
+    uploadedAt:new Date().toISOString()
+  });
+  tgNotify(`✅ *Video Upload Hua!*\n📚 ${c.name}\n📖 ${s.name} › ${ch.name}\n🎬 ${t.name}\n🔗 ${url}`);
+  showToast('✅ Video upload ho gayi!');
+  document.getElementById('adm-url').value='';
+};
+ 
+// DELETE VIDEO
+window.admDel=async(id)=>{
+  if(!confirm('Delete karna chahte ho?'))return;
+  await set(ref(db,`videos/${id}`),null);
+  showToast('🗑 Video delete ho gayi');
+};
+ 
+// TELEGRAM NOTIFY
+function tgNotify(msg){
+  if(!ADMIN_CONFIG.botToken||ADMIN_CONFIG.botToken.includes('YOUR_BOT'))return;
+  fetch(`https://api.telegram.org/bot${ADMIN_CONFIG.botToken}/sendMessage`,{
+    method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({chat_id:ADMIN_CONFIG.botChatId,text:msg,parse_mode:'Markdown'})
+  }).catch(()=>{});
+}
+ 
+// AUTH GUARD
+window.goCourse=function(cId){
+  if(!auth.currentUser){document.getElementById('auth-wall').classList.add('show');return}
+  openCourse(cId);
+};
+window.closeAuthWall=function(){document.getElementById('auth-wall').classList.remove('show')};
+</script>
+ 
+<!-- MAIN SCRIPT -->
+<script>
+const COURSES={
+  udaan2027:{name:"Udaan 2027",emoji:"🕊️",color:"#e94560",subjects:[
+    {name:"Physics",icon:"⚡",desc:"Mechanics, Thermodynamics, Optics",chapters:[
+      {name:"Mechanics",desc:"Force, Motion, Energy",topics:[
+        {name:"Newton's Laws of Motion",desc:"तीनों नियम और applications"},
+        {name:"Work, Energy & Power",desc:"Work-Energy theorem"},
+        {name:"Circular Motion",desc:"Uniform & Non-uniform"},
+        {name:"Gravitation",desc:"Kepler's laws, Satellites"}]},
+      {name:"Thermodynamics",desc:"Heat & Temperature",topics:[
+        {name:"First Law of Thermodynamics",desc:"Heat & Internal Energy"},
+        {name:"Second Law & Entropy",desc:"Carnot Engine, Efficiency"},
+        {name:"Kinetic Theory of Gases",desc:"Ideal gas behavior"}]},
+      {name:"Optics",desc:"Light, Reflection, Refraction",topics:[
+        {name:"Reflection of Light",desc:"Mirrors & Image formation"},
+        {name:"Refraction & Lenses",desc:"Snell's law, Lens formula"},
+        {name:"Wave Optics",desc:"Interference, Diffraction"}]}]},
+    {name:"Chemistry",icon:"⚗️",desc:"Physical, Organic, Inorganic",chapters:[
+      {name:"Physical Chemistry",desc:"Atoms, Moles, Solutions",topics:[
+        {name:"Atomic Structure",desc:"Bohr model, Quantum numbers"},
+        {name:"Chemical Equilibrium",desc:"Le Chatelier's principle"},
+        {name:"Electrochemistry",desc:"Cells, Nernst equation"}]},
+      {name:"Organic Chemistry",desc:"Carbon compounds",topics:[
+        {name:"Hydrocarbons",desc:"Alkanes, Alkenes, Alkynes"},
+        {name:"Functional Groups",desc:"Alcohols, Aldehydes, Ketones"},
+        {name:"Biomolecules",desc:"Carbohydrates, Proteins, Lipids"}]},
+      {name:"Inorganic Chemistry",desc:"Periodic table & reactions",topics:[
+        {name:"Periodic Table Trends",desc:"IE, EA, Electronegativity"},
+        {name:"Chemical Bonding",desc:"Ionic, Covalent, Metallic bonds"},
+        {name:"Coordination Compounds",desc:"Werner's theory, IUPAC"}]}]},
+    {name:"Mathematics",icon:"📐",desc:"Algebra, Calculus, Geometry",chapters:[
+      {name:"Algebra",desc:"Equations & Functions",topics:[
+        {name:"Quadratic Equations",desc:"Roots, Discriminant, Nature"},
+        {name:"Sequences & Series",desc:"AP, GP, HP"},
+        {name:"Permutation & Combination",desc:"nPr, nCr, Binomial theorem"}]},
+      {name:"Calculus",desc:"Limits, Derivatives, Integrals",topics:[
+        {name:"Limits & Continuity",desc:"L'Hopital, Sandwich theorem"},
+        {name:"Differentiation",desc:"Chain rule, Product rule"},
+        {name:"Integration",desc:"By parts, Substitution method"}]}]}]},
+ 
+  arjunaneet2027:{name:"Arjuna NEET 2027",emoji:"🎯",color:"#0f9b8e",subjects:[
+    {name:"Biology",icon:"🧬",desc:"Botany + Zoology",chapters:[
+      {name:"Cell Biology",desc:"Structure, Function, Division",topics:[
+        {name:"Cell Structure & Organelles",desc:"Nucleus, Mitochondria, Ribosomes"},
+        {name:"Cell Division - Mitosis",desc:"Phases of Mitosis in detail"},
+        {name:"Cell Division - Meiosis",desc:"Meiosis I & II, Significance"},
+        {name:"Cell Membrane & Transport",desc:"Osmosis, Diffusion, Active transport"}]},
+      {name:"Genetics",desc:"Heredity and Variation",topics:[
+        {name:"Mendel's Laws",desc:"Law of segregation, Independent assortment"},
+        {name:"DNA Structure & Replication",desc:"Double helix, Semi-conservative"},
+        {name:"Genetic Disorders",desc:"Down syndrome, Sickle cell, Haemophilia"}]},
+      {name:"Ecology",desc:"Environment & Ecosystems",topics:[
+        {name:"Ecosystem & Food Chain",desc:"Producers, Consumers, Decomposers"},
+        {name:"Biodiversity & Conservation",desc:"Hotspots, Ex-situ, In-situ"},
+        {name:"Environmental Pollution",desc:"Air, Water, Soil pollution"}]}]},
+    {name:"Physics",icon:"⚡",desc:"NEET level Physics",chapters:[
+      {name:"Electrostatics",desc:"Coulomb's law, Fields",topics:[
+        {name:"Coulomb's Law",desc:"Electric force between charges"},
+        {name:"Electric Field & Potential",desc:"Field lines, Equipotential surfaces"},
+        {name:"Capacitors",desc:"Capacitance, Energy stored"}]},
+      {name:"Modern Physics",desc:"Quantum & Nuclear",topics:[
+        {name:"Photoelectric Effect",desc:"Einstein's explanation, Work function"},
+        {name:"Nuclear Physics",desc:"Fission, Fusion, Radioactivity"},
+        {name:"Semiconductor Devices",desc:"Diode, Transistor, Logic gates"}]}]},
+    {name:"Chemistry",icon:"⚗️",desc:"NEET Chemistry",chapters:[
+      {name:"Biomolecules",desc:"Life's molecules",topics:[
+        {name:"Carbohydrates Classification",desc:"Monosaccharides, Polysaccharides"},
+        {name:"Proteins & Amino Acids",desc:"Primary to Quaternary structure"},
+        {name:"Vitamins & Hormones",desc:"Fat & Water soluble vitamins"}]},
+      {name:"Surface Chemistry",desc:"Colloids & Catalysis",topics:[
+        {name:"Adsorption",desc:"Physisorption vs Chemisorption"},
+        {name:"Colloids",desc:"Types, Tyndall effect, Coagulation"}]}]}]},
+ 
+  arjunajee2027:{name:"Arjuna JEE 2027",emoji:"⚡",color:"#f5a623",subjects:[
+    {name:"Physics",icon:"⚡",desc:"JEE level Physics",chapters:[
+      {name:"Waves & Sound",desc:"SHM, Wave motion",topics:[
+        {name:"Simple Harmonic Motion",desc:"Amplitude, Frequency, Phase"},
+        {name:"Wave Equation & Properties",desc:"Speed, Wavelength, Superposition"},
+        {name:"Doppler Effect",desc:"Moving source & observer"},
+        {name:"Standing Waves",desc:"Nodes, Antinodes, Harmonics"}]},
+      {name:"Electromagnetism",desc:"Current, Magnetism, EMI",topics:[
+        {name:"Biot-Savart & Ampere Law",desc:"Magnetic field calculations"},
+        {name:"Faraday's Law of EMI",desc:"Lenz's law, Induced EMF"},
+        {name:"AC Circuits",desc:"LCR circuits, Resonance, Power factor"}]}]},
+    {name:"Chemistry",icon:"⚗️",desc:"JEE Chemistry",chapters:[
+      {name:"Stereochemistry",desc:"Isomers & Chirality",topics:[
+        {name:"Structural Isomers",desc:"Chain, Position, Functional isomers"},
+        {name:"Optical Isomers & Chirality",desc:"R/S configuration, Enantiomers"},
+        {name:"Geometric Isomers E/Z",desc:"cis-trans isomerism"}]},
+      {name:"Named Reactions",desc:"Important organic reactions",topics:[
+        {name:"Aldol Condensation",desc:"Mechanism and applications"},
+        {name:"Cannizzaro Reaction",desc:"Disproportionation of aldehydes"},
+        {name:"Grignard Reagent",desc:"Preparation and reactions"}]}]},
+    {name:"Mathematics",icon:"📐",desc:"JEE Mathematics",chapters:[
+      {name:"3D Geometry",desc:"Lines, Planes in 3D",topics:[
+        {name:"Direction Cosines & Ratios",desc:"Angles with coordinate axes"},
+        {name:"Equation of Line in 3D",desc:"Vector & Cartesian form"},
+        {name:"Equation of Plane",desc:"Normal vector, Distance from point"}]},
+      {name:"Complex Numbers",desc:"Imaginary numbers",topics:[
+        {name:"Algebra of Complex Numbers",desc:"Addition, Multiplication, Division"},
+        {name:"Argand Plane & Modulus",desc:"Polar form, De Moivre's theorem"},
+        {name:"Roots of Unity",desc:"nth roots, their properties"}]}]}]},
+ 
+  udaycommerce2027:{name:"Uday Commerce 2027",emoji:"💼",color:"#a78bfa",subjects:[
+    {name:"Accountancy",icon:"📒",desc:"Financial Accounting",chapters:[
+      {name:"Basic Accounting",desc:"Fundamentals of accounting",topics:[
+        {name:"Accounting Equation",desc:"Assets = Liabilities + Capital"},
+        {name:"Journal Entries",desc:"Debit & Credit rules"},
+        {name:"Ledger Posting",desc:"T-accounts and balancing"},
+        {name:"Trial Balance",desc:"Preparation and purpose"}]},
+      {name:"Financial Statements",desc:"P&L and Balance Sheet",topics:[
+        {name:"Trading & P&L Account",desc:"Gross profit, Net profit"},
+        {name:"Balance Sheet",desc:"Assets, Liabilities layout"},
+        {name:"Cash Flow Statement",desc:"Operating, Investing, Financing"}]}]},
+    {name:"Business Studies",icon:"🏢",desc:"Management & Business",chapters:[
+      {name:"Management Principles",desc:"Taylor & Fayol",topics:[
+        {name:"Functions of Management",desc:"Planning, Organizing, Directing, Controlling"},
+        {name:"Taylor's Scientific Management",desc:"Principles and techniques"},
+        {name:"Fayol's Principles",desc:"14 principles of management"}]},
+      {name:"Marketing",desc:"4Ps and Consumer behavior",topics:[
+        {name:"Marketing Mix 4P",desc:"Product, Price, Place, Promotion"},
+        {name:"Consumer Protection",desc:"COPRA, Consumer Rights"}]}]},
+    {name:"Economics",icon:"📈",desc:"Micro & Macro Economics",chapters:[
+      {name:"Microeconomics",desc:"Demand, Supply, Market",topics:[
+        {name:"Law of Demand",desc:"Demand curve, Elasticity"},
+        {name:"Law of Supply",desc:"Supply schedule, Producer surplus"},
+        {name:"Market Equilibrium",desc:"Demand-supply equilibrium"},
+        {name:"Market Structures",desc:"Perfect, Monopoly, Oligopoly"}]},
+      {name:"Macroeconomics",desc:"GDP, Money, Banking",topics:[
+        {name:"National Income (GDP)",desc:"Methods of calculation"},
+        {name:"Money & Banking",desc:"Functions of RBI, Credit creation"},
+        {name:"Government Budget",desc:"Fiscal deficit, Revenue, Capital"}]}]}]},
+ 
+  lakshyajee2027:{name:"Lakshya JEE 2027",emoji:"🎯",color:"#e94560",subjects:[
+    {name:"Physics",icon:"⚡",desc:"Advanced JEE Physics",chapters:[
+      {name:"Rotational Motion",desc:"Torque, MOI, Angular momentum",topics:[
+        {name:"Moment of Inertia",desc:"Parallel & Perpendicular axis theorems"},
+        {name:"Torque & Angular Momentum",desc:"Conservation laws"},
+        {name:"Rolling Motion",desc:"Pure rolling, Slipping conditions"}]},
+      {name:"Fluid Mechanics",desc:"Pressure, Flow, Bernoulli",topics:[
+        {name:"Pressure & Pascal's Law",desc:"Hydrostatic pressure"},
+        {name:"Bernoulli's Theorem",desc:"Applications in real life"},
+        {name:"Viscosity & Surface Tension",desc:"Stokes law, Capillarity"}]}]},
+    {name:"Mathematics",icon:"📐",desc:"Advanced JEE Maths",chapters:[
+      {name:"Probability",desc:"Classical & Modern",topics:[
+        {name:"Classical Probability",desc:"Sample space, Events, Favorable outcomes"},
+        {name:"Conditional Probability",desc:"Bayes' theorem, Total probability"},
+        {name:"Binomial Distribution",desc:"Mean, Variance, Applications"}]},
+      {name:"Vectors",desc:"Vector algebra",topics:[
+        {name:"Dot Product",desc:"Projection, Angle between vectors"},
+        {name:"Cross Product",desc:"Area of triangle, Torque"},
+        {name:"Triple Products",desc:"Scalar triple product, Volume"}]}]},
+    {name:"Chemistry",icon:"⚗️",desc:"Advanced JEE Chem",chapters:[
+      {name:"Thermochemistry",desc:"Enthalpy & Entropy",topics:[
+        {name:"Hess's Law",desc:"Standard enthalpy of formation"},
+        {name:"Bond Enthalpy",desc:"Breaking & forming bonds"},
+        {name:"Gibbs Free Energy",desc:"Spontaneity of reactions"}]}]}]},
+ 
+  lakshyaneet2027:{name:"Lakshya NEET 2027",emoji:"🩺",color:"#10b981",subjects:[
+    {name:"Biology",icon:"🧬",desc:"Advanced NEET Biology",chapters:[
+      {name:"Human Physiology",desc:"Body systems",topics:[
+        {name:"Digestive System",desc:"Organs, Enzymes, Absorption"},
+        {name:"Circulatory System",desc:"Heart, Blood vessels, ECG"},
+        {name:"Nervous System",desc:"Neurons, Brain, Reflexes"},
+        {name:"Endocrine System",desc:"Hormones and their functions"},
+        {name:"Excretory System",desc:"Kidney, Nephron, Urine formation"}]},
+      {name:"Plant Physiology",desc:"Plant life processes",topics:[
+        {name:"Photosynthesis - Light Reactions",desc:"Chlorophyll, Photosystems I & II"},
+        {name:"Calvin Cycle (Dark Reaction)",desc:"CO2 fixation, RuBisCO"},
+        {name:"Transpiration & Water movement",desc:"Stomata, Ascent of sap"},
+        {name:"Plant Growth Hormones",desc:"Auxin, Gibberellin, Cytokinin"}]}]},
+    {name:"Chemistry",icon:"⚗️",desc:"NEET Chemistry Advanced",chapters:[
+      {name:"p-Block Elements",desc:"Groups 13-18",topics:[
+        {name:"Group 15 - Nitrogen family",desc:"N2, NH3, HNO3 preparation"},
+        {name:"Group 16 - Oxygen family",desc:"SO2, H2SO4, Ozone"},
+        {name:"Group 17 - Halogens",desc:"Cl2, HCl, Interhalogen compounds"},
+        {name:"Group 18 - Noble Gases",desc:"Properties and compounds"}]}]}]},
+ 
+  parishramcommerce2027:{name:"Parishram Commerce 2027",emoji:"📊",color:"#f5a623",subjects:[
+    {name:"Advanced Accountancy",icon:"📊",desc:"Partnership & Company accounts",chapters:[
+      {name:"Partnership Accounts",desc:"All partnership transactions",topics:[
+        {name:"Goodwill Valuation",desc:"Average profit, Super profit, Capitalisation"},
+        {name:"Admission of Partner",desc:"Revaluation, New profit ratio"},
+        {name:"Retirement of Partner",desc:"Gaining ratio, Settlement"},
+        {name:"Death of Partner",desc:"Executor's account, Final settlement"},
+        {name:"Dissolution of Firm",desc:"Realisation account, Garner vs Murray"}]},
+      {name:"Company Accounts",desc:"Share capital & Debentures",topics:[
+        {name:"Issue of Shares",desc:"At par, Premium, Discount, Forfeiture"},
+        {name:"Issue of Debentures",desc:"Types, Redemption methods"},
+        {name:"Financial Statement Analysis",desc:"Ratio analysis, Comparative statements"}]}]},
+    {name:"Economics",icon:"📈",desc:"Advanced Economics",chapters:[
+      {name:"Economic Development",desc:"India's growth story",topics:[
+        {name:"Indian Economy Pre-liberalisation",desc:"1947-1991 economic policies"},
+        {name:"LPG Reforms 1991",desc:"Liberalisation, Privatisation, Globalisation"},
+        {name:"Current Economic Issues",desc:"Inflation, Unemployment, Poverty"}]}]},
+    {name:"CA Foundation Basics",icon:"🎓",desc:"CA Foundation preparation",chapters:[
+      {name:"Business Law",desc:"Indian Contract & Company Law",topics:[
+        {name:"Indian Contract Act 1872",desc:"Offer, Acceptance, Consideration"},
+        {name:"Sale of Goods Act",desc:"Conditions, Warranties, Rights"},
+        {name:"Companies Act Basics",desc:"Types of companies, Incorporation"}]}]}]}
+};
+ 
+let S={cId:null,sI:null,chI:null,tI:null};
+ 
+function showPage(n){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('page-'+n).classList.add('active');window.scrollTo(0,0)}
+function goHome(){showPage('home')}
+function scrollToCourses(){goHome();setTimeout(()=>document.getElementById('courses-anchor').scrollIntoView({behavior:'smooth'}),120)}
+ 
+function setBc(ids,val){ids.forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=val})}
+ 
+function openCourse(cId){
+  S.cId=cId;const c=COURSES[cId];
+  document.getElementById('sub-title').textContent=c.name;
+  document.getElementById('sub-sub').textContent='Subject select karo';
+  setBc(['bc1','bc2','bc4','bc7'],c.name);
+  const con=document.getElementById('sub-container');con.innerHTML='';
+  c.subjects.forEach((s,i)=>{
+    const d=document.createElement('div');d.className='sub-card';
+    d.style.borderLeft='4px solid '+c.color;
+    d.innerHTML=`<div class="icon">${s.icon}</div><h3>${s.name}</h3><p>${s.desc}</p><p style="font-size:.78rem;color:var(--text-muted)">📂 ${s.chapters.length} Chapters</p><div class="arr">Chapters देखें →</div>`;
+    d.onclick=()=>openSubject(i);con.appendChild(d);
   });
   showPage('subjects');
 }
-
-// ═══════════════════════════════════════════════
-//  SUBJECT → CHAPTERS
-// ═══════════════════════════════════════════════
-function openSubject(subjectIdx) {
-  state.subjectIdx = subjectIdx;
-  const course = COURSES[state.courseId];
-  const subject = course.subjects[subjectIdx];
-  document.getElementById('chapter-page-title').textContent = subject.name;
-  document.getElementById('chapter-page-subtitle').textContent = subject.desc;
-  document.getElementById('bc-subject').textContent = subject.name;
-  document.getElementById('bc-subject2').textContent = subject.name;
-  document.getElementById('bc-subject3').textContent = subject.name;
-
-  const container = document.getElementById('chapters-container');
-  container.innerHTML = '';
-  subject.chapters.forEach((ch, idx) => {
-    const card = document.createElement('div');
-    card.className = 'chapter-card';
-    card.innerHTML = `
-      <h3>📖 ${ch.name}</h3>
-      <p>${ch.desc}</p>
-      <p style="font-size:0.8rem;color:var(--text-muted);">🎬 ${ch.topics.length} Topics</p>
-      <div class="arrow-badge">Topics देखें →</div>
-    `;
-    card.style.borderTop = '3px solid ' + course.color;
-    card.onclick = () => openChapter(idx);
-    container.appendChild(card);
+ 
+function openSubject(sI){
+  S.sI=sI;const s=COURSES[S.cId].subjects[sI];
+  document.getElementById('ch-title').textContent=s.name;
+  document.getElementById('ch-sub').textContent=s.desc;
+  setBc(['bc3','bc5','bc8'],s.name);
+  const con=document.getElementById('ch-container');con.innerHTML='';
+  s.chapters.forEach((ch,i)=>{
+    const d=document.createElement('div');d.className='ch-card';
+    d.style.borderTop='3px solid '+COURSES[S.cId].color;
+    d.innerHTML=`<h3>📖 ${ch.name}</h3><p>${ch.desc}</p><p style="font-size:.78rem;color:var(--text-muted)">🎬 ${ch.topics.length} Topics</p><div class="arr">Topics देखें →</div>`;
+    d.onclick=()=>openChapter(i);con.appendChild(d);
   });
   showPage('chapters');
 }
-
-// ═══════════════════════════════════════════════
-//  CHAPTER → TOPICS
-// ═══════════════════════════════════════════════
-function openChapter(chapterIdx) {
-  state.chapterIdx = chapterIdx;
-  const course = COURSES[state.courseId];
-  const chapter = course.subjects[state.subjectIdx].chapters[chapterIdx];
-  document.getElementById('topic-page-title').textContent = chapter.name;
-  document.getElementById('topic-page-subtitle').textContent = chapter.desc;
-  document.getElementById('bc-chapter').textContent = chapter.name;
-  document.getElementById('bc-chapter2').textContent = chapter.name;
-
-  const container = document.getElementById('topics-container');
-  container.innerHTML = '';
-  chapter.topics.forEach((tp, idx) => {
-    const card = document.createElement('div');
-    card.className = 'topic-card';
-    card.innerHTML = `
-      <h3>🎬 ${tp.name}</h3>
-      <p>${tp.desc}</p>
-      <div class="arrow-badge" style="margin-top:0.5rem;">▶ Video देखें →</div>
-    `;
-    card.style.background = 'var(--card-bg)';
-    card.onclick = () => openTopic(idx);
-    container.appendChild(card);
+ 
+function openChapter(chI){
+  S.chI=chI;const ch=COURSES[S.cId].subjects[S.sI].chapters[chI];
+  document.getElementById('tp-title').textContent=ch.name;
+  document.getElementById('tp-sub').textContent=ch.desc;
+  setBc(['bc6','bc9'],ch.name);
+  const con=document.getElementById('tp-container');con.innerHTML='';
+  ch.topics.forEach((t,i)=>{
+    const d=document.createElement('div');d.className='tp-card';
+    d.innerHTML=`<h3>🎬 ${t.name}</h3><p>${t.desc}</p><div class="arr" style="margin-top:.4rem">▶ Video देखें →</div>`;
+    d.onclick=()=>openTopic(i);con.appendChild(d);
   });
   showPage('topics');
 }
-
-// ═══════════════════════════════════════════════
-//  TOPIC → VIDEO PAGE
-// ═══════════════════════════════════════════════
-function openTopic(topicIdx) {
-  state.topicIdx = topicIdx;
-  const course = COURSES[state.courseId];
-  const topic = course.subjects[state.subjectIdx].chapters[state.chapterIdx].topics[topicIdx];
-
-  document.getElementById('video-page-title').textContent = topic.name;
-  document.getElementById('video-page-subtitle').textContent = topic.desc;
-  document.getElementById('bc-topic').textContent = topic.name;
-  document.getElementById('video-topic-name').textContent = topic.name;
-  document.getElementById('video-topic-desc').textContent = topic.desc;
-
-  // Reset video
-  document.getElementById('video-iframe').style.display = 'none';
-  document.getElementById('video-placeholder').style.display = 'flex';
-  document.getElementById('video-url-input').value = '';
-
-  // Key points
-  const pts = [
-    'इस topic को ध्यान से पढ़ें और notes बनाएं',
-    'Video pause करके practice करें',
-    'Questions के लिए Telegram join करें',
-    'Chapter complete करने के बाद revision ज़रूरी है'
-  ];
-  const ul = document.getElementById('key-points-list');
-  ul.innerHTML = pts.map(p => `<li>${p}</li>`).join('');
-
+ 
+async function openTopic(tI){
+  S.tI=tI;
+  const t=COURSES[S.cId].subjects[S.sI].chapters[S.chI].topics[tI];
+  document.getElementById('vid-title').textContent=t.name;
+  document.getElementById('vid-sub').textContent=t.desc;
+  document.getElementById('bc10').textContent=t.name;
+  document.getElementById('vid-topic-name').textContent=t.name;
+  document.getElementById('vid-topic-desc').textContent=t.desc;
+  // Reset
+  const ifr=document.getElementById('vid-iframe');
+  ifr.style.display='none';ifr.src='';
+  document.getElementById('vid-placeholder').style.display='flex';
   showPage('video');
+  // Load video from Firebase
+  if(typeof getVidUrl==='function'){
+    const url=await getVidUrl(S.cId,S.sI,S.chI,tI);
+    if(url)embedVid(url);
+  }
 }
-
-// ═══════════════════════════════════════════════
-//  VIDEO LOADER
-// ═══════════════════════════════════════════════
-function loadVideo() {
-  let url = document.getElementById('video-url-input').value.trim();
-  if (!url) return;
-
-  let embedUrl = url;
-  // YouTube
-  const ytMatch = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
-  if (ytMatch) embedUrl = 'https://www.youtube.com/embed/' + ytMatch[1] + '?rel=0&autoplay=1';
-
-  // Google Drive
-  const gdMatch = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
-  if (gdMatch) embedUrl = 'https://drive.google.com/file/d/' + gdMatch[1] + '/preview';
-
-  const iframe = document.getElementById('video-iframe');
-  iframe.src = embedUrl;
-  iframe.style.display = 'block';
-  document.getElementById('video-placeholder').style.display = 'none';
+ 
+function embedVid(url){
+  let em=url;
+  const yt=url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+  if(yt)em='https://www.youtube.com/embed/'+yt[1]+'?rel=0&autoplay=1';
+  const gd=url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
+  if(gd)em='https://drive.google.com/file/d/'+gd[1]+'/preview';
+  const ifr=document.getElementById('vid-iframe');
+  ifr.src=em;ifr.style.display='block';
+  document.getElementById('vid-placeholder').style.display='none';
 }
-
-// ═══════════════════════════════════════════════
-//  LOGIN MODAL
-// ═══════════════════════════════════════════════
-function openLogin() { document.getElementById('login-modal').classList.add('open'); }
-function closeLogin() { document.getElementById('login-modal').classList.remove('open'); }
-function closeLoginOutside(e) { if(e.target === document.getElementById('login-modal')) closeLogin(); }
-function switchTab(tab) {
-  document.getElementById('login-form').style.display = tab === 'login' ? 'block' : 'none';
-  document.getElementById('signup-form').style.display = tab === 'signup' ? 'block' : 'none';
-  document.getElementById('tab-login').classList.toggle('active', tab === 'login');
-  document.getElementById('tab-signup').classList.toggle('active', tab === 'signup');
+ 
+function openLogin(){document.getElementById('login-modal').classList.add('open')}
+function closeLogin(){document.getElementById('login-modal').classList.remove('open')}
+function modalOutClick(e){if(e.target===document.getElementById('login-modal'))closeLogin()}
+function switchTab(t){
+  document.getElementById('f-login').style.display=t==='l'?'block':'none';
+  document.getElementById('f-signup').style.display=t==='s'?'block':'none';
+  document.getElementById('t-login').classList.toggle('active',t==='l');
+  document.getElementById('t-signup').classList.toggle('active',t==='s');
 }
-
-// ═══════════════════════════════════════════════
-//  SOCIAL LINKS UPDATE
-// ═══════════════════════════════════════════════
-function updateSocialLinks() {
-  const tg = document.getElementById('tg-input').value.trim();
-  const wa = document.getElementById('wa-input').value.trim();
-  const ig = document.getElementById('ig-input').value.trim();
-  if (tg) document.getElementById('link-telegram').href = tg;
-  if (wa) document.getElementById('link-whatsapp').href = wa;
-  if (ig) document.getElementById('link-instagram').href = ig;
-  alert('✅ Social links update हो गए!');
+ 
+function showToast(m,err=false){
+  const t=document.getElementById('toast');
+  t.textContent=m;t.style.background=err?'#e94560':'#10b981';
+  t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3200);
 }
+ 
+// Fallbacks if Firebase module not loaded yet
+window.getVidUrl=window.getVidUrl||(async()=>null);
+window.doLogin=window.doLogin||(()=>showToast('Firebase setup required',true));
+window.doSignup=window.doSignup||(()=>showToast('Firebase setup required',true));
+window.doGoogle=window.doGoogle||(()=>showToast('Firebase setup required',true));
+window.doLogout=window.doLogout||(()=>{});
+window.doReset=window.doReset||(()=>{});
 </script>
 </body>
 </html>
+ 
