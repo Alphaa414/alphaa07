@@ -802,206 +802,77 @@ window.closeAuthWall=function(){document.getElementById('auth-wall').classList.r
  
 <!-- MAIN SCRIPT -->
 <script>
-const COURSES={
-  udaan2027:{name:"Udaan 2027",emoji:"🕊️",color:"#e94560",subjects:[
-    {name:"Physics",icon:"⚡",desc:"Mechanics, Thermodynamics, Optics",chapters:[
-      {name:"Mechanics",desc:"Force, Motion, Energy",topics:[
-        {name:"Newton's Laws of Motion",desc:"तीनों नियम और applications"},
-        {name:"Work, Energy & Power",desc:"Work-Energy theorem"},
-        {name:"Circular Motion",desc:"Uniform & Non-uniform"},
-        {name:"Gravitation",desc:"Kepler's laws, Satellites"}]},
-      {name:"Thermodynamics",desc:"Heat & Temperature",topics:[
-        {name:"First Law of Thermodynamics",desc:"Heat & Internal Energy"},
-        {name:"Second Law & Entropy",desc:"Carnot Engine, Efficiency"},
-        {name:"Kinetic Theory of Gases",desc:"Ideal gas behavior"}]},
-      {name:"Optics",desc:"Light, Reflection, Refraction",topics:[
-        {name:"Reflection of Light",desc:"Mirrors & Image formation"},
-        {name:"Refraction & Lenses",desc:"Snell's law, Lens formula"},
-        {name:"Wave Optics",desc:"Interference, Diffraction"}]}]},
-    {name:"Chemistry",icon:"⚗️",desc:"Physical, Organic, Inorganic",chapters:[
-      {name:"Physical Chemistry",desc:"Atoms, Moles, Solutions",topics:[
-        {name:"Atomic Structure",desc:"Bohr model, Quantum numbers"},
-        {name:"Chemical Equilibrium",desc:"Le Chatelier's principle"},
-        {name:"Electrochemistry",desc:"Cells, Nernst equation"}]},
-      {name:"Organic Chemistry",desc:"Carbon compounds",topics:[
-        {name:"Hydrocarbons",desc:"Alkanes, Alkenes, Alkynes"},
-        {name:"Functional Groups",desc:"Alcohols, Aldehydes, Ketones"},
-        {name:"Biomolecules",desc:"Carbohydrates, Proteins, Lipids"}]},
-      {name:"Inorganic Chemistry",desc:"Periodic table & reactions",topics:[
-        {name:"Periodic Table Trends",desc:"IE, EA, Electronegativity"},
-        {name:"Chemical Bonding",desc:"Ionic, Covalent, Metallic bonds"},
-        {name:"Coordination Compounds",desc:"Werner's theory, IUPAC"}]}]},
-    {name:"Mathematics",icon:"📐",desc:"Algebra, Calculus, Geometry",chapters:[
-      {name:"Algebra",desc:"Equations & Functions",topics:[
-        {name:"Quadratic Equations",desc:"Roots, Discriminant, Nature"},
-        {name:"Sequences & Series",desc:"AP, GP, HP"},
-        {name:"Permutation & Combination",desc:"nPr, nCr, Binomial theorem"}]},
-      {name:"Calculus",desc:"Limits, Derivatives, Integrals",topics:[
-        {name:"Limits & Continuity",desc:"L'Hopital, Sandwich theorem"},
-        {name:"Differentiation",desc:"Chain rule, Product rule"},
-        {name:"Integration",desc:"By parts, Substitution method"}]}]}]},
- 
-  arjunaneet2027:{name:"Arjuna NEET 2027",emoji:"🎯",color:"#0f9b8e",subjects:[
-    {name:"Biology",icon:"🧬",desc:"Botany + Zoology",chapters:[
-      {name:"Cell Biology",desc:"Structure, Function, Division",topics:[
-        {name:"Cell Structure & Organelles",desc:"Nucleus, Mitochondria, Ribosomes"},
-        {name:"Cell Division - Mitosis",desc:"Phases of Mitosis in detail"},
-        {name:"Cell Division - Meiosis",desc:"Meiosis I & II, Significance"},
-        {name:"Cell Membrane & Transport",desc:"Osmosis, Diffusion, Active transport"}]},
-      {name:"Genetics",desc:"Heredity and Variation",topics:[
-        {name:"Mendel's Laws",desc:"Law of segregation, Independent assortment"},
-        {name:"DNA Structure & Replication",desc:"Double helix, Semi-conservative"},
-        {name:"Genetic Disorders",desc:"Down syndrome, Sickle cell, Haemophilia"}]},
-      {name:"Ecology",desc:"Environment & Ecosystems",topics:[
-        {name:"Ecosystem & Food Chain",desc:"Producers, Consumers, Decomposers"},
-        {name:"Biodiversity & Conservation",desc:"Hotspots, Ex-situ, In-situ"},
-        {name:"Environmental Pollution",desc:"Air, Water, Soil pollution"}]}]},
-    {name:"Physics",icon:"⚡",desc:"NEET level Physics",chapters:[
-      {name:"Electrostatics",desc:"Coulomb's law, Fields",topics:[
-        {name:"Coulomb's Law",desc:"Electric force between charges"},
-        {name:"Electric Field & Potential",desc:"Field lines, Equipotential surfaces"},
-        {name:"Capacitors",desc:"Capacitance, Energy stored"}]},
-      {name:"Modern Physics",desc:"Quantum & Nuclear",topics:[
-        {name:"Photoelectric Effect",desc:"Einstein's explanation, Work function"},
-        {name:"Nuclear Physics",desc:"Fission, Fusion, Radioactivity"},
-        {name:"Semiconductor Devices",desc:"Diode, Transistor, Logic gates"}]}]},
-    {name:"Chemistry",icon:"⚗️",desc:"NEET Chemistry",chapters:[
-      {name:"Biomolecules",desc:"Life's molecules",topics:[
-        {name:"Carbohydrates Classification",desc:"Monosaccharides, Polysaccharides"},
-        {name:"Proteins & Amino Acids",desc:"Primary to Quaternary structure"},
-        {name:"Vitamins & Hormones",desc:"Fat & Water soluble vitamins"}]},
-      {name:"Surface Chemistry",desc:"Colloids & Catalysis",topics:[
-        {name:"Adsorption",desc:"Physisorption vs Chemisorption"},
-        {name:"Colloids",desc:"Types, Tyndall effect, Coagulation"}]}]}]},
- 
-  arjunajee2027:{name:"Arjuna JEE 2027",emoji:"⚡",color:"#f5a623",subjects:[
-    {name:"Physics",icon:"⚡",desc:"JEE level Physics",chapters:[
-      {name:"Waves & Sound",desc:"SHM, Wave motion",topics:[
-        {name:"Simple Harmonic Motion",desc:"Amplitude, Frequency, Phase"},
-        {name:"Wave Equation & Properties",desc:"Speed, Wavelength, Superposition"},
-        {name:"Doppler Effect",desc:"Moving source & observer"},
-        {name:"Standing Waves",desc:"Nodes, Antinodes, Harmonics"}]},
-      {name:"Electromagnetism",desc:"Current, Magnetism, EMI",topics:[
-        {name:"Biot-Savart & Ampere Law",desc:"Magnetic field calculations"},
-        {name:"Faraday's Law of EMI",desc:"Lenz's law, Induced EMF"},
-        {name:"AC Circuits",desc:"LCR circuits, Resonance, Power factor"}]}]},
-    {name:"Chemistry",icon:"⚗️",desc:"JEE Chemistry",chapters:[
-      {name:"Stereochemistry",desc:"Isomers & Chirality",topics:[
-        {name:"Structural Isomers",desc:"Chain, Position, Functional isomers"},
-        {name:"Optical Isomers & Chirality",desc:"R/S configuration, Enantiomers"},
-        {name:"Geometric Isomers E/Z",desc:"cis-trans isomerism"}]},
-      {name:"Named Reactions",desc:"Important organic reactions",topics:[
-        {name:"Aldol Condensation",desc:"Mechanism and applications"},
-        {name:"Cannizzaro Reaction",desc:"Disproportionation of aldehydes"},
-        {name:"Grignard Reagent",desc:"Preparation and reactions"}]}]},
-    {name:"Mathematics",icon:"📐",desc:"JEE Mathematics",chapters:[
-      {name:"3D Geometry",desc:"Lines, Planes in 3D",topics:[
-        {name:"Direction Cosines & Ratios",desc:"Angles with coordinate axes"},
-        {name:"Equation of Line in 3D",desc:"Vector & Cartesian form"},
-        {name:"Equation of Plane",desc:"Normal vector, Distance from point"}]},
-      {name:"Complex Numbers",desc:"Imaginary numbers",topics:[
-        {name:"Algebra of Complex Numbers",desc:"Addition, Multiplication, Division"},
-        {name:"Argand Plane & Modulus",desc:"Polar form, De Moivre's theorem"},
-        {name:"Roots of Unity",desc:"nth roots, their properties"}]}]}]},
- 
-  udaycommerce2027:{name:"Uday Commerce 2027",emoji:"💼",color:"#a78bfa",subjects:[
-    {name:"Accountancy",icon:"📒",desc:"Financial Accounting",chapters:[
-      {name:"Basic Accounting",desc:"Fundamentals of accounting",topics:[
-        {name:"Accounting Equation",desc:"Assets = Liabilities + Capital"},
-        {name:"Journal Entries",desc:"Debit & Credit rules"},
-        {name:"Ledger Posting",desc:"T-accounts and balancing"},
-        {name:"Trial Balance",desc:"Preparation and purpose"}]},
-      {name:"Financial Statements",desc:"P&L and Balance Sheet",topics:[
-        {name:"Trading & P&L Account",desc:"Gross profit, Net profit"},
-        {name:"Balance Sheet",desc:"Assets, Liabilities layout"},
-        {name:"Cash Flow Statement",desc:"Operating, Investing, Financing"}]}]},
-    {name:"Business Studies",icon:"🏢",desc:"Management & Business",chapters:[
-      {name:"Management Principles",desc:"Taylor & Fayol",topics:[
-        {name:"Functions of Management",desc:"Planning, Organizing, Directing, Controlling"},
-        {name:"Taylor's Scientific Management",desc:"Principles and techniques"},
-        {name:"Fayol's Principles",desc:"14 principles of management"}]},
-      {name:"Marketing",desc:"4Ps and Consumer behavior",topics:[
-        {name:"Marketing Mix 4P",desc:"Product, Price, Place, Promotion"},
-        {name:"Consumer Protection",desc:"COPRA, Consumer Rights"}]}]},
-    {name:"Economics",icon:"📈",desc:"Micro & Macro Economics",chapters:[
-      {name:"Microeconomics",desc:"Demand, Supply, Market",topics:[
-        {name:"Law of Demand",desc:"Demand curve, Elasticity"},
-        {name:"Law of Supply",desc:"Supply schedule, Producer surplus"},
-        {name:"Market Equilibrium",desc:"Demand-supply equilibrium"},
-        {name:"Market Structures",desc:"Perfect, Monopoly, Oligopoly"}]},
-      {name:"Macroeconomics",desc:"GDP, Money, Banking",topics:[
-        {name:"National Income (GDP)",desc:"Methods of calculation"},
-        {name:"Money & Banking",desc:"Functions of RBI, Credit creation"},
-        {name:"Government Budget",desc:"Fiscal deficit, Revenue, Capital"}]}]}]},
- 
-  lakshyajee2027:{name:"Lakshya JEE 2027",emoji:"🎯",color:"#e94560",subjects:[
-    {name:"Physics",icon:"⚡",desc:"Advanced JEE Physics",chapters:[
-      {name:"Rotational Motion",desc:"Torque, MOI, Angular momentum",topics:[
-        {name:"Moment of Inertia",desc:"Parallel & Perpendicular axis theorems"},
-        {name:"Torque & Angular Momentum",desc:"Conservation laws"},
-        {name:"Rolling Motion",desc:"Pure rolling, Slipping conditions"}]},
-      {name:"Fluid Mechanics",desc:"Pressure, Flow, Bernoulli",topics:[
-        {name:"Pressure & Pascal's Law",desc:"Hydrostatic pressure"},
-        {name:"Bernoulli's Theorem",desc:"Applications in real life"},
-        {name:"Viscosity & Surface Tension",desc:"Stokes law, Capillarity"}]}]},
-    {name:"Mathematics",icon:"📐",desc:"Advanced JEE Maths",chapters:[
-      {name:"Probability",desc:"Classical & Modern",topics:[
-        {name:"Classical Probability",desc:"Sample space, Events, Favorable outcomes"},
-        {name:"Conditional Probability",desc:"Bayes' theorem, Total probability"},
-        {name:"Binomial Distribution",desc:"Mean, Variance, Applications"}]},
-      {name:"Vectors",desc:"Vector algebra",topics:[
-        {name:"Dot Product",desc:"Projection, Angle between vectors"},
-        {name:"Cross Product",desc:"Area of triangle, Torque"},
-        {name:"Triple Products",desc:"Scalar triple product, Volume"}]}]},
-    {name:"Chemistry",icon:"⚗️",desc:"Advanced JEE Chem",chapters:[
-      {name:"Thermochemistry",desc:"Enthalpy & Entropy",topics:[
-        {name:"Hess's Law",desc:"Standard enthalpy of formation"},
-        {name:"Bond Enthalpy",desc:"Breaking & forming bonds"},
-        {name:"Gibbs Free Energy",desc:"Spontaneity of reactions"}]}]}]},
- 
-  lakshyaneet2027:{name:"Lakshya NEET 2027",emoji:"🩺",color:"#10b981",subjects:[
-    {name:"Biology",icon:"🧬",desc:"Advanced NEET Biology",chapters:[
-      {name:"Human Physiology",desc:"Body systems",topics:[
-        {name:"Digestive System",desc:"Organs, Enzymes, Absorption"},
-        {name:"Circulatory System",desc:"Heart, Blood vessels, ECG"},
-        {name:"Nervous System",desc:"Neurons, Brain, Reflexes"},
-        {name:"Endocrine System",desc:"Hormones and their functions"},
-        {name:"Excretory System",desc:"Kidney, Nephron, Urine formation"}]},
-      {name:"Plant Physiology",desc:"Plant life processes",topics:[
-        {name:"Photosynthesis - Light Reactions",desc:"Chlorophyll, Photosystems I & II"},
-        {name:"Calvin Cycle (Dark Reaction)",desc:"CO2 fixation, RuBisCO"},
-        {name:"Transpiration & Water movement",desc:"Stomata, Ascent of sap"},
-        {name:"Plant Growth Hormones",desc:"Auxin, Gibberellin, Cytokinin"}]}]},
-    {name:"Chemistry",icon:"⚗️",desc:"NEET Chemistry Advanced",chapters:[
-      {name:"p-Block Elements",desc:"Groups 13-18",topics:[
-        {name:"Group 15 - Nitrogen family",desc:"N2, NH3, HNO3 preparation"},
-        {name:"Group 16 - Oxygen family",desc:"SO2, H2SO4, Ozone"},
-        {name:"Group 17 - Halogens",desc:"Cl2, HCl, Interhalogen compounds"},
-        {name:"Group 18 - Noble Gases",desc:"Properties and compounds"}]}]}]},
- 
-  parishramcommerce2027:{name:"Parishram Commerce 2027",emoji:"📊",color:"#f5a623",subjects:[
-    {name:"Advanced Accountancy",icon:"📊",desc:"Partnership & Company accounts",chapters:[
-      {name:"Partnership Accounts",desc:"All partnership transactions",topics:[
-        {name:"Goodwill Valuation",desc:"Average profit, Super profit, Capitalisation"},
-        {name:"Admission of Partner",desc:"Revaluation, New profit ratio"},
-        {name:"Retirement of Partner",desc:"Gaining ratio, Settlement"},
-        {name:"Death of Partner",desc:"Executor's account, Final settlement"},
-        {name:"Dissolution of Firm",desc:"Realisation account, Garner vs Murray"}]},
-      {name:"Company Accounts",desc:"Share capital & Debentures",topics:[
-        {name:"Issue of Shares",desc:"At par, Premium, Discount, Forfeiture"},
-        {name:"Issue of Debentures",desc:"Types, Redemption methods"},
-        {name:"Financial Statement Analysis",desc:"Ratio analysis, Comparative statements"}]}]},
-    {name:"Economics",icon:"📈",desc:"Advanced Economics",chapters:[
-      {name:"Economic Development",desc:"India's growth story",topics:[
-        {name:"Indian Economy Pre-liberalisation",desc:"1947-1991 economic policies"},
-        {name:"LPG Reforms 1991",desc:"Liberalisation, Privatisation, Globalisation"},
-        {name:"Current Economic Issues",desc:"Inflation, Unemployment, Poverty"}]}]},
-    {name:"CA Foundation Basics",icon:"🎓",desc:"CA Foundation preparation",chapters:[
-      {name:"Business Law",desc:"Indian Contract & Company Law",topics:[
-        {name:"Indian Contract Act 1872",desc:"Offer, Acceptance, Consideration"},
-        {name:"Sale of Goods Act",desc:"Conditions, Warranties, Rights"},
-        {name:"Companies Act Basics",desc:"Types of companies, Incorporation"}]}]}]}
-};
+let COURSES = {};
+
+async function loadCourses() {
+  try {
+    const { getDatabase, ref, get } = await import("https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js");
+    const dbInst = getDatabase();
+    const snap = await get(ref(dbInst, 'courses'));
+    const data = snap.val() || {};
+
+    COURSES = {};
+    Object.entries(data).forEach(([cId, course]) => {
+      COURSES[cId] = {
+        name: course.name,
+        emoji: course.emoji || '📚',
+        color: course.color || '#e94560',
+        subjects: Object.entries(course.subjects || {}).map(([sId, subject]) => ({
+          id: sId,
+          name: subject.name,
+          icon: subject.icon || '📖',
+          desc: subject.desc || subject.name,
+          chapters: Object.entries(subject.chapters || {}).map(([chId, chapter]) => ({
+            id: chId,
+            name: chapter.name,
+            desc: chapter.desc || chapter.name,
+            topics: Object.entries(chapter.topics || {}).map(([tId, topic]) => ({
+              id: tId,
+              name: topic.name,
+              desc: topic.desc || topic.name
+            }))
+          }))
+        }))
+      };
+    });
+
+    renderCoursesGrid();
+  } catch(e) {
+    console.error('Courses load error:', e);
+  }
+}
+
+function renderCoursesGrid() {
+  const grid = document.querySelector('.courses-grid');
+  if (!grid) return;
+  
+  if (Object.keys(COURSES).length === 0) {
+    grid.innerHTML = '<div style="text-align:center;color:var(--text-muted);padding:3rem;grid-column:1/-1">📭 Koi course nahi abhi. Bot se batch add karo!</div>';
+    return;
+  }
+
+  grid.innerHTML = '';
+  Object.entries(COURSES).forEach(([cId, c]) => {
+    const totalChapters = c.subjects.reduce((a, s) => a + s.chapters.length, 0);
+    const totalTopics   = c.subjects.reduce((a, s) => s.chapters.reduce((b, ch) => b + ch.topics.length, 0) + a, 0);
+    grid.innerHTML += `
+      <div class="course-card">
+        <div class="course-banner" style="background:linear-gradient(135deg,#1a1a2e,${c.color})">${c.emoji}</div>
+        <div class="course-body">
+          <span class="course-tag" style="background:rgba(233,69,96,.2);color:${c.color}">${c.name}</span>
+          <h3>${c.name}</h3>
+          <p class="cdesc">${c.subjects.length} Subjects • ${totalChapters} Chapters • ${totalTopics} Topics</p>
+          <div class="course-meta">
+            <span>📖 ${c.subjects.length} Subjects</span>
+            <span>🎬 ${totalTopics} Topics</span>
+          </div>
+          <button class="btn-study" style="background:linear-gradient(135deg,${c.color},#1a1a2e);color:#fff" onclick="goCourse('${cId}')">🚀 Let's Study</button>
+        </div>
+      </div>`;
+  });
+}
+
+window.addEventListener('load', () => setTimeout(loadCourses, 1200));
  
 let S={cId:null,sI:null,chI:null,tI:null};
  
