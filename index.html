@@ -682,12 +682,14 @@ window.doReset=async()=>{
 };
  
 // GET VIDEO URL
-window.getVidUrl=async(cId,sI,chI,tI)=>{
-  const k=`${cId}_${sI}_${chI}_${tI}`;
-  try{const s=await get(ref(db,`videos/${k}`));return s.exists()?s.val().url:null;}
-  catch{return null;}
+window.getVidUrl=async(cId,sId,chId,tId)=>{
+  const k=`${cId}_${sId}_${chId}_${tId}`;
+  try{
+    const s=await get(ref(db,`videos/${k}`));
+    return s.exists()?s.val().url:null;
+  }catch{return null;}
 };
- 
+
 // LOAD ADMIN DATA
 function loadAdminData(){
   // Users realtime
