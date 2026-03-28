@@ -883,16 +883,27 @@ function scrollToCourses(){goHome();setTimeout(()=>document.getElementById('cour
 function setBc(ids,val){ids.forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=val})}
  
 function openCourse(cId){
-  S.cId=cId;const c=COURSES[cId];
+ function openCourse(cId){
+  S.cId=cId;
+  const c=COURSES[cId];
+  if(!c) return;
   document.getElementById('sub-title').textContent=c.name;
   document.getElementById('sub-sub').textContent='Subject select karo';
   setBc(['bc1','bc2','bc4','bc7'],c.name);
-  const con=document.getElementById('sub-container');con.innerHTML='';
+  const con=document.getElementById('sub-container');
+  con.innerHTML='';
   c.subjects.forEach((s,i)=>{
-    const d=document.createElement('div');d.className='sub-card';
+    const d=document.createElement('div');
+    d.className='sub-card';
     d.style.borderLeft='4px solid '+c.color;
-    d.innerHTML=`<div class="icon">${s.icon}</div><h3>${s.name}</h3><p>${s.desc}</p><p style="font-size:.78rem;color:var(--text-muted)">📂 ${s.chapters.length} Chapters</p><div class="arr">Chapters देखें →</div>`;
-    d.onclick=()=>openSubject(i);con.appendChild(d);
+    d.innerHTML=`
+      <div class="icon">${s.icon}</div>
+      <h3>${s.name}</h3>
+      <p>${s.desc}</p>
+      <p style="font-size:.78rem;color:var(--text-muted)">📂 ${s.chapters.length} Chapters</p>
+      <div class="arr">Chapters देखें →</div>`;
+    d.onclick=()=>openSubject(i);
+    con.appendChild(d);
   });
   showPage('subjects');
 }
