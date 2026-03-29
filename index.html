@@ -660,7 +660,7 @@ window.doReset=async()=>{
  
 // GET VIDEO URL
 window.getVidUrl=async(cId,sId,chId,tId)=>{
-  const k=`${cId}__${sId}__${chId}__${tId}`;
+  const k=`${cId}|${sId}|${chId}|${tId}`;
   try{
     const s=await get(ref(db,`videos/${k}`));
     return s.exists()?s.val().url:null;
