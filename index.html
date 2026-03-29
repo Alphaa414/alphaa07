@@ -845,7 +845,9 @@ function embedVid(url){
   const ytShort=url.match(/youtube\.com\/shorts\/([a-zA-Z0-9_-]{11})/);
   if(ytShort) em='https://www.youtube.com/embed/'+ytShort[1]+'?rel=0&autoplay=1';
   const gd=url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
-  if(gd) em='https://drive.google.com/file/d/'+gd[1]+'/preview';
+if(gd) em='https://drive.google.com/file/d/'+gd[1]+'/preview';
+// Direct MP4 links (Catbox, etc.)
+if(url.match(/\.(mp4|webm|ogg|mkv)(\?.*)?$/i)) em=url;
   const ifr=document.getElementById('vid-iframe');
   ifr.src=em;ifr.style.display='block';
   document.getElementById('vid-placeholder').style.display='none';
