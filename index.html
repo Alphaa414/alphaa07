@@ -248,9 +248,9 @@ footer span{color:var(--accent);font-weight:700}
   <div class="auth-box">
     <div class="lock">🔒</div>
     <h2>Login Required</h2>
-    <p>Course dekhne ke liye login karo</p>
-    <button class="btn-primary" style="width:100%;margin-bottom:.8rem" onclick="closeAuthWall();openLogin()">🔓 Login Karo</button>
-    <button class="btn-secondary" style="width:100%" onclick="closeAuthWall()">← Wapas Jao</button>
+    <p>Login First To See Course</p>
+    <button class="btn-primary" style="width:100%;margin-bottom:.8rem" onclick="closeAuthWall();openLogin()">🔓 Login</button>
+    <button class="btn-secondary" style="width:100%" onclick="closeAuthWall()">← Back</button>
   </div>
 </div>
  
@@ -292,7 +292,7 @@ footer span{color:var(--accent);font-weight:700}
     <div class="accent-line"></div>
   </div>
   <div class="courses-grid" id="courses-grid">
-    <div class="loading-courses">⏳ Courses load ho rahe hain...</div>
+    <div class="loading-courses">⏳ Courses loading...</div>
   </div>
   <footer><p>Made with ❤️ by <span>AlphaVerse Team</span> | © 2026 All Rights Reserved 🇮🇳</p></footer>
 </div>
@@ -334,7 +334,7 @@ footer span{color:var(--accent);font-weight:700}
   </div>
   <div class="page-header">
     <button class="back-btn" onclick="goHome()">← Back</button>
-    <div><h1 id="sub-title">Subjects</h1><p id="sub-sub">Subject select karo</p></div>
+    <div><h1 id="sub-title">Subjects</h1><p id="sub-sub">Select Subject</p></div>
   </div>
   <div class="sub-grid" id="sub-container"></div>
 </div>
@@ -350,7 +350,7 @@ footer span{color:var(--accent);font-weight:700}
   </div>
   <div class="page-header">
     <button class="back-btn" onclick="showPage('subjects')">← Back</button>
-    <div><h1 id="ch-title">Chapters</h1><p id="ch-sub">Chapter select karo</p></div>
+    <div><h1 id="ch-title">Chapters</h1><p id="ch-sub">Select Chapter</p></div>
   </div>
   <div class="ch-grid" id="ch-container"></div>
 </div>
@@ -368,7 +368,7 @@ footer span{color:var(--accent);font-weight:700}
   </div>
   <div class="page-header">
     <button class="back-btn" onclick="showPage('chapters')">← Back</button>
-    <div><h1 id="tp-title">Topics</h1><p id="tp-sub">Topic select karo</p></div>
+    <div><h1 id="tp-title">Topics</h1><p id="tp-sub">Select Topic</p></div>
   </div>
   <div class="tp-grid" id="tp-container"></div>
 </div>
@@ -395,7 +395,7 @@ footer span{color:var(--accent);font-weight:700}
       <div class="vid-placeholder" id="vid-placeholder">
         <div class="vid-play-btn">▶</div>
         <p style="font-size:.85rem">Video Coming Soon!</p>
-        <p style="font-size:.78rem">Admin se contact karo</p>
+        <p style="font-size:.78rem">Contact to Admin</p>
       </div>
       <iframe id="vid-iframe" style="display:none;width:100%;height:100%;border:none" allowfullscreen></iframe>
     </div>
@@ -404,9 +404,9 @@ footer span{color:var(--accent);font-weight:700}
     <div class="notes-box">
       <h3>📝 Study Tips</h3>
       <ul>
-        <li>Focus ke saath padho</li>
-        <li>Notes banao</li>
-        <li>Revision zaroori hai</li>
+        <li>Study with Focus</li>
+        <li>Make Notes</li>
+        <li>Revision Is Important</li>
       </ul>
     </div>
   </div>
@@ -456,7 +456,7 @@ footer span{color:var(--accent);font-weight:700}
   <div class="modal-box">
     <button class="modal-close" onclick="closeLogin()">✕</button>
     <h2>👋 Welcome!</h2>
-    <p>Login ya Sign Up karo</p>
+    <p>Login Or Signup</p>
     <div class="tabs-row">
       <button class="tab-btn active" id="t-login" onclick="switchTab('l')">🔓 Login</button>
       <button class="tab-btn" id="t-signup" onclick="switchTab('s')">✨ Sign Up</button>
@@ -468,7 +468,7 @@ footer span{color:var(--accent);font-weight:700}
       <button class="btn-primary" style="width:100%" onclick="doLogin()" id="l-btn">🚀 Login</button>
       <div style="margin-top:1rem;display:flex;flex-direction:column;gap:.6rem">
         <button onclick="doGoogle()" style="background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.14);border-radius:10px;padding:10px;color:#fff;font-family:'Nunito',sans-serif;font-size:.9rem;font-weight:700;cursor:pointer">🌐 Google se Login</button>
-        <p style="text-align:center;font-size:.82rem;color:var(--text-muted)">Password bhool gaye? <span style="color:var(--accent);cursor:pointer;font-weight:700" onclick="doReset()">Reset</span></p>
+        <p style="text-align:center;font-size:.82rem;color:var(--text-muted)">Password Forgotten? <span style="color:var(--accent);cursor:pointer;font-weight:700" onclick="doReset()">Reset</span></p>
       </div>
     </div>
     <div id="f-signup" style="display:none">
@@ -538,7 +538,7 @@ async function loadCourses(){
   }catch(e){
     console.error('Courses load error:',e);
     document.getElementById('courses-grid').innerHTML=
-      '<div class="loading-courses">❌ Courses load nahi hue. Refresh karo.</div>';
+      '<div class="loading-courses">❌ Courses not load. Refresh again.</div>';
   }
 }
  
@@ -547,7 +547,7 @@ function renderCoursesGrid(){
   if(!grid)return;
   const courses=window.COURSES||{};
   if(!Object.keys(courses).length){
-    grid.innerHTML='<div class="loading-courses">📭 Koi course nahi abhi. Bot se batch add karo!</div>';
+    grid.innerHTML='<div class="loading-courses">📭 No Course available !</div>';
     return;
   }
   grid.innerHTML='';
@@ -604,16 +604,16 @@ window.doLogin=async()=>{
   const err=document.getElementById('l-err');
   const btn=document.getElementById('l-btn');
   err.style.display='none';
-  if(!em||!pw){err.textContent='Email aur password bharo';err.style.display='block';return}
+  if(!em||!pw){err.textContent='Enter Email and password';err.style.display='block';return}
   btn.innerHTML='<span class="spin"></span>Logging in...';btn.disabled=true;
   try{
     await signInWithEmailAndPassword(auth,em,pw);
-    showToast('✅ Login ho gaye!');closeLogin();
+    showToast('✅ Login successful');closeLogin();
   }catch(e){
-    err.textContent=e.code==='auth/wrong-password'?'❌ Password galat hai':
-      e.code==='auth/user-not-found'?'❌ Email registered nahi':
-      e.code==='auth/invalid-credential'?'❌ Email ya Password galat hai':
-      e.code==='auth/too-many-requests'?'❌ Bahut attempts. Thodi der baad try karo':'❌ '+e.message;
+    err.textContent=e.code==='auth/wrong-password'?'❌ Wrong Password':
+      e.code==='auth/user-not-found'?'❌ Email not Registered':
+      e.code==='auth/invalid-credential'?'❌ Email or Password Wrong':
+      e.code==='auth/too-many-requests'?'❌ Too many attempts. Try few hours later':'❌ '+e.message;
     err.style.display='block';
   }
   btn.innerHTML='🚀 Login';btn.disabled=false;
@@ -627,15 +627,15 @@ window.doSignup=async()=>{
   const err=document.getElementById('s-err');
   const btn=document.getElementById('s-btn');
   err.style.display='none';
-  if(!nm||!em||!pw){err.textContent='Sab fields bharo';err.style.display='block';return}
-  if(pw.length<6){err.textContent='Password minimum 6 characters ka hona chahiye';err.style.display='block';return}
+  if(!nm||!em||!pw){err.textContent='Enter all details';err.style.display='block';return}
+  if(pw.length<6){err.textContent='Password minimum 6 characters';err.style.display='block';return}
   btn.innerHTML='<span class="spin"></span>Creating...';btn.disabled=true;
   try{
     const c=await createUserWithEmailAndPassword(auth,em,pw);
     await updateProfile(c.user,{displayName:nm});
-    showToast('🎉 Account ban gaya! Welcome '+nm);closeLogin();
+    showToast('🎉 Account Created Successfull! Welcome '+nm);closeLogin();
   }catch(e){
-    err.textContent=e.code==='auth/email-already-in-use'?'❌ Yeh email already registered hai':'❌ '+e.message;
+    err.textContent=e.code==='auth/email-already-in-use'?'❌Already Registered':'❌ '+e.message;
     err.style.display='block';
   }
   btn.innerHTML='✨ Create Account';btn.disabled=false;
@@ -643,18 +643,18 @@ window.doSignup=async()=>{
  
 // GOOGLE LOGIN
 window.doGoogle=async()=>{
-  try{await signInWithPopup(auth,gp);showToast('✅ Google login successful!');closeLogin();}
+  try{await signInWithPopup(auth,gp);showToast('✅ Google login successfull!');closeLogin();}
   catch(e){showToast('❌ Google login fail: '+e.message,true);}
 };
  
 // LOGOUT
-window.doLogout=async()=>{await signOut(auth);showToast('👋 Logout ho gaye!');goHome();};
+window.doLogout=async()=>{await signOut(auth);showToast('👋 Logout');goHome();};
  
 // RESET PASSWORD
 window.doReset=async()=>{
   const em=document.getElementById('l-em').value.trim();
-  if(!em){showToast('❌ Email daalo pehle',true);return}
-  try{await sendPasswordResetEmail(auth,em);showToast('📧 Reset email bhej diya!');}
+  if(!em){showToast('❌ Enter Email',true);return}
+  try{await sendPasswordResetEmail(auth,em);showToast('📧 Reset email sent');}
   catch(e){showToast('❌ '+e.message,true);}
 };
  
@@ -676,7 +676,7 @@ function loadAdminData(){
     const today=new Date().toISOString().split('T')[0];
     document.getElementById('st-today').textContent=rows.filter(u=>u.loginDate===today).length;
     const tb=document.getElementById('adm-users');
-    if(!rows.length){tb.innerHTML='<tr><td colspan="5" style="color:var(--text-muted)">Koi user nahi abhi</td></tr>';return;}
+    if(!rows.length){tb.innerHTML='<tr><td colspan="5" style="color:var(--text-muted)">NO USER</td></tr>';return;}
     tb.innerHTML=rows.sort((a,b)=>new Date(b.lastLogin)-new Date(a.lastLogin)).map(u=>`
       <tr>
         <td style="font-weight:700">${u.name||'–'}</td>
