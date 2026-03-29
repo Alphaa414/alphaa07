@@ -6,28 +6,14 @@
 <title>AlphaVerse – Your Future Starts Here</title>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
  
-<!-- ████████████████████████████████████████████
-     🔧 ADMIN CONFIG — SIRF YAHAN APNI INFO BHARO
-     ████████████████████████████████████████████ -->
 <script>
 const ADMIN_CONFIG = {
- 
-  // ══ SOCIAL LINKS ══ (yahan apne links daalo, website pe directly dikhenge — koi popup nahi)
-  telegram:  "https://t.me/+DO02EL_vWHhmYzRl",        // 👈 apna Telegram channel
-  whatsapp:  "https://wa.me/919044588281",             // 👈 apna WhatsApp number
-  instagram: "https://instagram.com/ii___adarsh__ii", // 👈 apna Instagram handle
- 
-  // ══ ADMIN EMAIL ══ (isi email se Admin Panel access hoga)
-  adminEmail: "crazyadarsh7@gmail.com",                   // 👈 apni email
- 
-  // ══ TELEGRAM BOT ══ (login notifications aur video upload ke liye)
-  // Steps: 1) @BotFather pe jaao  2) /newbot  3) Token copy karo
-  botToken:  "8434648556:AAHsxNv0H_3kTY262EHA8NYzBG91RYD3rgo",  // 👈 @BotFather se milega
-  // Steps: 1) @userinfobot pe jaao  2) apna ID copy karo
-  botChatId: "7943583594",                              // 👈 @userinfobot se milega
- 
-  // ══ FIREBASE CONFIG ══
-  // Steps: firebase.google.com → New Project → Web App → Config copy karo
+  telegram:  "https://t.me/+DO02EL_vWHhmYzRl",
+  whatsapp:  "https://wa.me/919044588281",
+  instagram: "https://instagram.com/ii___adarsh__ii",
+  adminEmail: "crazyadarsh7@gmail.com",
+  botToken:  "8434648556:AAHsxNv0H_3kTY262EHA8NYzBG91RYD3rgo",
+  botChatId: "7943583594",
   firebase: {
     apiKey:            "AIzaSyA2nmkZ49gzFmhcdUnfIaaC3THyboDygfA",
     authDomain:        "alpha-verse-lms.firebaseapp.com",
@@ -54,7 +40,6 @@ body{font-family:'Nunito',sans-serif;background:var(--gradient);color:var(--text
 .page.active{display:block;animation:fadeIn .4s ease}
 @keyframes fadeIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
  
-/* NAV */
 nav{position:sticky;top:0;z-index:999;background:rgba(26,26,46,.97);backdrop-filter:blur(14px);
   border-bottom:1px solid rgba(233,69,96,.2);display:flex;align-items:center;
   justify-content:space-between;padding:0 2rem;height:64px;gap:1rem}
@@ -73,7 +58,6 @@ nav{position:sticky;top:0;z-index:999;background:rgba(26,26,46,.97);backdrop-fil
 .user-chip button{background:rgba(233,69,96,.25);border:none;color:var(--accent);border-radius:6px;
   padding:2px 8px;font-size:.72rem;font-weight:800;cursor:pointer;font-family:'Nunito',sans-serif}
  
-/* HERO */
 .hero{min-height:88vh;display:flex;flex-direction:column;align-items:center;justify-content:center;
   text-align:center;padding:3rem 1.5rem;position:relative;overflow:hidden}
 .hero::before{content:'';position:absolute;inset:-60px;
@@ -95,27 +79,23 @@ nav{position:sticky;top:0;z-index:999;background:rgba(26,26,46,.97);backdrop-fil
   border-radius:12px;padding:13px 34px;font-family:'Nunito',sans-serif;font-size:1.05rem;font-weight:700;cursor:pointer;transition:.25s}
 .btn-secondary:hover{background:rgba(255,255,255,.14)}
  
-/* STATS */
 .stats-strip{display:flex;justify-content:center;flex-wrap:wrap;gap:2rem;padding:2rem 1.5rem;
   background:rgba(255,255,255,.03);border-top:1px solid rgba(255,255,255,.07);border-bottom:1px solid rgba(255,255,255,.07)}
 .stat-item{text-align:center}
 .stat-item span:first-child{display:block;font-family:'Baloo 2',cursive;font-size:2rem;font-weight:800;color:var(--gold)}
 .stat-item span:last-child{font-size:.9rem;color:var(--text-muted);font-weight:600}
  
-/* SECTION TITLE */
 .section-title{text-align:center;padding:3rem 1.5rem 1.5rem}
 .section-title h2{font-family:'Baloo 2',cursive;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;color:#fff;margin-bottom:.5rem}
 .section-title p{color:var(--text-muted)}
 .accent-line{width:56px;height:4px;background:linear-gradient(90deg,var(--accent),var(--gold));border-radius:4px;margin:.8rem auto 0}
  
-/* COURSES GRID */
 .courses-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
   gap:1.6rem;padding:1.5rem 2rem 4rem;max-width:1300px;margin:0 auto}
 .course-card{background:var(--card-bg);border:1px solid rgba(255,255,255,.07);border-radius:var(--radius);
   overflow:hidden;transition:.3s;box-shadow:0 8px 32px rgba(233,69,96,.12)}
 .course-card:hover{transform:translateY(-6px);border-color:rgba(233,69,96,.4);box-shadow:0 16px 48px rgba(233,69,96,.2)}
 .course-banner{height:120px;display:flex;align-items:center;justify-content:center;font-size:2.8rem;position:relative;overflow:hidden}
-.course-banner::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 30%,rgba(22,33,62,.9) 100%)}
 .course-body{padding:1.4rem}
 .course-tag{display:inline-block;font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:1px;padding:3px 10px;border-radius:20px;margin-bottom:.8rem}
 .course-card h3{font-family:'Baloo 2',cursive;font-size:1.3rem;font-weight:800;color:#fff;margin-bottom:.5rem}
@@ -124,7 +104,6 @@ nav{position:sticky;top:0;z-index:999;background:rgba(26,26,46,.97);backdrop-fil
 .course-meta span{font-size:.82rem;color:var(--text-muted)}
 .btn-study{width:100%;padding:12px;border:none;border-radius:10px;font-family:'Nunito',sans-serif;font-size:1rem;font-weight:800;cursor:pointer;transition:.25s}
  
-/* SOCIAL */
 .connect-section{max-width:700px;margin:0 auto;padding:2rem 1.5rem 4rem;text-align:center}
 .social-cards{display:flex;flex-wrap:wrap;gap:1rem;justify-content:center;margin-top:2rem}
 .social-card{display:flex;align-items:center;gap:12px;padding:14px 28px;border-radius:14px;
@@ -137,7 +116,6 @@ nav{position:sticky;top:0;z-index:999;background:rgba(26,26,46,.97);backdrop-fil
 .sig{background:rgba(225,48,108,.15);border-color:#e1306c;color:#e1306c}
 .sig:hover{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);color:#fff;border-color:transparent}
  
-/* MODAL */
 .modal-overlay{display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.72);
   backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:1rem}
 .modal-overlay.open{display:flex}
@@ -164,7 +142,6 @@ nav{position:sticky;top:0;z-index:999;background:rgba(26,26,46,.97);backdrop-fil
 .err-msg{color:#e94560;font-size:.83rem;margin-bottom:.8rem;display:none;padding:8px 12px;
   background:rgba(233,69,96,.1);border-radius:8px;border-left:3px solid var(--accent)}
  
-/* PAGE HEADER */
 .page-header{background:rgba(255,255,255,.03);border-bottom:1px solid rgba(255,255,255,.08);
   padding:1.4rem 2rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
 .back-btn{background:rgba(233,69,96,.15);border:1px solid var(--accent);color:var(--accent);
@@ -173,7 +150,6 @@ nav{position:sticky;top:0;z-index:999;background:rgba(26,26,46,.97);backdrop-fil
 .page-header h1{font-family:'Baloo 2',cursive;font-size:1.55rem;font-weight:800;color:#fff}
 .page-header p{color:var(--text-muted);font-size:.88rem}
  
-/* GRIDS */
 .sub-grid,.ch-grid,.tp-grid{display:grid;gap:1rem;padding:2rem;max-width:1200px;margin:0 auto}
 .sub-grid{grid-template-columns:repeat(auto-fill,minmax(210px,1fr))}
 .ch-grid{grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
@@ -186,7 +162,6 @@ nav{position:sticky;top:0;z-index:999;background:rgba(26,26,46,.97);backdrop-fil
 .sub-card p,.ch-card p,.tp-card p{color:var(--text-muted);font-size:.83rem}
 .arr{margin-top:auto;color:var(--accent);font-weight:800;font-size:.83rem}
  
-/* VIDEO */
 .topic-content{max-width:900px;margin:0 auto;padding:2rem}
 .video-box{background:#000;border-radius:16px;overflow:hidden;aspect-ratio:16/9;width:100%;
   margin-bottom:1.2rem;display:flex;align-items:center;justify-content:center;
@@ -201,12 +176,10 @@ nav{position:sticky;top:0;z-index:999;background:rgba(26,26,46,.97);backdrop-fil
 .notes-box ul li{color:var(--text-muted);font-size:.88rem;padding-left:1.2rem;position:relative}
 .notes-box ul li::before{content:'→';position:absolute;left:0;color:var(--accent)}
  
-/* BREADCRUMB */
 .bc{display:flex;align-items:center;gap:5px;flex-wrap:wrap;padding:.8rem 2rem 0;font-size:.82rem;color:var(--text-muted)}
 .bc span{cursor:pointer;transition:.2s}.bc span:hover{color:var(--accent)}
 .bc .sep{color:rgba(255,255,255,.18)}.bc .cur{color:var(--text);font-weight:700}
  
-/* ADMIN */
 .admin-wrap{max-width:960px;margin:0 auto;padding:2rem}
 .adm-card{background:var(--card-bg);border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);padding:1.5rem;margin-bottom:1.5rem}
 .adm-card h3{font-family:'Baloo 2',cursive;font-size:1.15rem;font-weight:800;color:var(--gold);margin-bottom:1rem}
@@ -234,7 +207,6 @@ nav{position:sticky;top:0;z-index:999;background:rgba(26,26,46,.97);backdrop-fil
 .stat-box .num{font-family:'Baloo 2',cursive;font-size:2rem;font-weight:800}
 .stat-box .lbl{color:var(--text-muted);font-size:.78rem;margin-top:2px}
  
-/* AUTH WALL */
 .auth-wall{display:none;position:fixed;inset:0;z-index:8888;background:rgba(0,0,0,.85);
   backdrop-filter:blur(10px);align-items:center;justify-content:center;padding:1rem}
 .auth-wall.show{display:flex}
@@ -244,16 +216,16 @@ nav{position:sticky;top:0;z-index:999;background:rgba(26,26,46,.97);backdrop-fil
 .auth-box h2{font-family:'Baloo 2',cursive;font-size:1.7rem;color:#fff;margin-bottom:.4rem}
 .auth-box p{color:var(--text-muted);margin-bottom:1.4rem;font-size:.9rem}
  
-/* TOAST */
 #toast{position:fixed;bottom:22px;right:22px;border-radius:12px;padding:12px 22px;
   font-weight:700;font-size:.88rem;z-index:99999;transform:translateY(50px);opacity:0;
   transition:.3s;pointer-events:none;max-width:320px;line-height:1.4}
 #toast.show{transform:translateY(0);opacity:1}
  
-/* SPIN */
 .spin{display:inline-block;width:16px;height:16px;border:2px solid rgba(255,255,255,.3);
   border-top-color:#fff;border-radius:50%;animation:sp .6s linear infinite;vertical-align:middle;margin-right:6px}
 @keyframes sp{to{transform:rotate(360deg)}}
+ 
+.loading-courses{text-align:center;color:var(--text-muted);padding:3rem;grid-column:1/-1;font-size:1rem}
  
 footer{text-align:center;padding:2rem;border-top:1px solid rgba(255,255,255,.07);color:var(--text-muted);font-size:.86rem}
 footer span{color:var(--accent);font-weight:700}
@@ -276,9 +248,9 @@ footer span{color:var(--accent);font-weight:700}
   <div class="auth-box">
     <div class="lock">🔒</div>
     <h2>Login Required</h2>
-    <p>Login before access courses</p>
-    <button class="btn-primary" style="width:100%;margin-bottom:.8rem" onclick="closeAuthWall();openLogin()">🔓 Login </button>
-    <button class="btn-secondary" style="width:100%" onclick="closeAuthWall()">←Back</button>
+    <p>Course dekhne ke liye login karo</p>
+    <button class="btn-primary" style="width:100%;margin-bottom:.8rem" onclick="closeAuthWall();openLogin()">🔓 Login Karo</button>
+    <button class="btn-secondary" style="width:100%" onclick="closeAuthWall()">← Wapas Jao</button>
   </div>
 </div>
  
@@ -287,7 +259,7 @@ footer span{color:var(--accent);font-weight:700}
   <div class="nav-logo" onclick="goHome()">📚 AlphaVerse</div>
   <div class="nav-links">
     <button class="hide-sm" onclick="goHome()">🏠 Home</button>
-    <button class="hide-sm" onclick="goHome();scrollToCourses()">📖 Courses</button>
+    <button class="hide-sm" onclick="goHome();setTimeout(scrollToCourses,120)">📖 Courses</button>
     <button class="hide-sm" onclick="showPage('connect')">🔗 Connect</button>
     <button class="btn-nav-cta" id="nav-login-btn" onclick="openLogin()">🔓 Login</button>
     <div class="user-chip" id="user-chip">
@@ -298,20 +270,20 @@ footer span{color:var(--accent);font-weight:700}
   </div>
 </nav>
  
-<!-- ══ HOME ══ -->
+<!-- HOME PAGE -->
 <div id="page-home" class="page active">
   <section class="hero">
     <div class="hero-badge">🎯 India's Best Exam Preparation Platform</div>
-    <h1>Acheive Your<br>DREAM</h1>
-    <p>Best learning platform For Foundation, NEET, JEE, Commerce with Expert faculty, structured content, smart learning.</p>
+    <h1>Achieve Your<br>DREAM</h1>
+    <p>Best learning platform for Foundation, NEET, JEE, Commerce with Expert faculty, structured content, smart learning.</p>
     <div class="hero-btns">
-      <button class="btn-primary" onclick="scrollToCourses()">🚀 Courses</button>
+      <button class="btn-primary" onclick="scrollToCourses()">🚀 Courses Dekho</button>
       <button class="btn-secondary" onclick="showPage('connect')">📱 Join Community</button>
     </div>
   </section>
   <div class="stats-strip">
     <div class="stat-item"><span>500+</span><span>Students Enrolled</span></div>
-    <div class="stat-item"><span>7</span><span>Premium Courses</span></div>
+    <div class="stat-item"><span id="total-courses-count">7</span><span>Premium Courses</span></div>
     <div class="stat-item"><span>500+</span><span>Video Lectures</span></div>
   </div>
   <div id="courses-anchor" class="section-title">
@@ -319,78 +291,17 @@ footer span{color:var(--accent);font-weight:700}
     <p>Comprehensive Courses Designed By Expert Faculty</p>
     <div class="accent-line"></div>
   </div>
-  <div class="courses-grid">
-    <div class="course-card">
-      <div class="course-banner" style="background:linear-gradient(135deg,#1a1a2e,#e94560)">🕊️</div>
-      <div class="course-body">
-        <span class="course-tag" style="background:rgba(233,69,96,.2);color:#e94560">FOUNDATION</span>
-        <h3>Udaan 2027</h3><p class="cdesc"> Learn  Foundation  With  Our  OG  Faculties  Of  PW</p>
-        <div class="course-meta"><span>📹 200+ Videos</span><span>📚 All Subjects</span></div>
-        <button class="btn-study" style="background:linear-gradient(135deg,#e94560,#c73652);color:#fff" onclick="goCourse('udaan2027')">🚀 Let's Study</button>
-      </div>
-    </div>
-    <div class="course-card">
-      <div class="course-banner" style="background:linear-gradient(135deg,#0f3460,#0f9b8e)">🎯</div>
-      <div class="course-body">
-        <span class="course-tag" style="background:rgba(15,155,142,.2);color:#0f9b8e">NEET</span>
-        <h3>Arjuna NEET 2027</h3><p class="cdesc">Practice Your NEET With– focused, disciplined, unbeatable!</p>
-        <div class="course-meta"><span>📹 300+ Videos</span><span>🧬 PCB</span></div>
-        <button class="btn-study" style="background:linear-gradient(135deg,#0f9b8e,#0a7a6e);color:#fff" onclick="goCourse('arjunaneet2027')">🚀 Let's Study</button>
-      </div>
-    </div>
-    <div class="course-card">
-      <div class="course-banner" style="background:linear-gradient(135deg,#0f3460,#f5a623)">⚡</div>
-      <div class="course-body">
-        <span class="course-tag" style="background:rgba(245,166,35,.2);color:#f5a623">JEE</span>
-        <h3>Arjuna JEE 2027</h3><p class="cdesc">Acheive your Dream IIT college</p>
-        <div class="course-meta"><span>📹 350+ Videos</span><span>⚗️ PCM</span></div>
-        <button class="btn-study" style="background:linear-gradient(135deg,#f5a623,#d4891a);color:#fff" onclick="goCourse('arjunajee2027')">🚀 Let's Study</button>
-      </div>
-    </div>
-    <div class="course-card">
-      <div class="course-banner" style="background:linear-gradient(135deg,#1a1a2e,#7c3aed)">💼</div>
-      <div class="course-body">
-        <span class="course-tag" style="background:rgba(124,58,237,.2);color:#a78bfa">COMMERCE</span>
-        <h3>Uday Commerce 2027</h3><p class="cdesc">Shine With Our Commerce Stream!</p>
-        <div class="course-meta"><span>📹 250+ Videos</span><span>💰 Commerce</span></div>
-        <button class="btn-study" style="background:linear-gradient(135deg,#7c3aed,#6d28d9);color:#fff" onclick="goCourse('udaycommerce2027')">🚀 Let's Study</button>
-      </div>
-    </div>
-    <div class="course-card">
-      <div class="course-banner" style="background:linear-gradient(135deg,#0f3460,#e94560)">🎯</div>
-      <div class="course-body">
-        <span class="course-tag" style="background:rgba(233,69,96,.2);color:#e94560">JEE ADVANCED</span>
-        <h3>Lakshya JEE 2027</h3><p class="cdesc">IIT Advanced ke liye specially designed. Acheive Your Lakshaya!</p>
-        <div class="course-meta"><span>📹 400+ Videos</span><span>⚗️ PCM Advanced</span></div>
-        <button class="btn-study" style="background:linear-gradient(135deg,#e94560,#0f3460);color:#fff" onclick="goCourse('lakshyajee2027')">🚀 Let's Study</button>
-      </div>
-    </div>
-    <div class="course-card">
-      <div class="course-banner" style="background:linear-gradient(135deg,#064e3b,#0f9b8e)">🩺</div>
-      <div class="course-body">
-        <span class="course-tag" style="background:rgba(16,185,129,.2);color:#10b981">NEET ADVANCED</span>
-        <h3>Lakshya NEET 2027</h3><p class="cdesc">Acheive Your Medical Passion</p>
-        <div class="course-meta"><span>📹 380+ Videos</span><span>🧬 PCB Advanced</span></div>
-        <button class="btn-study" style="background:linear-gradient(135deg,#10b981,#059669);color:#fff" onclick="goCourse('lakshyaneet2027')">🚀 Let's Study</button>
-      </div>
-    </div>
-    <div class="course-card">
-      <div class="course-banner" style="background:linear-gradient(135deg,#7c2d12,#f5a623)">📊</div>
-      <div class="course-body">
-        <span class="course-tag" style="background:rgba(245,166,35,.2);color:#f5a623">COMMERCE PRO</span>
-        <h3>Parishram Commerce 2027</h3><p class="cdesc">Build For CA Foundation!</p>
-        <div class="course-meta"><span>📹 280+ Videos</span><span>💰 Advanced</span></div>
-        <button class="btn-study" style="background:linear-gradient(135deg,#f5a623,#7c2d12);color:#fff" onclick="goCourse('parishramcommerce2027')">🚀 Let's Study</button>
-      </div>
-    </div>
+  <div class="courses-grid" id="courses-grid">
+    <div class="loading-courses">⏳ Courses load ho rahe hain...</div>
   </div>
   <footer><p>Made with ❤️ by <span>AlphaVerse Team</span> | © 2026 All Rights Reserved 🇮🇳</p></footer>
 </div>
  
-<!-- ══ CONNECT ══ -->
+<!-- CONNECT PAGE -->
 <div id="page-connect" class="page">
   <div class="section-title" style="padding-top:4rem">
-    <h2>📱 Connect with us on</h2><p>Telegram, WhatsApp,Instagram </p>
+    <h2>📱 Connect With Us</h2>
+    <p>Telegram, WhatsApp, Instagram</p>
     <div class="accent-line"></div>
   </div>
   <div class="connect-section">
@@ -409,44 +320,72 @@ footer span{color:var(--accent);font-weight:700}
       </a>
     </div>
     <div style="margin-top:2rem;background:var(--card-bg);border-radius:14px;padding:1.2rem;border:1px solid rgba(255,255,255,.07);text-align:left">
-      <p style="color:var(--text-muted);font-size:.85rem;line-height:1.7">💡 <strong style="color:var(--gold)">Admin:</strong> Welcome TO <code style="background:rgba(255,255,255,.1);padding:2px 6px;border-radius:4px;color:var(--accent)">AlphaVerse</code> Website.</p>
+      <p style="color:var(--text-muted);font-size:.85rem;line-height:1.7">💡 <strong style="color:var(--gold)">Welcome TO</strong> <code style="background:rgba(255,255,255,.1);padding:2px 6px;border-radius:4px;color:var(--accent)">AlphaVerse</code> — India's best exam prep platform!</p>
     </div>
   </div>
 </div>
  
-<!-- ══ SUBJECTS ══ -->
+<!-- SUBJECTS PAGE -->
 <div id="page-subjects" class="page">
-  <div class="bc"><span onclick="goHome()">🏠 Home</span><span class="sep">›</span><span class="cur" id="bc1">Course</span></div>
+  <div class="bc">
+    <span onclick="goHome()">🏠 Home</span>
+    <span class="sep">›</span>
+    <span class="cur" id="bc1">Course</span>
+  </div>
   <div class="page-header">
     <button class="back-btn" onclick="goHome()">← Back</button>
-    <div><h1 id="sub-title">Subjects</h1><p id="sub-sub">Select a subject</p></div>
+    <div><h1 id="sub-title">Subjects</h1><p id="sub-sub">Subject select karo</p></div>
   </div>
   <div class="sub-grid" id="sub-container"></div>
 </div>
  
-<!-- ══ CHAPTERS ══ -->
+<!-- CHAPTERS PAGE -->
 <div id="page-chapters" class="page">
-  <div class="bc"><span onclick="goHome()">🏠 Home</span><span class="sep">›</span><span onclick="showPage('subjects')" id="bc2">Course</span><span class="sep">›</span><span class="cur" id="bc3">Subject</span></div>
+  <div class="bc">
+    <span onclick="goHome()">🏠 Home</span>
+    <span class="sep">›</span>
+    <span onclick="showPage('subjects')" id="bc2">Course</span>
+    <span class="sep">›</span>
+    <span class="cur" id="bc3">Subject</span>
+  </div>
   <div class="page-header">
     <button class="back-btn" onclick="showPage('subjects')">← Back</button>
-    <div><h1 id="ch-title">Chapters</h1><p id="ch-sub">Select a chapter</p></div>
+    <div><h1 id="ch-title">Chapters</h1><p id="ch-sub">Chapter select karo</p></div>
   </div>
   <div class="ch-grid" id="ch-container"></div>
 </div>
  
-<!-- ══ TOPICS ══ -->
+<!-- TOPICS PAGE -->
 <div id="page-topics" class="page">
-  <div class="bc"><span onclick="goHome()">🏠 Home</span><span class="sep">›</span><span onclick="showPage('subjects')" id="bc4">Course</span><span class="sep">›</span><span onclick="showPage('chapters')" id="bc5">Subject</span><span class="sep">›</span><span class="cur" id="bc6">Chapter</span></div>
+  <div class="bc">
+    <span onclick="goHome()">🏠 Home</span>
+    <span class="sep">›</span>
+    <span onclick="showPage('subjects')" id="bc4">Course</span>
+    <span class="sep">›</span>
+    <span onclick="showPage('chapters')" id="bc5">Subject</span>
+    <span class="sep">›</span>
+    <span class="cur" id="bc6">Chapter</span>
+  </div>
   <div class="page-header">
     <button class="back-btn" onclick="showPage('chapters')">← Back</button>
-    <div><h1 id="tp-title">Topics</h1><p id="tp-sub">Select a topic</p></div>
+    <div><h1 id="tp-title">Topics</h1><p id="tp-sub">Topic select karo</p></div>
   </div>
   <div class="tp-grid" id="tp-container"></div>
 </div>
  
-<!-- ══ VIDEO ══ -->
+<!-- VIDEO PAGE -->
 <div id="page-video" class="page">
-  <div class="bc"><span onclick="goHome()">🏠 Home</span><span class="sep">›</span><span onclick="showPage('subjects')" id="bc7">Course</span><span class="sep">›</span><span onclick="showPage('chapters')" id="bc8">Subject</span><span class="sep">›</span><span onclick="showPage('topics')" id="bc9">Chapter</span><span class="sep">›</span><span class="cur" id="bc10">Topic</span></div>
+  <div class="bc">
+    <span onclick="goHome()">🏠 Home</span>
+    <span class="sep">›</span>
+    <span onclick="showPage('subjects')" id="bc7">Course</span>
+    <span class="sep">›</span>
+    <span onclick="showPage('chapters')" id="bc8">Subject</span>
+    <span class="sep">›</span>
+    <span onclick="showPage('topics')" id="bc9">Chapter</span>
+    <span class="sep">›</span>
+    <span class="cur" id="bc10">Topic</span>
+  </div>
   <div class="page-header">
     <button class="back-btn" onclick="showPage('topics')">← Back</button>
     <div><h1 id="vid-title">Topic</h1><p id="vid-sub">Watch & Learn</p></div>
@@ -455,8 +394,8 @@ footer span{color:var(--accent);font-weight:700}
     <div class="video-box">
       <div class="vid-placeholder" id="vid-placeholder">
         <div class="vid-play-btn">▶</div>
-        <p style="font-size:.85rem">ERROR 404</p>
-        <p style="font-size:.78rem">Coming Soon!</p>
+        <p style="font-size:.85rem">Video Coming Soon!</p>
+        <p style="font-size:.78rem">Admin se contact karo</p>
       </div>
       <iframe id="vid-iframe" style="display:none;width:100%;height:100%;border:none" allowfullscreen></iframe>
     </div>
@@ -464,20 +403,22 @@ footer span{color:var(--accent);font-weight:700}
     <p id="vid-topic-desc" style="color:var(--text-muted);margin-bottom:1rem;line-height:1.7"></p>
     <div class="notes-box">
       <h3>📝 Study Tips</h3>
-      <ul><li>Learn With Focused</li><li>Make Notes</li><li>Revision is Necessary</li></ul>
+      <ul>
+        <li>Focus ke saath padho</li>
+        <li>Notes banao</li>
+        <li>Revision zaroori hai</li>
+      </ul>
     </div>
   </div>
 </div>
  
-<!-- ══ ADMIN ══ -->
+<!-- ADMIN PAGE -->
 <div id="page-admin" class="page">
   <div class="page-header">
     <button class="back-btn" onclick="goHome()">← Home</button>
     <div><h1>⚙️ Admin Panel</h1><p id="admin-user-label">Loading...</p></div>
   </div>
   <div class="admin-wrap">
- 
-    <!-- STATS -->
     <div class="adm-card">
       <h3>📊 Dashboard</h3>
       <div class="stat-grid">
@@ -492,46 +433,8 @@ footer span{color:var(--accent);font-weight:700}
         </div>
       </div>
     </div>
- 
-    <!-- VIDEO UPLOAD -->
     <div class="adm-card">
-      <h3>🎬 Video Upload </h3>
-      <p style="color:var(--text-muted);font-size:.85rem;margin-bottom:1rem">Course → Subject → Chapter → Topic select karo, phir YouTube/Drive link paste karo</p>
-      <div class="row">
-        <select id="adm-c" onchange="admFillSub()"><option value="">📚 Course</option></select>
-        <select id="adm-s" onchange="admFillCh()"><option value="">📖 Subject</option></select>
-      </div>
-      <div class="row">
-        <select id="adm-ch" onchange="admFillTp()"><option value="">📂 Chapter</option></select>
-        <select id="adm-tp"><option value="">🎬 Topic</option></select>
-      </div>
-      <div class="row">
-        <input type="text" id="adm-url" placeholder="🔗 YouTube ya Drive link yahan paste karo">
-        <button class="btn-adm" onclick="admUpload()">📤 Upload</button>
-      </div>
-      <div style="background:rgba(0,136,204,.1);border:1px solid rgba(0,136,204,.3);border-radius:12px;padding:1rem;margin-top:.5rem">
-        <p style="color:#60c3f5;font-size:.83rem;font-weight:700;margin-bottom:.5rem">🤖 Telegram Bot Commands (Bot se bhi upload kar sakte ho):</p>
-        <code style="color:#aac;font-size:.78rem;line-height:2;display:block">
-          /upload → Video upload wizard start karo<br>
-          /users → Sare registered users dekho<br>
-          /stats → Site ka statistics dekho<br>
-          /videos → Uploaded videos ki list<br>
-          /help → Sare commands
-        </code>
-      </div>
-    </div>
- 
-    <!-- UPLOADED VIDEOS -->
-    <div class="adm-card">
-      <h3>📹 Uploaded Videos</h3>
-      <div id="adm-vid-list" style="display:flex;flex-direction:column;gap:.6rem;margin-top:.5rem">
-        <p style="color:var(--text-muted);font-size:.88rem">Loading...</p>
-      </div>
-    </div>
- 
-    <!-- USERS -->
-    <div class="adm-card">
-      <h3>👥 Registered Users — Real-Time</h3>
+      <h3>👥 Registered Users</h3>
       <div style="overflow-x:auto">
         <table class="u-table">
           <thead><tr><th>Name</th><th>Email</th><th>Joined</th><th>Last Login</th><th>Status</th></tr></thead>
@@ -539,21 +442,25 @@ footer span{color:var(--accent);font-weight:700}
         </table>
       </div>
     </div>
- 
+    <div class="adm-card">
+      <h3>📹 Uploaded Videos</h3>
+      <div id="adm-vid-list" style="display:flex;flex-direction:column;gap:.6rem;margin-top:.5rem">
+        <p style="color:var(--text-muted);font-size:.88rem">Loading...</p>
+      </div>
+    </div>
   </div>
 </div>
  
-<!-- ══ LOGIN MODAL ══ -->
+<!-- LOGIN MODAL -->
 <div class="modal-overlay" id="login-modal" onclick="modalOutClick(event)">
   <div class="modal-box">
     <button class="modal-close" onclick="closeLogin()">✕</button>
     <h2>👋 Welcome!</h2>
-    <p>Login or Sign up</p>
+    <p>Login ya Sign Up karo</p>
     <div class="tabs-row">
       <button class="tab-btn active" id="t-login" onclick="switchTab('l')">🔓 Login</button>
       <button class="tab-btn" id="t-signup" onclick="switchTab('s')">✨ Sign Up</button>
     </div>
-    <!-- LOGIN -->
     <div id="f-login">
       <div class="form-group"><label>📧 Email</label><input type="email" id="l-em" placeholder="email@example.com"></div>
       <div class="form-group"><label>🔑 Password</label><input type="password" id="l-pw" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()"></div>
@@ -561,10 +468,9 @@ footer span{color:var(--accent);font-weight:700}
       <button class="btn-primary" style="width:100%" onclick="doLogin()" id="l-btn">🚀 Login</button>
       <div style="margin-top:1rem;display:flex;flex-direction:column;gap:.6rem">
         <button onclick="doGoogle()" style="background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.14);border-radius:10px;padding:10px;color:#fff;font-family:'Nunito',sans-serif;font-size:.9rem;font-weight:700;cursor:pointer">🌐 Google se Login</button>
-        <p style="text-align:center;font-size:.82rem;color:var(--text-muted)">Password Forgotten? <span style="color:var(--accent);cursor:pointer;font-weight:700" onclick="doReset()">Reset</span></p>
+        <p style="text-align:center;font-size:.82rem;color:var(--text-muted)">Password bhool gaye? <span style="color:var(--accent);cursor:pointer;font-weight:700" onclick="doReset()">Reset</span></p>
       </div>
     </div>
-    <!-- SIGNUP -->
     <div id="f-signup" style="display:none">
       <div class="form-group"><label>👤 Full Name</label><input type="text" id="s-nm" placeholder="Aapka poora naam"></div>
       <div class="form-group"><label>📧 Email</label><input type="email" id="s-em" placeholder="email@example.com"></div>
@@ -581,7 +487,7 @@ import{initializeApp}from"https://www.gstatic.com/firebasejs/10.7.1/firebase-app
 import{getAuth,createUserWithEmailAndPassword,signInWithEmailAndPassword,signOut,
   onAuthStateChanged,updateProfile,GoogleAuthProvider,signInWithPopup,sendPasswordResetEmail
 }from"https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-import{getDatabase,ref,set,get,onValue,serverTimestamp
+import{getDatabase,ref,set,get,onValue
 }from"https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
  
 const app=initializeApp(ADMIN_CONFIG.firebase);
@@ -589,12 +495,83 @@ const auth=getAuth(app);
 const db=getDatabase(app);
 const gp=new GoogleAuthProvider();
  
-// Set social links from config (no popup needed)
+// Social links set karo
 document.getElementById('lnk-tg').href=ADMIN_CONFIG.telegram;
 document.getElementById('lnk-wa').href=ADMIN_CONFIG.whatsapp;
 document.getElementById('lnk-ig').href=ADMIN_CONFIG.instagram;
  
-// Auth state listener
+// Courses load karo Firebase se
+async function loadCourses(){
+  try{
+    const snap=await get(ref(db,'courses'));
+    const data=snap.val()||{};
+    window.COURSES={};
+ 
+    Object.entries(data).forEach(([cId,course])=>{
+      window.COURSES[cId]={
+        name:course.name,
+        emoji:course.emoji||'📚',
+        color:course.color||'#e94560',
+        subjects:Object.entries(course.subjects||{}).map(([sId,subject])=>({
+          id:sId,
+          name:subject.name,
+          icon:subject.icon||'📖',
+          desc:subject.desc||subject.name,
+          chapters:Object.entries(subject.chapters||{}).map(([chId,chapter])=>({
+            id:chId,
+            name:chapter.name,
+            desc:chapter.desc||chapter.name,
+            topics:Object.entries(chapter.topics||{}).map(([tId,topic])=>({
+              id:tId,
+              name:topic.name,
+              desc:topic.desc||topic.name
+            }))
+          }))
+        }))
+      };
+    });
+ 
+    renderCoursesGrid();
+    const count=Object.keys(window.COURSES).length;
+    const el=document.getElementById('total-courses-count');
+    if(el) el.textContent=count||'0';
+  }catch(e){
+    console.error('Courses load error:',e);
+    document.getElementById('courses-grid').innerHTML=
+      '<div class="loading-courses">❌ Courses load nahi hue. Refresh karo.</div>';
+  }
+}
+ 
+function renderCoursesGrid(){
+  const grid=document.getElementById('courses-grid');
+  if(!grid)return;
+  const courses=window.COURSES||{};
+  if(!Object.keys(courses).length){
+    grid.innerHTML='<div class="loading-courses">📭 Koi course nahi abhi. Bot se batch add karo!</div>';
+    return;
+  }
+  grid.innerHTML='';
+  Object.entries(courses).forEach(([cId,c])=>{
+    const totalChapters=c.subjects.reduce((a,s)=>a+s.chapters.length,0);
+    const totalTopics=c.subjects.reduce((a,s)=>a+s.chapters.reduce((b,ch)=>b+ch.topics.length,0),0);
+    grid.innerHTML+=`
+      <div class="course-card">
+        <div class="course-banner" style="background:linear-gradient(135deg,#1a1a2e,${c.color})">${c.emoji}</div>
+        <div class="course-body">
+          <span class="course-tag" style="background:rgba(233,69,96,.2);color:${c.color}">${c.name}</span>
+          <h3>${c.name}</h3>
+          <p class="cdesc">${c.subjects.length} Subjects • ${totalChapters} Chapters • ${totalTopics} Topics</p>
+          <div class="course-meta">
+            <span>📖 ${c.subjects.length} Subjects</span>
+            <span>🎬 ${totalTopics} Topics</span>
+          </div>
+          <button class="btn-study" style="background:linear-gradient(135deg,${c.color},#1a1a2e);color:#fff" onclick="goCourse('${cId}')">🚀 Let's Study</button>
+        </div>
+      </div>`;
+  });
+}
+ 
+// Auth state
 onAuthStateChanged(auth,async u=>{
   if(u){
     const isAdmin=u.email===ADMIN_CONFIG.adminEmail;
@@ -604,7 +581,7 @@ onAuthStateChanged(auth,async u=>{
     document.getElementById('chip-name').textContent=u.displayName||u.email.split('@')[0];
     if(isAdmin){
       document.getElementById('admin-btn').style.display='inline-block';
-      document.getElementById('admin-user-label').textContent='Logged in as: '+u.email+' (Admin)';
+      document.getElementById('admin-user-label').textContent='Logged in: '+u.email+' (Admin)';
       loadAdminData();
     }
     const today=new Date().toISOString().split('T')[0];
@@ -613,7 +590,6 @@ onAuthStateChanged(auth,async u=>{
       joined:u.metadata.creationTime,lastLogin:new Date().toISOString(),
       loginDate:today,photo:u.photoURL||''
     });
-    tgNotify(`🔔 *New Login*\n👤 ${u.displayName||'User'}\n📧 ${u.email}\n📅 ${new Date().toLocaleString('hi-IN')}`);
   }else{
     document.getElementById('nav-login-btn').style.display='inline-block';
     document.getElementById('user-chip').style.display='none';
@@ -634,9 +610,10 @@ window.doLogin=async()=>{
     await signInWithEmailAndPassword(auth,em,pw);
     showToast('✅ Login ho gaye!');closeLogin();
   }catch(e){
-    err.textContent=e.code==='auth/wrong-password'?'❌ Incorrect Password':
-      e.code==='auth/user-not-found'?'❌ Email not Register':
-      e.code==='auth/too-many-requests'?'❌ Too many attempt. Try after few hours':'❌ '+e.message;
+    err.textContent=e.code==='auth/wrong-password'?'❌ Password galat hai':
+      e.code==='auth/user-not-found'?'❌ Email registered nahi':
+      e.code==='auth/invalid-credential'?'❌ Email ya Password galat hai':
+      e.code==='auth/too-many-requests'?'❌ Bahut attempts. Thodi der baad try karo':'❌ '+e.message;
     err.style.display='block';
   }
   btn.innerHTML='🚀 Login';btn.disabled=false;
@@ -651,50 +628,50 @@ window.doSignup=async()=>{
   const btn=document.getElementById('s-btn');
   err.style.display='none';
   if(!nm||!em||!pw){err.textContent='Sab fields bharo';err.style.display='block';return}
-  if(pw.length<6){err.textContent='Password kam se kam 6 characters ka hona chahiye';err.style.display='block';return}
+  if(pw.length<6){err.textContent='Password minimum 6 characters ka hona chahiye';err.style.display='block';return}
   btn.innerHTML='<span class="spin"></span>Creating...';btn.disabled=true;
   try{
     const c=await createUserWithEmailAndPassword(auth,em,pw);
     await updateProfile(c.user,{displayName:nm});
     showToast('🎉 Account ban gaya! Welcome '+nm);closeLogin();
   }catch(e){
-    err.textContent=e.code==='auth/email-already-in-use'?'❌ Already Registered':'❌ '+e.message;
+    err.textContent=e.code==='auth/email-already-in-use'?'❌ Yeh email already registered hai':'❌ '+e.message;
     err.style.display='block';
   }
   btn.innerHTML='✨ Create Account';btn.disabled=false;
 };
  
-// GOOGLE
+// GOOGLE LOGIN
 window.doGoogle=async()=>{
   try{await signInWithPopup(auth,gp);showToast('✅ Google login successful!');closeLogin();}
   catch(e){showToast('❌ Google login fail: '+e.message,true);}
 };
  
 // LOGOUT
-window.doLogout=async()=>{await signOut(auth);showToast('👋 Logout');goHome();};
+window.doLogout=async()=>{await signOut(auth);showToast('👋 Logout ho gaye!');goHome();};
  
-// RESET
+// RESET PASSWORD
 window.doReset=async()=>{
   const em=document.getElementById('l-em').value.trim();
-  if(!em){alert('Enter Your Email');return}
-  try{await sendPasswordResetEmail(auth,em);showToast('📧 Reset email sent!');}
+  if(!em){showToast('❌ Email daalo pehle',true);return}
+  try{await sendPasswordResetEmail(auth,em);showToast('📧 Reset email bhej diya!');}
   catch(e){showToast('❌ '+e.message,true);}
 };
  
 // GET VIDEO URL
 window.getVidUrl=async(cId,sId,chId,tId)=>{
-  const k=`${cId}_${sId}_${chId}_${tId}`;
+  const k=`${cId}__${sId}__${chId}__${tId}`;
   try{
     const s=await get(ref(db,`videos/${k}`));
     return s.exists()?s.val().url:null;
   }catch{return null;}
 };
-
-// LOAD ADMIN DATA
+ 
+// ADMIN DATA
 function loadAdminData(){
-  // Users realtime
   onValue(ref(db,'users'),snap=>{
-    const d=snap.val()||{};const rows=Object.values(d);
+    const d=snap.val()||{};
+    const rows=Object.values(d);
     document.getElementById('st-users').textContent=rows.length;
     const today=new Date().toISOString().split('T')[0];
     document.getElementById('st-today').textContent=rows.filter(u=>u.loginDate===today).length;
@@ -709,186 +686,63 @@ function loadAdminData(){
         <td>${u.loginDate===today?'<span class="dot-on"></span><span style="color:#10b981;font-size:.78rem">Today</span>':'<span style="color:var(--text-muted);font-size:.78rem">Offline</span>'}</td>
       </tr>`).join('');
   });
-  // Videos realtime
+ 
   onValue(ref(db,'videos'),snap=>{
-    const d=snap.val()||{};const entries=Object.entries(d).filter(([,v])=>v);
+    const d=snap.val()||{};
+    const entries=Object.entries(d).filter(([,v])=>v);
     document.getElementById('st-vids').textContent=entries.length;
     const el=document.getElementById('adm-vid-list');
-    if(!entries.length){el.innerHTML='<p style="color:var(--text-muted)">No Video Uploaded Here</p>';return;}
+    if(!entries.length){el.innerHTML='<p style="color:var(--text-muted)">Koi video upload nahi hui</p>';return;}
     el.innerHTML=entries.slice(-30).reverse().map(([id,v])=>`
       <div class="vid-item">
-        <div><div class="vname">🎬 ${v.topicName||'Unknown'}</div>
-          <div class="vmeta">${v.courseName||''} › ${v.subjectName||''} › ${v.chapterName||''}</div></div>
+        <div>
+          <div class="vname">🎬 ${v.topicName||'Unknown'}</div>
+          <div class="vmeta">${v.courseName||''} › ${v.subjectName||''} › ${v.chapterName||''}</div>
+        </div>
         <div style="display:flex;gap:.5rem;align-items:center">
           <a href="${v.url}" target="_blank" style="color:var(--teal);font-size:.8rem;font-weight:700;white-space:nowrap">▶ Play</a>
-          <button class="btn-del" onclick="admDel('${id}')">🗑</button>
         </div>
       </div>`).join('');
   });
-  // Fill course dropdown
-  admInitDropdowns();
 }
  
-function admInitDropdowns(){
-  const cel=document.getElementById('adm-c');
-  cel.innerHTML='<option value="">📚 Course</option>';
-  Object.entries(COURSES).forEach(([id,c])=>cel.innerHTML+=`<option value="${id}">${c.name}</option>`);
-}
-window.admFillSub=function(){
-  const cId=document.getElementById('adm-c').value;
-  const sel=document.getElementById('adm-s');
-  sel.innerHTML='<option value="">📖 Subject</option>';
-  document.getElementById('adm-ch').innerHTML='<option value="">📂 Chapter</option>';
-  document.getElementById('adm-tp').innerHTML='<option value="">🎬 Topic</option>';
-  if(cId) COURSES[cId].subjects.forEach((s,i)=>sel.innerHTML+=`<option value="${i}">${s.name}</option>`);
-};
-window.admFillCh=function(){
-  const cId=document.getElementById('adm-c').value;
-  const sI=parseInt(document.getElementById('adm-s').value);
-  const cel=document.getElementById('adm-ch');
-  cel.innerHTML='<option value="">📂 Chapter</option>';
-  document.getElementById('adm-tp').innerHTML='<option value="">🎬 Topic</option>';
-  if(cId&&!isNaN(sI)) COURSES[cId].subjects[sI].chapters.forEach((ch,i)=>cel.innerHTML+=`<option value="${i}">${ch.name}</option>`);
-};
-window.admFillTp=function(){
-  const cId=document.getElementById('adm-c').value;
-  const sI=parseInt(document.getElementById('adm-s').value);
-  const chI=parseInt(document.getElementById('adm-ch').value);
-  const tel=document.getElementById('adm-tp');
-  tel.innerHTML='<option value="">🎬 Topic</option>';
-  if(cId&&!isNaN(sI)&&!isNaN(chI)) COURSES[cId].subjects[sI].chapters[chI].topics.forEach((t,i)=>tel.innerHTML+=`<option value="${i}">${t.name}</option>`);
-};
- 
-// UPLOAD VIDEO
-window.admUpload=async()=>{
-  const cId=document.getElementById('adm-c').value;
-  const sI=parseInt(document.getElementById('adm-s').value);
-  const chI=parseInt(document.getElementById('adm-ch').value);
-  const tI=parseInt(document.getElementById('adm-tp').value);
-  const url=document.getElementById('adm-url').value.trim();
-  if(!cId||isNaN(sI)||isNaN(chI)||isNaN(tI)||!url){showToast('❌ Sab fields bharo aur link dalo',true);return}
-  const c=COURSES[cId],s=c.subjects[sI],ch=s.chapters[chI],t=ch.topics[tI];
-  await set(ref(db,`videos/${cId}_${sI}_${chI}_${tI}`),{
-    url,courseId:cId,courseName:c.name,subjectIdx:sI,subjectName:s.name,
-    chapterIdx:chI,chapterName:ch.name,topicIdx:tI,topicName:t.name,
-    uploadedAt:new Date().toISOString()
-  });
-  tgNotify(`✅ *Video Upload Hua!*\n📚 ${c.name}\n📖 ${s.name} › ${ch.name}\n🎬 ${t.name}\n🔗 ${url}`);
-  showToast('✅ Video upload ho gayi!');
-  document.getElementById('adm-url').value='';
-};
- 
-// DELETE VIDEO
-window.admDel=async(id)=>{
-  if(!confirm('Delete karna chahte ho?'))return;
-  await set(ref(db,`videos/${id}`),null);
-  showToast('🗑 Video deleted');
-};
- 
-// TELEGRAM NOTIFY
-function tgNotify(msg){
-  if(!ADMIN_CONFIG.botToken||ADMIN_CONFIG.botToken.includes('YOUR_BOT'))return;
-  fetch(`https://api.telegram.org/bot${ADMIN_CONFIG.botToken}/sendMessage`,{
-    method:'POST',headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({chat_id:ADMIN_CONFIG.botChatId,text:msg,parse_mode:'Markdown'})
-  }).catch(()=>{});
-}
- 
-// AUTH GUARD
+// Auth guard
 window.goCourse=function(cId){
   if(!auth.currentUser){document.getElementById('auth-wall').classList.add('show');return}
   openCourse(cId);
 };
 window.closeAuthWall=function(){document.getElementById('auth-wall').classList.remove('show')};
+ 
+// Load courses on start
+loadCourses();
 </script>
  
 <!-- MAIN SCRIPT -->
 <script>
 let COURSES = {};
-
-async function loadCourses() {
-  try {
-    const { getDatabase, ref, get } = await import("https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js");
-    const dbInst = getDatabase();
-    const snap = await get(ref(dbInst, 'courses'));
-    const data = snap.val() || {};
-
-    COURSES = {};
-    Object.entries(data).forEach(([cId, course]) => {
-      COURSES[cId] = {
-        name: course.name,
-        emoji: course.emoji || '📚',
-        color: course.color || '#e94560',
-        subjects: Object.entries(course.subjects || {}).map(([sId, subject]) => ({
-          id: sId,
-          name: subject.name,
-          icon: subject.icon || '📖',
-          desc: subject.desc || subject.name,
-          chapters: Object.entries(subject.chapters || {}).map(([chId, chapter]) => ({
-            id: chId,
-            name: chapter.name,
-            desc: chapter.desc || chapter.name,
-            topics: Object.entries(chapter.topics || {}).map(([tId, topic]) => ({
-              id: tId,
-              name: topic.name,
-              desc: topic.desc || topic.name
-            }))
-          }))
-        }))
-      };
-    });
-
-    renderCoursesGrid();
-  } catch(e) {
-    console.error('Courses load error:', e);
-  }
+let S = { cId:null, sI:null, chI:null, tI:null };
+ 
+function showPage(n){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+n).classList.add('active');
+  window.scrollTo(0,0);
 }
-
-function renderCoursesGrid() {
-  const grid = document.querySelector('.courses-grid');
-  if (!grid) return;
-  
-  if (Object.keys(COURSES).length === 0) {
-    grid.innerHTML = '<div style="text-align:center;color:var(--text-muted);padding:3rem;grid-column:1/-1">📭 Koi course nahi abhi. Bot se batch add karo!</div>';
-    return;
-  }
-
-  grid.innerHTML = '';
-  Object.entries(COURSES).forEach(([cId, c]) => {
-    const totalChapters = c.subjects.reduce((a, s) => a + s.chapters.length, 0);
-    const totalTopics   = c.subjects.reduce((a, s) => s.chapters.reduce((b, ch) => b + ch.topics.length, 0) + a, 0);
-    grid.innerHTML += `
-      <div class="course-card">
-        <div class="course-banner" style="background:linear-gradient(135deg,#1a1a2e,${c.color})">${c.emoji}</div>
-        <div class="course-body">
-          <span class="course-tag" style="background:rgba(233,69,96,.2);color:${c.color}">${c.name}</span>
-          <h3>${c.name}</h3>
-          <p class="cdesc">${c.subjects.length} Subjects • ${totalChapters} Chapters • ${totalTopics} Topics</p>
-          <div class="course-meta">
-            <span>📖 ${c.subjects.length} Subjects</span>
-            <span>🎬 ${totalTopics} Topics</span>
-          </div>
-          <button class="btn-study" style="background:linear-gradient(135deg,${c.color},#1a1a2e);color:#fff" onclick="goCourse('${cId}')">🚀 Let's Study</button>
-        </div>
-      </div>`;
-  });
+ 
+function goHome(){ showPage('home'); }
+ 
+function scrollToCourses(){
+  document.getElementById('courses-anchor').scrollIntoView({behavior:'smooth'});
 }
-
-window.addEventListener('load', () => setTimeout(loadCourses, 1200));
  
-let S={cId:null,sI:null,chI:null,tI:null};
- 
-function showPage(n){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('page-'+n).classList.add('active');window.scrollTo(0,0)}
-function goHome(){showPage('home')}
-function scrollToCourses(){goHome();setTimeout(()=>document.getElementById('courses-anchor').scrollIntoView({behavior:'smooth'}),120)}
- 
-function setBc(ids,val){ids.forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=val})}
+function setBc(ids,val){
+  ids.forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=val});
+}
  
 function openCourse(cId){
- function openCourse(cId){
+  const courses = window.COURSES || {};
   S.cId=cId;
-  const c=COURSES[cId];
-  if(!c) return;
+  const c=courses[cId];
+  if(!c)return;
   document.getElementById('sub-title').textContent=c.name;
   document.getElementById('sub-sub').textContent='Subject select karo';
   setBc(['bc1','bc2','bc4','bc7'],c.name);
@@ -903,7 +757,7 @@ function openCourse(cId){
       <h3>${s.name}</h3>
       <p>${s.desc}</p>
       <p style="font-size:.78rem;color:var(--text-muted)">📂 ${s.chapters.length} Chapters</p>
-      <div class="arr">Chapters देखें →</div>`;
+      <div class="arr">Chapters dekho →</div>`;
     d.onclick=()=>openSubject(i);
     con.appendChild(d);
   });
@@ -911,72 +765,89 @@ function openCourse(cId){
 }
  
 function openSubject(sI){
-  S.sI=sI;const s=COURSES[S.cId].subjects[sI];
+  const courses = window.COURSES || {};
+  S.sI=sI;
+  const s=courses[S.cId].subjects[sI];
   document.getElementById('ch-title').textContent=s.name;
   document.getElementById('ch-sub').textContent=s.desc;
   setBc(['bc3','bc5','bc8'],s.name);
-  const con=document.getElementById('ch-container');con.innerHTML='';
+  const con=document.getElementById('ch-container');
+  con.innerHTML='';
   s.chapters.forEach((ch,i)=>{
-    const d=document.createElement('div');d.className='ch-card';
-    d.style.borderTop='3px solid '+COURSES[S.cId].color;
-    d.innerHTML=`<h3>📖 ${ch.name}</h3><p>${ch.desc}</p><p style="font-size:.78rem;color:var(--text-muted)">🎬 ${ch.topics.length} Topics</p><div class="arr">Topics देखें →</div>`;
-    d.onclick=()=>openChapter(i);con.appendChild(d);
+    const d=document.createElement('div');
+    d.className='ch-card';
+    d.style.borderTop='3px solid '+(courses[S.cId].color||'#e94560');
+    d.innerHTML=`
+      <h3>📖 ${ch.name}</h3>
+      <p>${ch.desc}</p>
+      <p style="font-size:.78rem;color:var(--text-muted)">🎬 ${ch.topics.length} Topics</p>
+      <div class="arr">Topics dekho →</div>`;
+    d.onclick=()=>openChapter(i);
+    con.appendChild(d);
   });
   showPage('chapters');
 }
  
 function openChapter(chI){
-  S.chI=chI;const ch=COURSES[S.cId].subjects[S.sI].chapters[chI];
+  const courses = window.COURSES || {};
+  S.chI=chI;
+  const ch=courses[S.cId].subjects[S.sI].chapters[chI];
   document.getElementById('tp-title').textContent=ch.name;
   document.getElementById('tp-sub').textContent=ch.desc;
   setBc(['bc6','bc9'],ch.name);
-  const con=document.getElementById('tp-container');con.innerHTML='';
+  const con=document.getElementById('tp-container');
+  con.innerHTML='';
   ch.topics.forEach((t,i)=>{
-    const d=document.createElement('div');d.className='tp-card';
-    d.innerHTML=`<h3>🎬 ${t.name}</h3><p>${t.desc}</p><div class="arr" style="margin-top:.4rem">▶ Video देखें →</div>`;
-    d.onclick=()=>openTopic(i);con.appendChild(d);
+    const d=document.createElement('div');
+    d.className='tp-card';
+    d.innerHTML=`
+      <h3>🎬 ${t.name}</h3>
+      <p>${t.desc}</p>
+      <div class="arr" style="margin-top:.4rem">▶ Video dekho →</div>`;
+    d.onclick=()=>openTopic(i);
+    con.appendChild(d);
   });
   showPage('topics');
 }
  
 async function openTopic(tI){
+  const courses = window.COURSES || {};
   S.tI=tI;
-  const t=COURSES[S.cId].subjects[S.sI].chapters[S.chI].topics[tI];
-  if(!t) return;
+  const t=courses[S.cId].subjects[S.sI].chapters[S.chI].topics[tI];
+  if(!t)return;
   document.getElementById('vid-title').textContent=t.name;
   document.getElementById('vid-sub').textContent=t.desc||'';
   document.getElementById('bc10').textContent=t.name;
   document.getElementById('vid-topic-name').textContent=t.name;
   document.getElementById('vid-topic-desc').textContent=t.desc||'';
-  // Reset
   const ifr=document.getElementById('vid-iframe');
   ifr.style.display='none';ifr.src='';
   document.getElementById('vid-placeholder').style.display='flex';
   showPage('video');
-  // Load video from Firebase
-  if(typeof getVidUrl==='function'){
-    const topicId   = t.id   || tI;
-    const subjectId = COURSES[S.cId].subjects[S.sI].id || S.sI;
-    const chapterId = COURSES[S.cId].subjects[S.sI].chapters[S.chI].id || S.chI;
-    const url = await getVidUrl(S.cId, subjectId, chapterId, topicId);
+  if(typeof window.getVidUrl==='function'){
+    const subjectId = courses[S.cId].subjects[S.sI].id || S.sI;
+    const chapterId = courses[S.cId].subjects[S.sI].chapters[S.chI].id || S.chI;
+    const topicId   = t.id || tI;
+    const url=await window.getVidUrl(S.cId, subjectId, chapterId, topicId);
     if(url) embedVid(url);
   }
 }
  
- function embedVid(url){
+function embedVid(url){
   let em=url;
   const yt=url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
-  if(yt)em='https://www.youtube.com/embed/'+yt[1]+'?rel=0&autoplay=1';
+  if(yt) em='https://www.youtube.com/embed/'+yt[1]+'?rel=0&autoplay=1';
   const gd=url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
-  if(gd)em='https://drive.google.com/file/d/'+gd[1]+'/preview';
+  if(gd) em='https://drive.google.com/file/d/'+gd[1]+'/preview';
   const ifr=document.getElementById('vid-iframe');
   ifr.src=em;ifr.style.display='block';
   document.getElementById('vid-placeholder').style.display='none';
 }
  
-function openLogin(){document.getElementById('login-modal').classList.add('open')}
-function closeLogin(){document.getElementById('login-modal').classList.remove('open')}
-function modalOutClick(e){if(e.target===document.getElementById('login-modal'))closeLogin()}
+function openLogin(){ document.getElementById('login-modal').classList.add('open'); }
+function closeLogin(){ document.getElementById('login-modal').classList.remove('open'); }
+function modalOutClick(e){ if(e.target===document.getElementById('login-modal')) closeLogin(); }
+ 
 function switchTab(t){
   document.getElementById('f-login').style.display=t==='l'?'block':'none';
   document.getElementById('f-signup').style.display=t==='s'?'block':'none';
@@ -986,38 +857,19 @@ function switchTab(t){
  
 function showToast(m,err=false){
   const t=document.getElementById('toast');
-  t.textContent=m;t.style.background=err?'#e94560':'#10b981';
-  t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3200);
+  t.textContent=m;
+  t.style.background=err?'#e94560':'#10b981';
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),3200);
 }
  
-// Fallbacks if Firebase module not loaded yet
-window.getVidUrl=window.getVidUrl||(async()=>null);
+// Fallbacks
 window.doLogin=window.doLogin||(()=>showToast('Firebase setup required',true));
 window.doSignup=window.doSignup||(()=>showToast('Firebase setup required',true));
 window.doGoogle=window.doGoogle||(()=>showToast('Firebase setup required',true));
 window.doLogout=window.doLogout||(()=>{});
 window.doReset=window.doReset||(()=>{});
-
-
-
-async function tgNotify(msg){
-  try{
-    await fetch(`https://api.telegram.org/bot${ADMIN_CONFIG.botToken}/sendMessage`,{
-      method:"POST",
-      headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({
-        chat_id: ADMIN_CONFIG.botChatId,
-        text: msg,
-        parse_mode:"Markdown"
-      })
-    });
-  }catch(e){
-    console.log("TG Error", e);
-  }
-}
-
-// 👇 already hoga
-</script>
+window.goCourse=window.goCourse||(()=>showToast('Loading...',false));
 </script>
 </body>
 </html>
