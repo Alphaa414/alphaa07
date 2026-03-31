@@ -466,12 +466,12 @@ footer span{color:var(--accent);font-weight:700}
       <div class="err-msg" id="l-err"></div>
       <button class="btn-primary" style="width:100%" onclick="doLogin()" id="l-btn">🚀 Login</button>
       <div style="margin-top:1rem;display:flex;flex-direction:column;gap:.6rem">
-        <button onclick="doGoogle()" style="background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.14);border-radius:10px;padding:10px;color:#fff;font-family:'Nunito',sans-serif;font-size:.9rem;font-weight:700;cursor:pointer">🌐 Google se Login</button>
+        <button onclick="doGoogle()" style="background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.14);border-radius:10px;padding:10px;color:#fff;font-family:'Nunito',sans-serif;font-size:.9rem;font-weight:700;cursor:pointer">🌐 Signup with Google</button>
         <p style="text-align:center;font-size:.82rem;color:var(--text-muted)">Password Forgotten? <span style="color:var(--accent);cursor:pointer;font-weight:700" onclick="doReset()">Reset</span></p>
       </div>
     </div>
     <div id="f-signup" style="display:none">
-      <div class="form-group"><label>👤 Full Name</label><input type="text" id="s-nm" placeholder="Aapka poora naam"></div>
+      <div class="form-group"><label>👤 Full Name</label><input type="text" id="s-nm" placeholder="Your naam"></div>
       <div class="form-group"><label>📧 Email</label><input type="email" id="s-em" placeholder="email@example.com"></div>
       <div class="form-group"><label>🔑 Password</label><input type="password" id="s-pw" placeholder="Minimum 6 characters"></div>
       <div class="err-msg" id="s-err"></div>
@@ -560,6 +560,7 @@ function renderCoursesGrid(){
           <span class="course-tag" style="background:rgba(233,69,96,.2);color:${c.color}">${c.name}</span>
           <h3>${c.name}</h3>
           <p class="cdesc">${c.subjects.length} Subjects • ${totalChapters} Chapters • ${totalTopics} Topics</p>
+          <p>Starts on 15 Apr 2026</p>
           <div class="course-meta">
             <span>📖 ${c.subjects.length} Subjects</span>
             <span>🎬 ${totalTopics} Topics</span>
@@ -611,7 +612,7 @@ window.doLogin=async()=>{
   }catch(e){
     err.textContent=e.code==='auth/wrong-password'?'❌ Wrong Password':
       e.code==='auth/user-not-found'?'❌ Email not Registered':
-      e.code==='auth/invalid-credential'?'❌ Email or Password Wrong':
+      e.code==='auth/invalid-credential'?'❌ Invalid Email':
       e.code==='auth/too-many-requests'?'❌ Too many attempts. Try few hours later':'❌ '+e.message;
     err.style.display='block';
   }
