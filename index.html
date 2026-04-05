@@ -839,6 +839,10 @@ function embedVid(url){
   // Normal YouTube: watch?v=ID
   const yt=url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
   if(yt) em='https://www.youtube.com/embed/'+yt[1]+'?rel=0&autoplay=1';
+ // ScreenApp support
+if(url.includes("screenapp.io/app/v/")){
+  em = url;
+}
   // YouTube Live: /live/ID
   const ytLive=url.match(/youtube\.com\/live\/([a-zA-Z0-9_-]{11})/);
   if(ytLive) em='https://www.youtube.com/embed/'+ytLive[1]+'?rel=0&autoplay=1';
