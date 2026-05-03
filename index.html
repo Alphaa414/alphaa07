@@ -165,7 +165,9 @@ nav{position:sticky;top:0;z-index:999;background:rgba(26,26,46,.97);backdrop-fil
 .topic-content{max-width:900px;margin:0 auto;padding:2rem}
 .video-box{background:#000;border-radius:16px;overflow:hidden;aspect-ratio:16/9;width:100%;
   margin-bottom:1.2rem;display:flex;align-items:center;justify-content:center;
-  border:1px solid rgba(255,255,255,.1)}
+  border:1px solid rgba(255,255,255,.1);position:relative}
+.video-box:-webkit-full-screen iframe,.video-box:fullscreen iframe{width:100vw!important;height:100vh!important}
+.video-box:-webkit-full-screen,.video-box:fullscreen{background:#000;display:flex;align-items:center;justify-content:center}
 .vid-placeholder{text-align:center;color:rgba(255,255,255,.35);display:flex;flex-direction:column;align-items:center;gap:1rem}
 .vid-play-btn{width:68px;height:68px;border-radius:50%;background:var(--accent);
   display:flex;align-items:center;justify-content:center;font-size:1.8rem;cursor:default;border:none;color:#fff}
