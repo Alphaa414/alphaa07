@@ -886,6 +886,21 @@ window.doGoogle=window.doGoogle||(()=>showToast('Firebase setup required',true))
 window.doLogout=window.doLogout||(()=>{});
 window.doReset=window.doReset||(()=>{});
 window.goCourse=window.goCourse||(()=>showToast('Loading...',false));
+ // Fullscreen landscape lock
+document.addEventListener('fullscreenchange',()=>{
+  if(document.fullscreenElement){
+    screen.orientation?.lock('landscape').catch(()=>{});
+  } else {
+    screen.orientation?.unlock();
+  }
+});
+document.addEventListener('webkitfullscreenchange',()=>{
+  if(document.webkitFullscreenElement){
+    screen.orientation?.lock('landscape').catch(()=>{});
+  } else {
+    screen.orientation?.unlock();
+  }
+});
 </script>
 </body>
 </html>
