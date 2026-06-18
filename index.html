@@ -86,6 +86,7 @@ nav{position:sticky;top:0;z-index:999;background:rgba(26,26,46,.97);backdrop-fil
 .stat-item span:last-child{font-size:.9rem;color:var(--text-muted);font-weight:600}
  
 .section-title{text-align:center;padding:3rem 1.5rem 1.5rem}
+ 
 .section-title h2{font-family:'Baloo 2',cursive;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;color:#fff;margin-bottom:.5rem}
 .section-title p{color:var(--text-muted)}
 .accent-line{width:56px;height:4px;background:linear-gradient(90deg,var(--accent),var(--gold));border-radius:4px;margin:.8rem auto 0}
@@ -760,7 +761,7 @@ function openCourse(cId){
       <h3>${s.name}</h3>
       <p>${s.desc}</p>
       <p style="font-size:.78rem;color:var(--text-muted)">📂 ${s.chapters.length} Chapters</p>
-      <div class="arr">Chapters dekho →</div>`;
+      <div class="arr">Show Chapters →</div>`;
     d.onclick=()=>openSubject(i);
     con.appendChild(d);
   });
@@ -784,7 +785,7 @@ function openSubject(sI){
       <h3>📖 ${ch.name}</h3>
       <p>${ch.desc}</p>
       <p style="font-size:.78rem;color:var(--text-muted)">🎬 ${ch.topics.length} Topics</p>
-      <div class="arr">Topics dekho →</div>`;
+      <div class="arr">Select Topics →</div>`;
     d.onclick=()=>openChapter(i);
     con.appendChild(d);
   });
@@ -806,7 +807,7 @@ function openChapter(chI){
     d.innerHTML=`
       <h3>🎬 ${t.name}</h3>
       <p>${t.desc}</p>
-      <div class="arr" style="margin-top:.4rem">▶ Video dekho →</div>`;
+      <div class="arr" style="margin-top:.4rem">▶ Play Video →</div>`;
     d.onclick=()=>openTopic(i);
     con.appendChild(d);
   });
