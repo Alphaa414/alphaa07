@@ -287,7 +287,6 @@ footer span{color:var(--accent);font-weight:700}
   <div class="stats-strip">
    <div class="stat-item"><span>50+</span><span>Students Enrolled</span></div>
     <div class="stat-item"><span id="total-courses-count"></span><span>Premium Courses</span></div>
-    <div class="stat-item"><span id="total-video-count"></span><span>Video Lectures</span></div>
   </div>
   <div id="courses-anchor" class="section-title">
     <h2>Premium Courses</h2>
@@ -621,6 +620,29 @@ window.doLogin=async()=>{
     err.style.display='block';
   }
   btn.innerHTML='🚀 Login';btn.disabled=false;
+};
+ // FORGOT PASSWORD
+window.doReset=async()=>{
+  const email=document.getElementById('l-em').value.trim();
+  if(!email){
+    const userEmail=prompt('Apna registered email daalo:');
+    if(!userEmail)return;
+    try{
+      await sendPasswordResetEmail(auth,userEmail);
+      alert('✅ Reset link bhej diya! Email check karo.');
+    }catch(e){
+      e.code==='auth/user-not-found'?alert('❌ Email registered nahi hai!'):alert('❌ Error: '+e.message);
+    }
+    return;
+  }
+  try{
+    await sendPasswordResetEmail(auth,email);
+    alert('✅ Reset link bhej diya! '+email+' check karo.');
+  }catch(e){
+    e.code==='auth/user-not-found'?alert('❌ Email registered nahi hai!'):
+    e.code==='auth/invalid-email'?alert('❌ Valid email daalo!'):
+    alert('❌ Error: '+e.message);
+  }
 };
  
 // SIGNUP
