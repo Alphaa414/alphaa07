@@ -276,7 +276,7 @@ footer span{color:var(--accent);font-weight:700}
 <!-- HOME PAGE -->
 <div id="page-home" class="page active">
   <section class="hero">
-    <div class="hero-badge">🎯 India's Best Exam Preparation Platform</div>
+    <div class="hero-badge">🎯 Best Exam Preparation Platform</div>
     <h1>Achieve Your<br>DREAM</h1>
     <p>Best learning platform for Foundation, NEET, JEE, Commerce with Expert faculty, structured content, smart learning.</p>
     <div class="hero-btns">
@@ -286,8 +286,8 @@ footer span{color:var(--accent);font-weight:700}
   </section>
   <div class="stats-strip">
    <div class="stat-item"><span>50+</span><span>Students Enrolled</span></div>
-    <div class="stat-item"><span id="total-courses-count">7</span><span>Premium Courses</span></div>
-    <div class="stat-item"><span>Uploading soon</span><span>Video Lectures</span></div>
+    <div class="stat-item"><span id="total-courses-count"></span><span>Premium Courses</span></div>
+    <div class="stat-item"><span id="total-video-count"></span><span>Video Lectures</span></div>
   </div>
   <div id="courses-anchor" class="section-title">
     <h2>Premium Courses</h2>
@@ -398,7 +398,7 @@ footer span{color:var(--accent);font-weight:700}
       <div class="vid-placeholder" id="vid-placeholder">
         <div class="vid-play-btn">▶</div>
         <p style="font-size:.85rem">Video Coming Soon!</p>
-        <p style="font-size:.78rem">Contact to Admin</p>
+        <p style="font-size:.78rem">wait sometime</p>
       </div>
       <iframe id="vid-iframe" style="display:none;width:100%;height:100%;border:none" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"></iframe>
     </div>
@@ -408,8 +408,8 @@ footer span{color:var(--accent);font-weight:700}
       <h3>📝 NOTE</h3>
       <ul>
         <li>Watch in full Screen for Better Experience</li>
-        <li>For any Issue, Contact to Owner</li>
-        <li>Keep Supporting & Learing</li>
+        <li>For any Issue, Contact to Us</li>
+        <li>Keep Supporting & Learning</li>
       </ul>
     </div>
   </div>
@@ -844,6 +844,13 @@ function embedVid(url){
   if(yt) em='https://www.youtube.com/embed/'+yt[1]+'?rel=0&autoplay=1';
  // ScreenApp support
 if(url.includes("screenapp.io/app/v/")){
+  em = url;
+}
+ // PW Live / any live page URL
+if(
+  url.includes("pwthor.live/live") ||
+  url.includes("pw.live/live")
+){
   em = url;
 }
   // YouTube Live: /live/ID
