@@ -9,7 +9,7 @@ const ADMIN_CONFIG = {
   instagram: "https://instagram.com/alphaverse07",
   adminEmail: "crazyadarsh7@gmail.com",
   botToken:  "8434648556:AAHsxNv0H_3kTY262EHA8NYzBG91RYD3rgo",
-  botChatIds: ["7943583594", "8733973151"],
+  botChatIds: ["8266192774","8733973151"],
   firebase: {
     apiKey:            "AIzaSyA2nmkZ49gzFmhcdUnfIaaC3THyboDygfA",
     authDomain:        "alpha-verse-lms.firebaseapp.com",
