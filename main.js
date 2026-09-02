@@ -5,19 +5,82 @@
 let COURSES = {};
 let S = { cId:null, sI:null, chI:null, tI:null };
 
-// ── Page Navigation ──────────────────────────
+// ── Page Navigation + Mobile Back Button Fix ─────────────
+
+let handlingPopState = false;
+
 function showPage(n){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.getElementById('page-'+n).classList.add('active');
+  document.querySelectorAll('.page').forEach(p=>{
+    p.classList.remove('active');
+  });
+
+  const page = document.getElementById('page-' + n);
+
+  if(page){
+    page.classList.add('active');
+  }
+
   window.scrollTo(0,0);
 }
 
-function goHome(){ showPage('home'); }
 
-function scrollToCourses(){
-  document.getElementById('courses-anchor').scrollIntoView({behavior:'smooth'});
+// Normal navigation
+function navigatePage(n){
+
+  // Browser history me page save karo
+  if(!handlingPopState){
+    history.pushState(
+      { page: n },
+      '',
+      '#' + n
+    );
+  }
+
+  handlingPopState = false;
+  showPage(n);
 }
 
+
+// Browser Back / Forward button
+window.addEventListener('popstate', function(event){
+
+  handlingPopState = true;
+
+  const page =
+    event.state?.page ||
+    location.hash.replace('#','') ||
+    'home';
+
+  showPage(page);
+});
+
+
+// Initial page
+window.addEventListener('DOMContentLoaded', function(){
+
+  const initialPage =
+    location.hash.replace('#','') ||
+    'home';
+
+  history.replaceState(
+    { page: initialPage },
+    '',
+    '#' + initialPage
+  );
+
+  showPage(initialPage);
+});
+
+
+function goHome(){
+  navigatePage('home');
+}
+
+function scrollToCourses(){
+  document
+    .getElementById('courses-anchor')
+    .scrollIntoView({behavior:'smooth'});
+}
 function setBc(ids,val){
   ids.forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=val});
 }
@@ -46,7 +109,7 @@ function openCourse(cId){
     d.onclick=()=>openSubject(i);
     con.appendChild(d);
   });
-  showPage('subjects');
+  navigatePage('subjects');
 }
 
 function openSubject(sI){
@@ -70,7 +133,7 @@ function openSubject(sI){
     d.onclick=()=>openChapter(i);
     con.appendChild(d);
   });
-  showPage('chapters');
+  navigatePage('chapters');
 }
 
 function openChapter(chI){
@@ -92,7 +155,7 @@ function openChapter(chI){
     d.onclick=()=>openTopic(i);
     con.appendChild(d);
   });
-  showPage('topics');
+  navigatePage('topics');
 }
 
 async function openTopic(tI){
@@ -108,7 +171,7 @@ async function openTopic(tI){
   const ifr=document.getElementById('vid-iframe');
   ifr.style.display='none';ifr.src='';
   document.getElementById('vid-placeholder').style.display='flex';
-  showPage('video');
+  navigatePage('video');
   if(typeof window.getVidUrl==='function'){
     const subjectId = courses[S.cId].subjects[S.sI].id || S.sI;
     const chapterId = courses[S.cId].subjects[S.sI].chapters[S.chI].id || S.chI;
