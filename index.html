@@ -37,6 +37,7 @@
       <span id="chip-name">User</span>
       <button onclick="doLogout()">Logout</button>
     </div>
+   <button class="btn-nav-dashboard" id="dashboard-btn" onclick="openDashboard()">📊 Dashboard</button>
     <button class="btn-nav-admin" id="admin-btn" onclick="showPage('admin')">⚙️ Admin</button>
   </div>
 </nav>
@@ -65,6 +66,152 @@
     <div class="loading-courses">⏳ Courses loading...</div>
   </div>
   <footer><p>Made with ❤️ by <span>AlphaVerse Team</span> | © 2026 All Rights Reserved 🇮🇳</p></footer>
+</div>
+
+ <!-- STUDENT DASHBOARD PAGE -->
+<div id="page-dashboard" class="page">
+
+  <div class="page-header">
+    <button class="back-btn" onclick="goHome()">← Home</button>
+    <div>
+      <h1>📊 Dashboard</h1>
+      <p id="dash-welcome">Welcome back!</p>
+    </div>
+  </div>
+
+  <div class="dashboard-wrap">
+
+    <!-- STREAK CARD -->
+    <div class="dash-card streak-card">
+
+      <div class="dash-card-title">
+        <div>
+          <h2>🔥 YOUR STREAK</h2>
+          <p>Study for at least 10 minutes every day</p>
+        </div>
+      </div>
+
+      <div class="streak-main">
+        <div class="streak-number">
+          <span id="dash-current-streak">0</span>
+          <small>Days</small>
+        </div>
+
+        <div class="streak-info">
+          <div class="streak-progress-text">
+            <span id="dash-streak-progress-text">0 / 10 min today</span>
+          </div>
+
+          <div class="streak-progress">
+            <div id="dash-streak-progress-bar"></div>
+          </div>
+
+          <p id="dash-streak-message">
+            Start studying today to build your streak! 🚀
+          </p>
+        </div>
+      </div>
+
+      <!-- WEEK DAYS -->
+      <div class="streak-week">
+
+        <div class="streak-day">
+          <span>M</span>
+          <b id="streak-mon">○</b>
+        </div>
+
+        <div class="streak-day">
+          <span>T</span>
+          <b id="streak-tue">○</b>
+        </div>
+
+        <div class="streak-day">
+          <span>W</span>
+          <b id="streak-wed">○</b>
+        </div>
+
+        <div class="streak-day">
+          <span>T</span>
+          <b id="streak-thu">○</b>
+        </div>
+
+        <div class="streak-day">
+          <span>F</span>
+          <b id="streak-fri">○</b>
+        </div>
+
+        <div class="streak-day">
+          <span>S</span>
+          <b id="streak-sat">○</b>
+        </div>
+
+        <div class="streak-day">
+          <span>S</span>
+          <b id="streak-sun">○</b>
+        </div>
+
+      </div>
+
+      <div class="best-streak">
+        🏆 Best Streak:
+        <strong id="dash-best-streak">0 Days</strong>
+      </div>
+
+    </div>
+
+
+    <!-- TIME STATS -->
+    <div class="dash-stat-grid">
+
+      <div class="dash-stat today">
+        <div class="dash-stat-icon">⏱️</div>
+        <div class="dash-stat-number" id="dash-today-time">0 min</div>
+        <div class="dash-stat-label">Today</div>
+      </div>
+
+      <div class="dash-stat week">
+        <div class="dash-stat-icon">📅</div>
+        <div class="dash-stat-number" id="dash-week-time">0 min</div>
+        <div class="dash-stat-label">This Week</div>
+      </div>
+
+      <div class="dash-stat total">
+        <div class="dash-stat-icon">📚</div>
+        <div class="dash-stat-number" id="dash-total-time">0 min</div>
+        <div class="dash-stat-label">Total Study Time</div>
+      </div>
+
+    </div>
+
+
+    <!-- LECTURES -->
+    <div class="dash-card lectures-card">
+
+      <h2>🎬 Lectures Played</h2>
+
+      <div class="lecture-stats">
+
+        <div>
+          <strong id="dash-lectures-today">0</strong>
+          <span>Today</span>
+        </div>
+
+        <div>
+          <strong id="dash-lectures-week">0</strong>
+          <span>This Week</span>
+        </div>
+
+        <div>
+          <strong id="dash-lectures-total">0</strong>
+          <span>Total</span>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
 </div>
  
 <!-- CONNECT PAGE -->
