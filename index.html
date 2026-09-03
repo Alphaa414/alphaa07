@@ -501,6 +501,14 @@ function renderCoursesGrid(){
 // ============================================
 
 let dashboardListener = null;
+let studyTimer = null;
+let studyFlushTimer = null;
+
+let studyTracking = false;
+let studyLastTick = null;
+
+let currentLectureKey = null;
+let currentLectureStart = null;
 
 function indiaDateKey(date = new Date()){
   return new Intl.DateTimeFormat('en-CA',{
