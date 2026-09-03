@@ -509,6 +509,94 @@ let studyLastTick = null;
 
 let currentLectureKey = null;
 let currentLectureStart = null;
+ 
+ function getTodayActivityRef(uid){
+  const date = indiaDateKey();
+  return ref(db, `userActivity/${uid}/days/${date}`);
+}
+
+async function flushStudyTime(){
+  if(!studyTracking || !studyLastTick || !auth.currentUser){
+    return;
+  }
+
+  const now = Date.now();
+  const elapsed = Math.floor((now - studyLastTick) / 1000);
+
+  if(elapsed <= 0){
+    studyLastTick = now;
+    return;
+  }
+
+  studyLastTick = now;
+
+  const uid = auth.currentUser.uid;
+  const date = indiaDateKey();
+
+  const dayRef = ref(
+    db,
+    `userActivity/${uid}/days/${date}`
+  );
+
+  const updates = {};
+
+  updates.time = (await get(dayRef)).val()?.time || 0;
+  updates.time += elapsed;
+
+  if(currentLectureKey){
+    updates.lectureTime =
+      ((await get(dayRef)).val()?.lectureTime || 0) + elapsed;
+  }
+
+  updates.lastActive = new Date().toISOString();
+
+  await update(dayRef, updates);
+
+  const activityRef = ref(db, `userActivity/${uid}`);
+
+  const activitySnap = await get(activityRef);
+  const activity = activitySnap.val() || {};
+
+  await update(activityRef, {
+    totalTime: (Number(activity.totalTime) || 0) + elapsed,
+    lastActive: new Date().toISOString()
+  });
+}
+
+
+function startStudyTimer(lectureKey){
+  if(!auth.currentUser) return;
+
+  stopStudyTimer();
+
+  currentLectureKey = String(lectureKey || 'unknown');
+  currentLectureStart = Date.now();
+
+  studyTracking = true;
+  studyLastTick = Date.now();
+
+  studyFlushTimer = setInterval(() => {
+    flushStudyTime();
+  }, 15000);
+}
+
+
+async function stopStudyTimer(){
+  if(!studyTracking) return;
+
+  await flushStudyTime();
+
+  studyTracking = false;
+
+  if(studyFlushTimer){
+    clearInterval(studyFlushTimer);
+    studyFlushTimer = null;
+  }
+
+  studyLastTick = null;
+  currentLectureKey = null;
+  currentLectureStart = null;
+}
 
 function indiaDateKey(date = new Date()){
   return new Intl.DateTimeFormat('en-CA',{
