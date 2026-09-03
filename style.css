@@ -499,3 +499,19 @@ footer span{color:var(--accent);font-weight:700}
   }
 
 }
+@media (max-width: 600px){
+
+  .navbar{
+    align-items: center !important;
+  }
+
+  #nav-login-btn{
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  #dashboard-btn{
+    margin-top: 8px !important;
+  }
+
+}
