@@ -172,6 +172,8 @@ async function openTopic(tI){
   ifr.style.display='none';ifr.src='';
   document.getElementById('vid-placeholder').style.display='flex';
   navigatePage('video');
+  startStudyTimer(t.id || tI);
+  
   if(typeof window.getVidUrl==='function'){
     const subjectId = courses[S.cId].subjects[S.sI].id || S.sI;
     const chapterId = courses[S.cId].subjects[S.sI].chapters[S.chI].id || S.chI;
