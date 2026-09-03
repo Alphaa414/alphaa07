@@ -488,6 +488,278 @@ function renderCoursesGrid(){
       </div>`;
   });
 }
+
+// ============================================
+// STUDENT DASHBOARD
+// ============================================
+
+let dashboardListener = null;
+
+function indiaDateKey(date = new Date()){
+  return new Intl.DateTimeFormat('en-CA',{
+    timeZone:'Asia/Kolkata',
+    year:'numeric',
+    month:'2-digit',
+    day:'2-digit'
+  }).format(date);
+}
+
+function formatStudyTime(seconds = 0){
+
+  seconds = Math.max(0,Math.floor(Number(seconds)||0));
+
+  const hours = Math.floor(seconds / 3600);
+  const minutes = Math.floor((seconds % 3600) / 60);
+
+  if(hours > 0){
+    return `${hours}h ${minutes}m`;
+  }
+
+  return `${minutes} min`;
+}
+
+function getWeekDates(){
+
+  const now = new Date();
+
+  const indiaParts = new Intl.DateTimeFormat('en-US',{
+    timeZone:'Asia/Kolkata',
+    weekday:'short'
+  }).format(now);
+
+  const dayNames = {
+    Sun:0,
+    Mon:1,
+    Tue:2,
+    Wed:3,
+    Thu:4,
+    Fri:5,
+    Sat:6
+  };
+
+  const todayIndex = dayNames[indiaParts];
+
+  const dates = [];
+
+  for(let i=1;i<=7;i++){
+
+    const d = new Date(now);
+
+    const diff = todayIndex === 0
+      ? -(6 - (i-1))
+      : -(todayIndex - (i-1));
+
+    d.setDate(now.getDate() + diff);
+
+    dates.push(indiaDateKey(d));
+  }
+
+  return dates;
+}
+
+function renderDashboard(data = {}){
+
+  const days = data.days || {};
+
+  const today = indiaDateKey();
+
+  const weekDates = getWeekDates();
+
+  const todayData = days[today] || {};
+
+  // TODAY
+  const todayTime = Number(todayData.time || 0);
+
+  // WEEK
+  let weekTime = 0;
+  let weekLectures = 0;
+
+  weekDates.forEach(date => {
+
+    const d = days[date] || {};
+
+    weekTime += Number(d.time || 0);
+    weekLectures += Number(d.lectureCount || 0);
+
+  });
+
+  // TOTAL
+  const totalTime = Number(data.totalTime || 0);
+  const totalLectures = Number(data.totalLectures || 0);
+
+  // STREAK
+  const currentStreak = Number(data.currentStreak || 0);
+  const bestStreak = Number(data.bestStreak || 0);
+
+  // Welcome
+  const user = auth.currentUser;
+
+  if(user){
+
+    const name =
+      user.displayName ||
+      user.email?.split('@')[0] ||
+      'Student';
+
+    const welcome = document.getElementById('dash-welcome');
+
+    if(welcome){
+      welcome.textContent = `Welcome back, ${name}!`;
+    }
+
+  }
+
+  // TIME
+  const todayEl = document.getElementById('dash-today-time');
+  const weekEl = document.getElementById('dash-week-time');
+  const totalEl = document.getElementById('dash-total-time');
+
+  if(todayEl) todayEl.textContent = formatStudyTime(todayTime);
+  if(weekEl) weekEl.textContent = formatStudyTime(weekTime);
+  if(totalEl) totalEl.textContent = formatStudyTime(totalTime);
+
+  // LECTURES
+  const lt = document.getElementById('dash-lectures-today');
+  const lw = document.getElementById('dash-lectures-week');
+  const ltotal = document.getElementById('dash-lectures-total');
+
+  if(lt) lt.textContent = todayData.lectureCount || 0;
+  if(lw) lw.textContent = weekLectures;
+  if(ltotal) ltotal.textContent = totalLectures;
+
+  // STREAK
+  const currentEl = document.getElementById('dash-current-streak');
+  const bestEl = document.getElementById('dash-best-streak');
+
+  if(currentEl) currentEl.textContent = currentStreak;
+  if(bestEl) bestEl.textContent = `${bestStreak} Days`;
+
+  // TODAY'S 10 MIN PROGRESS
+  const progressSeconds = Number(todayData.lectureTime || 0);
+
+  const progressMinutes = Math.floor(progressSeconds / 60);
+
+  const progressPercent =
+    Math.min(progressSeconds / 600 * 100,100);
+
+  const progressText =
+    document.getElementById('dash-streak-progress-text');
+
+  const progressBar =
+    document.getElementById('dash-streak-progress-bar');
+
+  if(progressText){
+
+    if(progressSeconds >= 600){
+      progressText.textContent = '10 / 10 min completed ✅';
+    }else{
+      progressText.textContent =
+        `${progressMinutes} / 10 min today`;
+    }
+
+  }
+
+  if(progressBar){
+    progressBar.style.width = `${progressPercent}%`;
+  }
+
+  const message =
+    document.getElementById('dash-streak-message');
+
+  if(message){
+
+    if(progressSeconds >= 600){
+
+      message.textContent =
+        '🎉 Today’s study goal completed! Keep your streak alive.';
+
+    }else if(progressSeconds > 0){
+
+      message.textContent =
+        `🔥 ${10-progressMinutes} more min to complete today’s goal.`;
+
+    }else{
+
+      message.textContent =
+        'Start studying today to build your streak! 🚀';
+
+    }
+
+  }
+
+  // WEEK INDICATORS
+  const dayIds = [
+    'streak-mon',
+    'streak-tue',
+    'streak-wed',
+    'streak-thu',
+    'streak-fri',
+    'streak-sat',
+    'streak-sun'
+  ];
+
+  dayIds.forEach((id,index)=>{
+
+    const el = document.getElementById(id);
+
+    if(!el)return;
+
+    const parent = el.closest('.streak-day');
+
+    const date = weekDates[index];
+
+    const dayData = days[date] || {};
+
+    const qualified =
+      Number(dayData.lectureTime || 0) >= 600;
+
+    el.textContent = qualified ? '✓' : '○';
+
+    if(parent){
+      parent.classList.toggle('active',qualified);
+    }
+
+  });
+
+}
+
+
+// OPEN DASHBOARD
+window.openDashboard = function(){
+
+  if(!auth.currentUser){
+
+    document.getElementById('auth-wall')
+      .classList.add('show');
+
+    return;
+  }
+
+  showPage('dashboard');
+
+  const uid = auth.currentUser.uid;
+
+  // Remove previous listener
+  if(dashboardListener){
+
+    dashboardListener();
+
+    dashboardListener = null;
+
+  }
+
+  dashboardListener = onValue(
+    ref(db,`userActivity/${uid}`),
+    snap => {
+
+      const data = snap.val() || {};
+
+      renderDashboard(data);
+
+    }
+  );
+
+};
  
 // Auth state
 onAuthStateChanged(auth,async u=>{
@@ -496,9 +768,23 @@ onAuthStateChanged(auth,async u=>{
     document.getElementById('nav-login-btn').style.display='none';
     const chip=document.getElementById('user-chip');
     chip.style.display='flex';
+
+const dashboardBtn =
+  document.getElementById('dashboard-btn');
+
+if(dashboardBtn){
+  dashboardBtn.style.display='inline-block';
+}
+   
     document.getElementById('chip-name').textContent=u.displayName||u.email.split('@')[0];
     if(isAdmin){
       document.getElementById('admin-btn').style.display='inline-block';
+     const dashboardBtn =
+  document.getElementById('dashboard-btn');
+
+if(dashboardBtn){
+  dashboardBtn.style.display='none';
+}
       document.getElementById('admin-user-label').textContent='Logged in: '+u.email+' (Admin)';
       loadAdminData();
     }
