@@ -619,6 +619,40 @@ window.stopStudyTimer = stopStudyTimer;
   }
 
 });
+
+ window.addEventListener('pagehide', () => {
+
+  if (studyTracking && studyLastTick) {
+
+    const uid = auth.currentUser?.uid;
+
+    if (uid) {
+      const now = Date.now();
+      const elapsed = Math.floor((now - studyLastTick) / 1000);
+
+      if (elapsed > 0) {
+        const date = indiaDateKey();
+        const dayRef = ref(db, `userActivity/${uid}/days/${date}`);
+
+        get(dayRef).then(snap => {
+          const current = snap.val() || {};
+          const updates = {
+            time: (current.time || 0) + elapsed,
+            lastActive: new Date().toISOString()
+          };
+
+          if (currentLectureKey) {
+            updates.lectureTime = (current.lectureTime || 0) + elapsed;
+          }
+
+          update(dayRef, updates);
+        });
+      }
+    }
+
+  }
+
+});
  
 function indiaDateKey(date = new Date()){
   return new Intl.DateTimeFormat('en-CA',{
