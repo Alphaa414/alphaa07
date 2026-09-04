@@ -580,7 +580,8 @@ function startStudyTimer(lectureKey){
   }, 15000);
 }
 
-
+window.startStudyTimer = startStudyTimer;
+ 
 async function stopStudyTimer(){
   if(!studyTracking) return;
 
@@ -598,6 +599,8 @@ async function stopStudyTimer(){
   currentLectureStart = null;
 }
 
+window.stopStudyTimer = stopStudyTimer;
+ 
 function indiaDateKey(date = new Date()){
   return new Intl.DateTimeFormat('en-CA',{
     timeZone:'Asia/Kolkata',
