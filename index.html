@@ -563,6 +563,39 @@ async function flushStudyTime(){
   });
 }
 
+ async function markLectureIfNew(uid, lectureKey){
+  if(!uid || !lectureKey) return;
+
+  const date = indiaDateKey();
+  const lectureRef = ref(
+    db,
+    `userActivity/${uid}/days/${date}/lectures/${lectureKey}`
+  );
+
+  const snap = await get(lectureRef);
+
+  if(snap.exists()){
+    return; // already counted today
+  }
+
+  await set(lectureRef, true);
+
+  const dayRef = ref(db, `userActivity/${uid}/days/${date}`);
+  const daySnap = await get(dayRef);
+  const dayData = daySnap.val() || {};
+
+  await update(dayRef, {
+    lectureCount: (Number(dayData.lectureCount) || 0) + 1
+  });
+
+  const activityRef = ref(db, `userActivity/${uid}`);
+  const activitySnap = await get(activityRef);
+  const activity = activitySnap.val() || {};
+
+  await update(activityRef, {
+    totalLectures: (Number(activity.totalLectures) || 0) + 1
+  });
+}
 
 function startStudyTimer(lectureKey){
   if(!auth.currentUser) return;
@@ -571,6 +604,8 @@ function startStudyTimer(lectureKey){
 
   currentLectureKey = String(lectureKey || 'unknown');
   currentLectureStart = Date.now();
+ 
+  markLectureIfNew(auth.currentUser.uid, currentLectureKey);
 
   studyTracking = true;
   studyLastTick = Date.now();
