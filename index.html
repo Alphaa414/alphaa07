@@ -600,6 +600,25 @@ async function stopStudyTimer(){
 }
 
 window.stopStudyTimer = stopStudyTimer;
+
+ document.addEventListener('visibilitychange', async () => {
+
+  if (document.hidden) {
+
+    if (studyTracking) {
+      await flushStudyTime();
+      studyLastTick = null;
+    }
+
+  } else {
+
+    if (studyTracking) {
+      studyLastTick = Date.now();
+    }
+
+  }
+
+});
  
 function indiaDateKey(date = new Date()){
   return new Intl.DateTimeFormat('en-CA',{
