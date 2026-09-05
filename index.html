@@ -8,6 +8,167 @@
 
  <script src="config.js"></script>
 <link rel="stylesheet" href="style.css">
+
+<style>
+  :root{
+    --tg-blue:#229ED9;
+    --tg-blue-dark:#1B84B8;
+    --ink:#1B2733;
+    --muted:#5B6B78;
+    --card:#FFFFFF;
+    --bg-dim:rgba(10,20,28,0.55);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Segoe UI',system-ui,-apple-system,sans-serif;
+    background:#0f1720;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+ 
+  /* Demo trigger button (real site pe iski zaroorat nahi, popup apne aap khulega) */
+  .demo-btn{
+    padding:12px 22px;
+    background:var(--tg-blue);
+    color:#fff;
+    border:none;
+    border-radius:8px;
+    font-size:15px;
+    cursor:pointer;
+  }
+ 
+  .overlay{
+    position:fixed;
+    inset:0;
+    background:var(--bg-dim);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:9999;
+    padding:16px;
+  }
+  .overlay.show{ display:flex; }
+ 
+  .popup{
+    width:100%;
+    max-width:380px;
+    background:var(--card);
+    border-radius:16px;
+    overflow:hidden;
+    box-shadow:0 20px 60px rgba(0,0,0,0.35);
+    animation:pop .25s ease;
+  }
+  @keyframes pop{
+    from{ transform:scale(.92); opacity:0; }
+    to{ transform:scale(1); opacity:1; }
+  }
+ 
+  .popup-head{
+    background:linear-gradient(135deg,var(--tg-blue),var(--tg-blue-dark));
+    padding:32px 24px 24px;
+    text-align:center;
+    position:relative;
+    color:#fff;
+  }
+  .close-btn{
+    position:absolute;
+    top:12px; right:12px;
+    width:32px; height:32px;
+    border-radius:50%;
+    background:rgba(0,0,0,0.2);
+    border:none;
+    color:#fff;
+    font-size:16px;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .close-btn:hover{ background:rgba(0,0,0,0.35); }
+ 
+  .tg-icon{
+    width:64px; height:64px;
+    background:#fff;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin:0 auto 12px;
+  }
+  .popup-head h2{
+    margin:0;
+    font-size:22px;
+    font-weight:700;
+  }
+  .popup-head p{
+    margin:6px 0 0;
+    font-size:13px;
+    opacity:0.9;
+  }
+ 
+  .popup-body{
+    padding:20px 24px 24px;
+  }
+  .tag{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    background:#EAF6FD;
+    color:var(--tg-blue-dark);
+    font-size:12px;
+    font-weight:600;
+    padding:5px 10px;
+    border-radius:20px;
+    margin-bottom:14px;
+  }
+ 
+  .point{
+    display:flex;
+    gap:10px;
+    align-items:flex-start;
+    padding:10px 0;
+    border-bottom:1px solid #EEF1F3;
+  }
+  .point:last-of-type{ border-bottom:none; }
+  .point svg{ flex-shrink:0; margin-top:2px; }
+  .point p{
+    margin:0;
+    font-size:13.5px;
+    line-height:1.5;
+    color:var(--ink);
+  }
+ 
+  .join-btn{
+    width:100%;
+    margin-top:16px;
+    padding:14px;
+    background:var(--tg-blue);
+    color:#fff;
+    border:none;
+    border-radius:10px;
+    font-size:15px;
+    font-weight:600;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    cursor:pointer;
+    text-decoration:none;
+  }
+  .join-btn:hover{ background:var(--tg-blue-dark); }
+ 
+  .skip{
+    display:block;
+    text-align:center;
+    margin-top:10px;
+    font-size:12.5px;
+    color:var(--muted);
+    cursor:pointer;
+  }
+</style>
  
 </head>
 <body>
@@ -1233,6 +1394,67 @@ document.addEventListener('webkitfullscreenchange',()=>{
   }
 });
 </script>
+
+<div class="overlay" id="overlay">
+  <div class="popup">
+    <div class="popup-head">
+      <button class="close-btn" onclick="closePopup()">✕</button>
+      <div class="tg-icon">
+        <svg width="34" height="34" viewBox="0 0 240 240"><circle cx="120" cy="120" r="120" fill="#229ED9"/><path fill="#fff" d="M180 72l-24 113c-2 8-7 10-14 6l-38-28-18 17c-2 2-4 4-8 4l3-40 73-66c3-3-1-4-5-2l-90 57-39-12c-8-3-8-8 2-12l153-59c7-2 13 2 5 22z"/></svg>
+      </div>
+      <h2>Join Our Telegram Channel</h2>
+      <p>Stay Updated. Stay Ahead.</p>
+    </div>
+ 
+    <div class="popup-body">
+      <span class="tag">📌 ANNOUNCEMENT</span>
+
+     <div class="popup-body">
+      <span class="tag">📢Note: This Channel is 100% FREE!</span>
+ 
+      <div class="point">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="#22C55E"/><path d="M8 12.5l2.5 2.5L16 9" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <p>Get instant updates on new courses, batches, live classes and more.</p>
+      </div>
+ 
+      <div class="point">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="#22C55E"/><path d="M8 12.5l2.5 2.5L16 9" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <p>Important notes, PDFs, DPPs and study materials will be shared.</p>
+      </div>
+ 
+      <div class="point">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="#22C55E"/><path d="M8 12.5l2.5 2.5L16 9" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <p>Never miss any announcements, offers or free content./p>
+      </div>
+ 
+      <a href="https://t.me/alphaverselm" target="_blank" class="join-btn">
+        <svg width="18" height="18" viewBox="0 0 240 240"><circle cx="120" cy="120" r="120" fill="#fff" fill-opacity="0.15"/><path fill="#fff" d="M180 72l-24 113c-2 8-7 10-14 6l-38-28-18 17c-2 2-4 4-8 4l3-40 73-66c3-3-1-4-5-2l-90 57-39-12c-8-3-8-8 2-12l153-59c7-2 13 2 5 22z"/></svg>
+        Join Now
+      </a>
+      <span class="skip" onclick="closePopup()">Not now</span>
+    </div>
+  </div>
+</div>
+
+ <script>
+  function openPopup(){
+    document.getElementById('overlay').classList.add('show');
+  }
+  function closePopup(){
+    document.getElementById('overlay').classList.remove('show');
+    // Ek baar band karne ke baad session me dobara na dikhaayein
+    sessionStorage.setItem('tgPopupClosed', '1');
+  }
+ 
+  // Website par load hote hi 1.5 second baad popup dikhega
+  // (agar user isi session me pehle band kar chuka ho to dobara nahi dikhega)
+  window.addEventListener('load', function(){
+    if(!sessionStorage.getItem('tgPopupClosed')){
+      setTimeout(openPopup, 1500);
+    }
+  });
+</script>
+ 
 </body>
 </html>
  
