@@ -1002,9 +1002,16 @@ function renderDashboard(data = {}){
   const totalLectures = Number(data.totalLectures || 0);
 
   // STREAK
-  const currentStreak = Number(data.currentStreak || 0);
-  const bestStreak = Number(data.bestStreak || 0);
+    let currentStreak=Number(data.currentStreak||0);
+  const bestStreak=Number(data.bestStreak||0);
 
+  const lastQualifiedDate = data.lastQualifiedDate || null;
+  const todayKey = indiaDateKey();
+  const gapFromLastQualified = daysBetween(lastQualifiedDate, todayKey);
+
+  if(lastQualifiedDate && gapFromLastQualified >= 3){
+    currentStreak = 0;
+  }
   // Welcome
   const user = auth.currentUser;
 
