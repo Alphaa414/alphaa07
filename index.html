@@ -510,6 +510,60 @@
         </table>
       </div>
     </div>
+
+<div class="adm-card" id="user-tracker-panel" style="display:none">
+  <button onclick="closeUserTracker()" style="margin-bottom:1rem;padding:.4rem .9rem;border-radius:8px;border:1px solid var(--text-muted);background:transparent;color:inherit;cursor:pointer">← Back</button>
+
+  <h3 id="ut-name">Selected User</h3>
+  <p style="color:var(--text-muted);font-size:.85rem" id="ut-email"></p>
+
+  <div class="adm-stats" style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:1rem">
+
+    <div class="stat-box" style="background:rgba(15,155,142,.1);border:1px solid rgba(15,155,142,.3)">
+      <div class="num" style="color:var(--teal)" id="ut-today-time">-</div>
+      <div class="lbl">Today</div>
+    </div>
+
+    <div class="stat-box" style="background:rgba(245,166,35,.1);border:1px solid rgba(245,166,35,.3)">
+      <div class="num" style="color:var(--gold)" id="ut-week-time">-</div>
+      <div class="lbl">This Week</div>
+    </div>
+
+    <div class="stat-box" style="background:rgba(15,155,142,.1);border:1px solid rgba(15,155,142,.3)">
+      <div class="num" style="color:var(--teal)" id="ut-total-time">-</div>
+      <div class="lbl">Total Study Time</div>
+    </div>
+
+    <div class="stat-box" style="background:rgba(245,166,35,.1);border:1px solid rgba(245,166,35,.3)">
+      <div class="num" style="color:var(--gold)" id="ut-lectures-today">-</div>
+      <div class="lbl">Lectures Today</div>
+    </div>
+
+    <div class="stat-box" style="background:rgba(15,155,142,.1);border:1px solid rgba(15,155,142,.3)">
+      <div class="num" style="color:var(--teal)" id="ut-lectures-week">-</div>
+      <div class="lbl">Lectures This Week</div>
+    </div>
+
+    <div class="stat-box" style="background:rgba(245,166,35,.1);border:1px solid rgba(245,166,35,.3)">
+      <div class="num" style="color:var(--gold)" id="ut-lectures-total">-</div>
+      <div class="lbl">Lectures Total</div>
+    </div>
+
+    <div class="stat-box" style="background:rgba(15,155,142,.1);border:1px solid rgba(15,155,142,.3)">
+      <div class="num" style="color:var(--teal)" id="ut-current-streak">-</div>
+      <div class="lbl">Current Streak</div>
+    </div>
+
+    <div class="stat-box" style="background:rgba(245,166,35,.1);border:1px solid rgba(245,166,35,.3)">
+      <div class="num" style="color:var(--gold)" id="ut-best-streak">-</div>
+      <div class="lbl">Best Streak</div>
+    </div>
+
+  </div>
+
+  <p style="color:var(--text-muted);font-size:.8rem;margin-top:1rem" id="ut-last-active"></p>
+</div>
+   
     <div class="adm-card">
       <h3>📹 Uploaded Videos</h3>
       <div id="adm-vid-list" style="display:flex;flex-direction:column;gap:.6rem;margin-top:.5rem">
@@ -1325,14 +1379,14 @@ window.getVidUrl=async(cId,sId,chId,tId)=>{
 function loadAdminData(){
   onValue(ref(db,'users'),snap=>{
     const d=snap.val()||{};
-    const rows=Object.values(d);
+    const rows=Object.entries(d).map(([uid,u])=>({...u, uid}));
     document.getElementById('st-users').textContent=rows.length;
     const today=new Date().toISOString().split('T')[0];
     document.getElementById('st-today').textContent=rows.filter(u=>u.loginDate===today).length;
     const tb=document.getElementById('adm-users');
     if(!rows.length){tb.innerHTML='<tr><td colspan="5" style="color:var(--text-muted)">NO USER</td></tr>';return;}
     tb.innerHTML=rows.sort((a,b)=>new Date(b.lastLogin)-new Date(a.lastLogin)).map(u=>`
-      <tr>
+      <tr onclick="openUserTracker('${u.uid}')" style="cursor:pointer">
         <td style="font-weight:700">${u.name||'–'}</td>
         <td style="color:var(--text-muted);font-size:.8rem">${u.email}</td>
         <td style="color:var(--text-muted);font-size:.78rem">${u.joined?new Date(u.joined).toLocaleDateString('hi-IN'):'-'}</td>
@@ -1340,6 +1394,65 @@ function loadAdminData(){
         <td>${u.loginDate===today?'<span class="dot-on"></span><span style="color:#10b981;font-size:.78rem">Today</span>':'<span style="color:var(--text-muted);font-size:.78rem">Offline</span>'}</td>
       </tr>`).join('');
   });
+
+window.openUserTracker = async function(uid){
+    const usersSnap = await get(ref(db, `users/${uid}`));
+    const userInfo = usersSnap.val() || {};
+
+    const activitySnap = await get(ref(db, `userActivity/${uid}`));
+    const activity = activitySnap.val() || {};
+
+    const days = activity.days || {};
+    const today = indiaDateKey();
+    const weekDates = getWeekDates();
+    const todayData = days[today] || {};
+
+    let weekTime = 0, weekLectures = 0;
+    weekDates.forEach(date=>{
+      const d = days[date] || {};
+      weekTime += Number(d.time||0);
+      weekLectures += Number(d.lectureCount||0);
+    });
+
+    let currentStreak = Number(activity.currentStreak) || 0;
+    const bestStreak = Number(activity.bestStreak) || 0;
+    const lastQualifiedDate = activity.lastQualifiedDate || null;
+    const gap = daysBetween(lastQualifiedDate, today);
+
+    if(lastQualifiedDate && gap >= 3){
+      currentStreak = 0;
+    }
+
+    document.getElementById('ut-name').textContent = userInfo.name || 'Unknown';
+    document.getElementById('ut-email').textContent = userInfo.email || '-';
+
+    document.getElementById('ut-today-time').textContent = formatStudyTime(todayData.time||0);
+    document.getElementById('ut-week-time').textContent = formatStudyTime(weekTime);
+    document.getElementById('ut-total-time').textContent = formatStudyTime(activity.totalTime||0);
+
+    document.getElementById('ut-lectures-today').textContent = todayData.lectureCount || 0;
+    document.getElementById('ut-lectures-week').textContent = weekLectures;
+    document.getElementById('ut-lectures-total').textContent = activity.totalLectures || 0;
+
+    document.getElementById('ut-current-streak').textContent = currentStreak;
+    document.getElementById('ut-best-streak').textContent = bestStreak;
+
+    document.getElementById('ut-last-active').textContent = activity.lastActive
+      ? `Last active: ${new Date(activity.lastActive).toLocaleString('hi-IN')}`
+      : '';
+
+    const regCard = document.getElementById('adm-users').closest('.adm-card');
+    if(regCard) regCard.style.display = 'none';
+
+    document.getElementById('user-tracker-panel').style.display = 'block';
+  };
+
+  window.closeUserTracker = function(){
+    const regCard = document.getElementById('adm-users').closest('.adm-card');
+    if(regCard) regCard.style.display = '';
+
+    document.getElementById('user-tracker-panel').style.display = 'none';
+  };
  
   onValue(ref(db,'videos'),snap=>{
     const d=snap.val()||{};
