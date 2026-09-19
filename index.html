@@ -1219,7 +1219,18 @@ function renderDashboard(data = {}){
 
 }
 
+ window.toggleSidebarCollapse=function(){
+  document.body.classList.toggle('sidebar-collapsed');
+};
 
+window.openSidebarMobile=function(){
+  document.body.classList.add('sidebar-mobile-open');
+};
+
+window.closeSidebarMobile=function(){
+  document.body.classList.remove('sidebar-mobile-open');
+};
+ 
 // OPEN DASHBOARD
 window.openDashboard = function(){
 
@@ -1264,7 +1275,8 @@ onAuthStateChanged(auth,async u=>{
     document.getElementById('nav-login-btn').style.display='none';
     const chip=document.getElementById('user-chip');
     chip.style.display='flex';
-
+    document.getElementById('sidebar-logout').style.display='flex';
+   
 const dashboardBtn =
   document.getElementById('dashboard-btn');
 
@@ -1293,6 +1305,7 @@ if(dashboardBtn){
   }else{
     document.getElementById('nav-login-btn').style.display='inline-block';
     document.getElementById('user-chip').style.display='none';
+    document.getElementById('sidebar-logout').style.display='none';
     document.getElementById('admin-btn').style.display='none';
    const dashboardBtn =
   document.getElementById('dashboard-btn');
