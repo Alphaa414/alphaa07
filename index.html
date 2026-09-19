@@ -175,25 +175,45 @@
     <button class="btn-secondary" style="width:100%" onclick="closeAuthWall()">← Back</button>
   </div>
 </div>
+
+<!-- SIDEBAR -->
+<aside id="sidebar">
+  <div class="sidebar-top">
+    <div class="sidebar-logo" onclick="goHome()">📚 <span class="sb-lbl">AlphaVerse</span></div>
+    <button id="sidebar-collapse-btn" onclick="toggleSidebarCollapse()" title="Collapse">⟨</button>
+  </div>
+
+  <div class="sidebar-nav">
+    <button class="sidebar-link" onclick="goHome()"><span class="sb-ic">🏠</span><span class="sb-lbl">Home</span></button>
+    <button class="sidebar-link" onclick="goHome();setTimeout(scrollToCourses,120)"><span class="sb-ic">📖</span><span class="sb-lbl">Courses</span></button>
+    <button class="sidebar-link" onclick="showPage('connect')"><span class="sb-ic">🔗</span><span class="sb-lbl">Connect</span></button>
+    <button class="sidebar-link btn-nav-dashboard" id="dashboard-btn" onclick="openDashboard()"><span class="sb-ic">📊</span><span class="sb-lbl">Dashboard</span></button>
+    <button class="sidebar-link btn-nav-admin" id="admin-btn" onclick="showPage('admin')"><span class="sb-ic">⚙️</span><span class="sb-lbl">Admin</span></button>
+  </div>
+
+  <div class="sidebar-bottom">
+    <button class="sidebar-link sidebar-logout-btn" id="sidebar-logout" onclick="doLogout()"><span class="sb-ic">🚪</span><span class="sb-lbl">Logout</span></button>
+  </div>
+</aside>
+
+<div class="sidebar-backdrop" id="sidebar-backdrop" onclick="closeSidebarMobile()"></div>
+ 
  
 <!-- NAVBAR -->
 <nav>
+  <button id="sidebar-mobile-toggle" onclick="openSidebarMobile()">☰</button>
   <div class="nav-logo" onclick="goHome()">📚 AlphaVerse</div>
   <div class="nav-links">
-    <button class="hide-sm" onclick="goHome()">🏠 Home</button>
-    <button class="hide-sm" onclick="goHome();setTimeout(scrollToCourses,120)">📖 Courses</button>
-    <button class="hide-sm" onclick="showPage('connect')">🔗 Connect</button>
     <button class="btn-nav-cta" id="nav-login-btn" onclick="openLogin()">🔓 Login</button>
     <div class="user-chip" id="user-chip">
       <span id="chip-name">User</span>
-      <button onclick="doLogout()">Logout</button>
     </div>
-   <button class="btn-nav-dashboard" id="dashboard-btn" onclick="openDashboard()">📊 Dashboard</button>
-    <button class="btn-nav-admin" id="admin-btn" onclick="showPage('admin')">⚙️ Admin</button>
   </div>
 </nav>
+
  
 <!-- HOME PAGE -->
+ <div class="app-main" id="app-main">
 <div id="page-home" class="page active">
   <section class="hero">
     <div class="hero-badge">🎯 Best Exam Preparation Platform</div>
@@ -571,6 +591,7 @@
       </div>
     </div>
   </div>
+</div>
 </div>
  
 <!-- LOGIN MODAL -->
